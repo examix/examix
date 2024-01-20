@@ -1,15 +1,28 @@
-{% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}New Post{% endblock %}</h1>
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block head %}
+  {{ super() }}
 {% endblock %}
+{% block create %}
+<div class="wrap">
+    <div class="content">
+        <div class="form">
+            <form action="">
+                <label for="file">File</label><br>
+                <input type="file" id="file" name="file" value=""><br>
+                <hr>
+                <label for="university">University</label><br>
+                <input type="text" id="university" name="university" value=""><br>
+                <label for="university">Course Department</label><br>
+                <input type="text" id="courseDept" name="courseDept" value=""><br>
+                <label for="university">Course Number</label><br>
+                <input type="text" id="courseNum" name="courseNum" value=""><br><br>
+                <input type="submit" value="Submit">
+              </form> 
+        </div>
+    </div>
+    <div class="image">
 
-{% block content %}
-  <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
-  </form>
-{% endblock %}
+    </div>
+</div>
+{% endblock %}  
