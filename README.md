@@ -7,4 +7,7 @@
 'pip install -r requirements.txt'
 
 # Running the app
-'flask run'
+'flask --app flaskr run'
+
+# Initializing db
+'flask --app flaskr init-db'
