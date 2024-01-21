@@ -24,13 +24,13 @@
                     <td>19 Overall Questions</td>
                   </tr>
 
-                  {% for course in courses %}
+                  {% for dict in dicts %}
+                  <tr>
+                    <td>{{dict['course'].department + dict['course']|string}}</td>
+                    <td>{{dict['course'].description}}</td>
+                    <td>{{dict['num'].description}}</td>
+                  </tr>
                   {% endfor %}
-
-
-
-
-
             </table>
         </div>
     </div>

@@ -31,6 +31,29 @@ def search():
 def remix():
     return render_template('main/remix.html')
 
+@bp.route('/cards')
+# @login_required
+def cards():
+    # LIST OF COURSES WHICH MATCH CRITERIA FROM QUERY 
+    courses = []
+    courses_dict = []
+
+    for course in courses: 
+        num = 0
+        # NEED TO QUERY ALL THE EXAMS FOR A COURSE 
+        exams = []
+        for exam in exams: 
+            if exam.department == course.department and exam.course_code == course.course_code:
+                num += exam.num_questions
+        dict = {
+            "course": course,
+            "total_questions": num
+        }
+    
+        courses_dict.append(dict)
+
+    return render_template('cards.html', dict = dict)
+
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
 def create():
