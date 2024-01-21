@@ -24,7 +24,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; } */
 
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400,500,600,700;1,400..700&display=swap');
 /*
 Fonts:
 Inter: font-family: 'Inter', sans-serif;
@@ -45,10 +45,11 @@ input[type=submit] { align-self: start; min-width: 10em; }
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    /* font-family: 'Inter', sans-serif;
     background: white;
     margin: 0;
-    height: 100%;
+    height: 100%; */
+    overflow: hidden;
 
     /* For sliding/easing in */
     opacity: 0;
@@ -79,12 +80,12 @@ span {
 
 /******************************************Text*/
 /*Large text*/
-h1 {
-    font-family: 'Lora', serif;
+/* h1 {
+    /* font-family: 'Lora', serif;
     font-size: 2rem;
     font-weight: bold;
-    text-align: center;
-}
+    text-align: center; */
+
 
 /*Medium text*/
 .text {
@@ -109,11 +110,32 @@ h1 {
     display: flex;
     align-items: center; 
     padding: 20px;
-    padding-right: 15%;
 }
 
+.img-large {
+    width: 100%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+    max-width: 800px; /* Optional: Set a maximum width if needed */
+  }
+
+.img-large2 {
+    width: 50%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+    max-width: 800px; /* Optional: Set a maximum width if needed */
+}
+
+.rounded-rectangle {
+    width: 200px;
+    height: 100px;
+    background-color: #3498db; /* Set your desired background color */
+    border-radius: 15px; /* Adjust the border-radius value for rounded corners */
+    color: #fff; /* Set text color to contrast with the background */
+    text-align: center;
+    line-height: 100px; /* Center text vertically */
+  }
+
 /******************************************Form*/
-.form {
+/* .form {
     flex: 1;
     padding: 0 20px;
 }
@@ -169,7 +191,7 @@ input[type=file]:hover {
     border-radius: 3px;
     color: #FFFFFF;
     /* font-size: 0.7rem; */
-}
+} */
 
 /*********************************Images*/
 .image {
