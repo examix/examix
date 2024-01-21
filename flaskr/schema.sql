@@ -73,7 +73,6 @@ CREATE TABLE exam(
     num_questions INTEGER,
     num_points INTEGER,
     pages INTEGER,
-    num_points INTEGER,
     CONSTRAINT Course_FK FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -89,5 +88,18 @@ CREATE TABLE school_alternates (
     default_name TEXT,
     CONSTRAINT School_FK FOREIGN KEY (default_name) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- Inserting data into the school table
+INSERT INTO school (name, city, country) VALUES
+    ('UVic', 'Victoria', 'Canada'),
+    ('UBC', 'Vancouver', 'Canada');
+
+INSERT INTO course (department, code, name, description, school_id) VALUES
+    ('CSCI', '101', 'Introduction to Computer Science', 'Fundamental concepts of computer science.', 'UVic'),
+    ('MATH', '201', 'Calculus I', 'Limits, derivatives, and integrals.', 'UBC');
+
+INSERT INTO exam (course_id, school_id, num_pages, difficulty, prof, pdf_name, duration, exam_date, exam_type, num_questions, num_points, pages) VALUES
+    (1, 'UVic', 10, 3, 'Dr. Smith', 'cs101_midterm.pdf', 2.5, '2024-01-15', 'Midterm', 20, 100, 5),
+    (2, 'AUBC', 15, 2, 'Prof. Johnson', 'math201_final.pdf', 3.0, '2024-05-10', 'Final', 30, 150, 8);
 
 
