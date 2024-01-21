@@ -1,0 +1,45 @@
+{
+    "num_pages": 2,
+    "difficulty": 0,
+    "pdf_name": "csc101.pdf",
+    "duration": 15, 
+    "num_questions": 3,
+    "num_points": 7,
+    "pages": 2,
+    "school" : "ubc",
+    "department": "CPSC",
+    "course_code": "101",
+    "pages": [{
+        "page_num": 0,
+        "width": 0,
+        "height": 0,
+        "questions": [{
+            "question_text": "1. (Self-Similarity) Show the result of applying the generator of Figure 1 (a) to the initiator of Figure 1 (b) for two levels. (Don’t worry about getting the scale exactly right.)",
+            "difficulty": 2,
+            "page_num": 0,
+            "num_points": 2,
+            "exam_image": "",
+            "duration": 5
+            },
+            {
+            "question_text": "2. (History of Computer Art) A. Michael Noll is known for his Mondrian-like images. What motivated Noll to make these images and why was the computer a useful tool in his work?",
+            "difficulty": 1,
+            "page_num": 0,
+            "num_points": 1,
+            "exam_image": "",
+            "duration": 3
+            }]
+        },{
+         "page_num": 1,
+         "width": 0,
+         "height": 0,
+         "questions": [{
+            "question_text": "3. (Image Representation)\n(a) Which type of representation is better suited for representing fonts: vector or bitmap? Give two reasons to support your answer.\n(b) Convert the hexadecimal (base 16) number 6A to decimal (base 10). Show your work as well as the answer you get. You can use the hexadecimal to binary conversion table below.",
+            "difficulty": 3,
+            "page_num": 0,
+            "num_points": 4,
+            "exam_image": "",
+            "duration": 7
+            }]
+        }]
+}
