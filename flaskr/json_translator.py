@@ -2,9 +2,8 @@ from flask import (
     Blueprint, render_template
 )
 import json
-from exam import Exam, Page, Question
+from flaskr.exam import Exam, Page, Question
 import flaskr.db as db
-from flaskr.db import get_db
 import flaskr.json_parser as json_parser
 
 bp = Blueprint('json_translator', __name__)
