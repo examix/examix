@@ -12,12 +12,13 @@ app = Flask(__name__)
 @bp.route('/')
 def index():
     db = get_db()
+    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
     posts = db.execute(
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
-    return render_template('main/index.html', posts=posts)
+    return render_template('main/index.html', posts=posts, image_url=image_url)
 
 # Routing
 @bp.route('/search')
@@ -57,7 +58,7 @@ def cards():
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
 def create():
-    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    image_url = url_for('static', filename='styles/imgs/6.Effortless.svg')
     if request.method == 'POST':
         file = request.files['fileUpload']
         uni = request.form['university']
