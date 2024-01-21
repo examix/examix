@@ -24,7 +24,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; } */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Lora:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 /*
 Fonts:
 Inter: font-family: 'Inter', sans-serif;
@@ -48,6 +48,77 @@ body {
     font-family: 'Inter', sans-serif;
     background: white;
     margin: 0;
+    height: 100%;
+}
+
+.nav-items {
+    font-weight: 400;
+}
+
+.nav-items {
+    font-weight: 400;
+}
+
+/******************************************Text*/
+/*Large text*/
+h1 {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*Medium text*/
+.text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/*Note: Small text is 0.7rem*/
+
+.accentText {
+    color: #0E00AB;
+}
+
+/******************************************Page content (excluding nav bar)*/
+.wrap {
+    display: flex;
+    align-items: center; 
+
+    padding: 20px;
+    margin-left: 15%;
+
+}
+
+/******************************************Form*/
+.form {
+    flex: 1;
+    padding: 0 20px;
+}
+
+form {
+    width: 100%;
+}
+
+label {
+    font-size: 0.7rem;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    height: 5vh;
+}
+
+input[type=file] {
+    height: 5vh;
+    font-size: 0.7rem;
+    width: 100%;
+    border-radius: 3px;
+    border-color: #777777;
 }
 
 /******************************************Text*/
