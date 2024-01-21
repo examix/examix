@@ -10,8 +10,11 @@ class Exam:
         self.num_questions = num_questions
         self.pages = pages
         self.school = school
-        self.department = department ,
-        self.course_code = course_code,
+        self.department = department 
+        self.course_code = course_code
+        self.department = department
+        self.course_code = course_code
+
 
 class Page:
     def __init__(self, page_num, width, height, questions=None):
