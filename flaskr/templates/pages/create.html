@@ -3,17 +3,13 @@
 {% block head %}
   {{ super() }}
 {% endblock %}
-{% block create %}
+{% block content %}
 <div class="wrap">
     <div class="content">
-        <div class="center">
-          <h1>Upload your exam</h1>
-          <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
-        </div>
         <div class="form">
             <form action="">
-                <label for="file" id="fileLabel">File</label><br>
-                <input type="file" class="form-control" id="customFile" />
+                <label for="file">File</label><br>
+                <input type="file" id="file" name="file" value=""><br>
                 <hr>
                 <label for="university">University</label><br>
                 <input type="text" id="university" name="university" value=""><br>
@@ -21,12 +17,12 @@
                 <input type="text" id="courseDept" name="courseDept" value=""><br>
                 <label for="university">Course Number</label><br>
                 <input type="text" id="courseNum" name="courseNum" value=""><br><br>
-                <input type="submit" value="Submit" class="centered-submit-button">
+                <input type="submit" value="Submit">
               </form> 
         </div>
     </div>
     <div class="image">
-      <img src="{{ image_url }}" alt="calm person"/>
+
     </div>
 </div>
-{% endblock %}  
+{% endblock %}
