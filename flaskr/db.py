@@ -210,7 +210,7 @@ def get_exam_by_cid(course_id):
 def get_questions_db():
     db = get_db()
     question = db.execute(
-        'SELECT question_text, difficulty, page_num, vertices, question_type, num_points, exam_image, duration, answer'
+        'SELECT question, difficulty, page_num, vertices, question_type, num_points, exam_image, duration, answer'
         ' FROM question'
     ).fetchall()
     return question
