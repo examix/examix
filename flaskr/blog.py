@@ -106,7 +106,32 @@ def exams():
 
     return render_template('main/exams.html', course_list=course_list, name=department, code=code, uni=school)
 
-@bp.route('/questions', methods=['GET', 'POST'])
+@bp.route('/remixresults', methods = ['GET', 'POST'])
+def remix_result():
+    questions = db.get_questions_db(1)
+    #johns question functoin
+    questions_list = []
+    num = 1
+
+    for question in questions:
+        question_dict = {
+            "q_num": num,
+            "type": question['question_type'],
+            "difficulty": question['difficulty'],
+            "description": question['question'],
+            "page_num": question['page_num'],
+            "points": question['num_points'],
+            "image": question['exam_image'],
+            "duration": question['duration'],
+            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+        }
+        num += 1
+
+        questions_list.append(question_dict)
+
+    return render_template('main/remix_questions.html', questions_list=questions_list)
+
+@bp.route('/questions', methods = ['GET', 'POST'])
 # @login_required
 def questions():
     # LIST OF QUESTIONS
