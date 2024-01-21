@@ -71,25 +71,34 @@ def questions():
     #exam_id = request.form['exam_id']
     #card_num = 0 # note same as exam_num
 
-    questions = db.get_questions_db(1)
+    # questions = db.get_questions_db()
     questions_list = []
     num = 1
 
-    for question in questions: 
-        question_dict = {
-            "q_num": num,
-            "type": question['question_type'],
-            "difficulty": question['difficulty'],
-            "description": question['question'],
-            "page_num": question['page_num'],
-            "points": question['num_points'],
-            "image": question['exam_image'],
-            "duration": question['duration'],
-            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
-        }
-        num += 1
+    questions_list.append({
+            "q_num": 1,
+            "difficulty": 'Hard',
+            "points": 4,
+            "duration": 50,
+            "description": "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb",
+            "description_short": "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb"[:25] + "..."  + "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb"[50:75] if len("question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb") > 75 else "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb"
+    })
+
+    # for question in questions: 
+    #     question_dict = {
+    #         "q_num": num,
+    #         "type": question['question_type'],
+    #         "difficulty": question['difficulty'],
+    #         "description": question['question'],
+    #         "page_num": question['page_num'],
+    #         "points": question['num_points'],
+    #         "image": question['exam_image'],
+    #         "duration": question['duration'],
+    #         "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+    #     }
+    #     num += 1
     
-        questions_list.append(question_dict)
+    #     questions_list.append(question_dict)
 
     return render_template('main/questions.html', questions_list=questions_list)
 
