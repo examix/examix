@@ -75,12 +75,12 @@ def create():
         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
         pages = jt.parse_pages(text, exam_points, exam_dur)
         exam = jt.create_exam(pages, exam_points, exam_dur)
-
-        db.insert_full_exam(exam)
-
-        uni = request.form['university']
         course_dept = request.form['courseDept']
         course_num = request.form['courseNum']
+
+        db.insert_full_exam(exam, course_dept, course_num)
+
+        uni = request.form['university']
 
         error = ""
 

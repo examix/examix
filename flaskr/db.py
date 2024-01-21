@@ -70,8 +70,8 @@ def insert_alternate_school(default_name, alternate_name):
     db.commit()
 
 
-def insert_full_exam(exam):
-    insert_exam_db(exam)
+def insert_full_exam(exam, course_dept, course_num):
+    insert_exam_db(exam, course_dept, course_num)
 
 
 def insert_exam_db(exam, course_dept, course_num):
@@ -79,10 +79,10 @@ def insert_exam_db(exam, course_dept, course_num):
     course_id = db.execute('SELECT course_id FROM course WHERE department = ? AND code = ?', (course_dept, course_num)).fetchone()[0]
     db.execute(
         'INSERT INTO exam (num_pages, difficulty, prof, pdf_name, duration, exam_date, '
-        'exam_type, num_questions, school_id, course_id)'
-        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        'exam_type, num_questions, school_id, course_id, num_points)'
+        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         (exam.num_pages, exam.difficulty, exam.prof, exam.pdf_name, exam.duration, exam.date, exam.exam_type,
-         exam.num_questions, exam.school, course_id)
+         exam.num_questions, exam.school, course_id, exam.num_points)
     )
     exam_id = db.execute('SELECT last_insert_rowid()').fetchone()[0]
     print(exam_id)
@@ -181,7 +181,7 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
                     exam.num_questions, exam.school_id
                 FROM exam
                 JOIN school ON exam.school_id = school.name
-                FULL OUTER JOIN course ON exam.course_id = course.course_id
+                JOIN course ON exam.course_id = course.course_id
                 WHERE exam.school_id = school.name"""
     if dept is not None:
         query += " AND course.department = '" + dept + "'"
@@ -201,7 +201,7 @@ def get_exam_by_cid(course_id):
                     exam.num_questions, exam.school_id
                 FROM exam
                 JOIN school ON exam.school_id = school.name
-                FULL OUTER JOIN course ON exam.course_id = course.course_id
+                JOIN course ON exam.course_id = course.course_id
                 WHERE exam.course_id = ?""",
         (course_id,)
     ).fetchall()
