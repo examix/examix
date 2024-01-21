@@ -20,3 +20,4 @@ build/
 
 .env/
 .idea/
+file.json
