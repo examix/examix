@@ -11,6 +11,8 @@ import flaskr.json_translator as jt
 import flaskr.json_parser as json_parser
 import json
 from flaskr.parse_document import process_document
+from flask import render_template, redirect, url_for
+from flask_session import Session
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -62,45 +64,73 @@ def cards():
     
         course_list.append(course_dict)
     print(len(course_list))
+
     return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
-@bp.route('/questions', methods = ['GET', 'POST'])
-# @login_required
-def questions():
-    # LIST OF QUESTIONS
-    #exam_id = request.form['exam_id']
-    #card_num = 0 # note same as exam_num
+@bp.route('/exams', methods=['POST', 'GET'])
+def exams():
+        # output exams to questions     
+    department = request.args.get('department')
+    code = request.args.get('code')
+    school = request.args.get('school')
+    prof = request.args.get('prof')
+    print(department)
+    print(code)
+    print(school)
+    print(prof)
 
-    # questions = db.get_questions_db()
+    # list of exams for one course given course_id
+    exams = db.get_exam_db(department, code, school, prof)
+
+    list_exams = []
+    num = 1
+
+    for exam in exams:
+        exam_dict = {
+            "exam_id": num,
+            "num_pages": exam["num_pages"],
+            "difficulty": exam["difficulty"],
+            "duration": exam["duration"],
+            "num_questions": exam["num_questions"],
+            "num_points": 0,  # Optional attribute, defaulting to None if not present
+            "pages": '',
+            "school": '',
+            "department": '',
+            "course_code": 0
+        }
+        num += 1
+        list_exams.append(exam_dict)
+
+    for exam in list_exams:
+        print(exam['duration'])
+
+    return render_template('main/exams.html', list_exams = list_exams, department=department, code=code)
+
+
+@bp.route('/remixresults', methods = ['GET', 'POST'])
+def remix_result():
+    questions = db.get_questions_db(1)
+    #johns question functoin
     questions_list = []
     num = 1
 
-    questions_list.append({
-            "q_num": 1,
-            "difficulty": 'Hard',
-            "points": 4,
-            "duration": 50,
-            "description": "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb",
-            "description_short": "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb"[:25] + "..."  + "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb"[50:75] if len("question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb") > 75 else "question['question']afsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkbafsehbjkfiashioasgkioahsbfushafshbkfoiabjfiesngjnksfignksinkbnsnkb"
-    })
+    for question in questions:
+        question_dict = {
+            "q_num": num,
+            "type": question['question_type'],
+            "difficulty": question['difficulty'],
+            "description": question['question'],
+            "page_num": question['page_num'],
+            "points": question['num_points'],
+            "image": question['exam_image'],
+            "duration": question['duration'],
+            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+        }
+        num += 1
 
-    # for question in questions: 
-    #     question_dict = {
-    #         "q_num": num,
-    #         "type": question['question_type'],
-    #         "difficulty": question['difficulty'],
-    #         "description": question['question'],
-    #         "page_num": question['page_num'],
-    #         "points": question['num_points'],
-    #         "image": question['exam_image'],
-    #         "duration": question['duration'],
-    #         "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
-    #     }
-    #     num += 1
-    
-    #     questions_list.append(question_dict)
+        questions_list.append(question_dict)
 
-    return render_template('main/questions.html', questions_list=questions_list)
+    return render_template('main/remix_questions.html', questions_list=questions_list)
 
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
@@ -111,7 +141,7 @@ def create():
         text_to_parse = process_document(file)
         text = text_to_parse
             #json.loads(text_to_parse))
-
+    
         exam_dur = jt.json_parser.search_duration(text)
         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
         pages = jt.parse_pages(text, exam_points, exam_dur)
