@@ -1,1 +1,0 @@
-../backend/document-parser/exam.py
