@@ -10,6 +10,7 @@ import flaskr.search as searcher
 import flaskr.json_translator as jt
 import flaskr.json_parser as json_parser
 import json
+from flaskr.parse_document import process_document
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -20,11 +21,9 @@ def index():
 
 # Routing
 @bp.route('/search', methods=['GET', 'POST'])
-# @login_required
 def search():
     if request.method == 'POST':
         return redirect(url_for('blog.cards'), code=307)
-        #return render_template('main/cards.html')
     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
     return render_template('main/search.html', image_url=image_url)
 
@@ -34,7 +33,7 @@ def remix():
 
 @bp.route('/cards', methods=['GET', 'POST'])
 def cards():
-    # LIST OF COURSES WHICH MATCH CRITERIA FROM QUERY
+
     search_term = request.form['search']
     result_list = searcher.parse_search(search_term)
     dept = result_list[0]
@@ -60,7 +59,7 @@ def cards():
     
         course_list.append(course_dict)
     print(len(course_list))
-    return render_template('main/cards.html', course_list=course_list, name='CSC', uni='UVIC')
+    return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
@@ -68,7 +67,7 @@ def create():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
     if request.method == 'POST':
         file = request.files['fileUpload']
-
+        text_to_parse = process_document(file)
         text = json.loads(text_to_parse.read())
 
         exam_dur = jt.json_parser.search_duration(text)
