@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% block content %}
 
 <style>
   /* Add your styles here */
@@ -32,34 +31,4 @@
     </table>
   </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('tr').click(function() {
-      var department = $(this).data('department');
-      var code = $(this).data('code');
-      var school = $(this).data('school');
-
-      if (typeof school == 'string'){
-        window.location = `/exams?department=${department}&code=${code}`
-      } else {
-        window.location = `/exams?department=${department}&code=${code}&school=${school}`
-      }
-
-     // $.ajax({
-     //   url: 'buffer',
-    //    type: 'POST',
-    //    data: { 'department': department, 'code': code },
-    //    success: function(response) {
-          // Assuming your response contains the URL to redirect to
-          // If not, you can hardcode the URL or modify the server response accordingly
-
-          // Redirect to the specified URL
-    //      window.location.replace("/buffer")
-     //   },
-     // });
-    });
-  });
-</script>
 {% endblock %}
