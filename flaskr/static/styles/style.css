@@ -283,3 +283,70 @@ hr {
     animation: wobble 6s ease-in-out infinite;
     transform-origin: center; /* Set the transform origin to the center of the SVG */
 }
+
+/* ============ navbar styling ============ */
+.navbar {
+    background-color: #FFFFFF; /* Background color matching the image */
+}
+
+.navbar-nav a {
+    color: #1E2125;
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFFFFF;
+    background-color: #FFAC63; /* Add background color on hover */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.navbar-nav .logo:hover {
+    color: #FFAC63;
+}
+/* ============ table row styling ============ */
+.all-posts {
+    padding: 20px;
+}
+
+table.test td {
+    background-color: white;
+    border: none;
+}
+
+td:first-child {
+    border-left-style: solid;
+    border-top-left-radius: 15px; 
+    border-bottom-left-radius: 15px;
+}
+
+td:last-child {
+    border-right-style: solid;
+    border-bottom-right-radius: 15px; 
+    border-top-right-radius: 15px; 
+}
+
+table.test {
+    border-collapse: separate;
+}
+
+/* row hover styling */
+tr.item:hover td {
+    background-color: #F0F2F3;
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 18px; /* Adjust the font size as needed */
+}
+
+.post-content {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+.post-text {
+    color: #1E2125;
+}
+
+.firstLine td{
+    border-bottom: 2px solid black;
+}
