@@ -4,8 +4,44 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+
+<style>
+    .upvote-container {
+    text-align: center;
+    }
+
+    .upvote-button {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .upvote-button:hover {
+        background-color: #2980b9;
+    }
+
+    #upvoteCount {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+</style>
+
 <div class="wrap" style="padding-left: 15%;">
     <div class="content">
+
+        <div class="upvote-container">
+            <button id="upvoteButton" class="upvote-button">
+                <span id="upvoteCount">0</span>
+                <span>Upvote</span>
+            </button>
+        </div>
+
         <div class="center">
             <table class="table table-striped" style="max-width: 30vw">
                 <!-- <th>Course Code</th>
@@ -49,6 +85,21 @@
 </div>
 
 <script>
+    // Initialize the upvote count
+    let upvoteCount = 0;
+
+    // Get the necessary elements
+    const upvoteButton = document.getElementById('upvoteButton');
+    const upvoteCountElement = document.getElementById('upvoteCount');
+
+    // Add a click event listener to the upvote button
+    upvoteButton.addEventListener('click', () => {
+        // Increment the upvote count
+        upvoteCount++;
+        
+        // Update the upvote count element
+        upvoteCountElement.textContent = upvoteCount;
+    });
 
     function showQuestion() {
         let title = document.getElementById('titleQ');
