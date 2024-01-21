@@ -5,6 +5,7 @@ from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
+import flaskr.db as db
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -20,9 +21,12 @@ def index():
     return render_template('main/index.html', posts=posts)
 
 # Routing
-@bp.route('/search')
+@bp.route('/search', methods=['GET', 'POST'])
 # @login_required
 def search():
+    if request.method == 'POST':
+       return redirect(url_for('blog.cards'))
+        #return render_template('main/cards.html')
     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
     return render_template('main/search.html', image_url=image_url)
 
@@ -34,7 +38,8 @@ def remix():
 @bp.route('/cards')
 # @login_required
 def cards():
-    # LIST OF COURSES WHICH MATCH CRITERIA FROM QUERY 
+    # LIST OF COURSES WHICH MATCH CRITERIA FROM QUERY
+    #db.
     courses = []
     courses_dict = []
 

@@ -8,6 +8,9 @@ import flaskr.json_parser as json_parser
 
 bp = Blueprint('json_translator', __name__)
 
+@bp.route('/test', methods=['GET', 'POST'])
+def test():
+    print('hit')
 
 @bp.route('/request')
 def index():
