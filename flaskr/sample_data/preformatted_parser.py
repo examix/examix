@@ -4,14 +4,19 @@ from flask import (
 import json
 from flaskr.exam import Exam, Page, Question
 import flaskr.db
+import flaskr.remix_functions as rf
 
 bp = Blueprint('performatted_parser', __name__)
 
-@bp.route('/populate')
-def json_to_db():
-    ex = read_json('flaskr/sample_data/CPSC101Q1.json')
+def json_to_db(fname):
+    ex = read_json(fname)
     flaskr.db.insert_full_exam(ex, ex.department, ex.course_code) 
     return 'success'
+
+@bp.route('/remixneo')
+def json_to_db2():
+    exm, two, tgree = rf.remix(12, 2.9, "uvic", "CSC", "110") 
+    return str(exm) + str(two) + str(tgree) #str([question[0] for question in exm]
 
 def read_json(fname) -> Exam:
     with open(fname) as fp:
