@@ -84,7 +84,8 @@ def questions():
             "page_num": question['page_num'],
             "points": question['num_points'],
             "image": question['exam_image'],
-            "duration": question['duration']
+            "duration": question['duration'],
+            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
         }
         num += 1
     
