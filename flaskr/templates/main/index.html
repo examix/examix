@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block header %}
   <h1>{% block title %}Posts{% endblock %}</h1>
   {% if g.user %}
@@ -13,11 +14,12 @@
     <div class="col-md-6 text-center">
       <p style="padding-bottom: 2vh; padding-top: 8vh; font-size: 30px; font-weight: 700">Intuitive Exam Bank incorporated with AI for personalized studying </p>
       <div class="d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-dark mx-2">Search</button>
-        <button type="button" class="btn btn-dark mx-2">Upload</button>
+        <a class="btn btn-dark mx-2" href="/search">Search</a>
+        <a class="btn btn-dark mx-2" href="/create">Upload</a>
       </div>
-      <img src="{{ image_url2 }}" alt="calm person" class="img-large mx-auto">
+      <img src="{{ image_url }}" alt="calm person" class="img-large mx-auto">
     </div>
   </div>
 </div>
+
 {% endblock %}

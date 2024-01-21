@@ -9,20 +9,11 @@
 </head>
 
 <title>examix</title>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
 
 <body>
   <nav class="navbar navbar-expand-lg px-4 py-4">
     <!-- navbar logo -->
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <h2 class="lora-logo">examix</h2>
     </a>
     <!-- collapsed menu -->
@@ -33,13 +24,13 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item mx-2">
-          <a class="nav-link nav-items" href="#">Search</a>
+          <a class="nav-link nav-items" href="search">Search</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link nav-items" href="#">Upload</a>
+          <a class="nav-link nav-items" href="create">Upload</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link nav-items" href="#">All Exams</a>
+          <a class="nav-link nav-items" href="cards">All Exams</a>
         </li>
       </ul>
     </div>
@@ -47,9 +38,27 @@
 
   {% block content %}{% endblock %}
 
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
   <!-- Include Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <!-- Include confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <!-- Include local script -->
   <script src="../static/styles/script.js"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- jQuery UI -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
 </body>
 
 

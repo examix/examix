@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="wrap" style="padding-left: 15%;">
+    <div class="content">
+        <div class="center">
+            <table class="table table-striped" style="max-width: 30vw">
+                <!-- <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Overall Questions</th> -->
+                
+                <tr>
+                    <td id="titleQ"></td>
+                    <td id="typeQ"></td>
+                    <td id="difficultyQ"></td>
+                    <td id="pageNumQ"></td>
+                    <td id="pointsQ"></td>
+                    <td id="timeQ"></td>
+
+                    <td id="descriptionQ"></td>
+
+                    <td id="imageQ"></td>
+                </tr>
+            </table>
+        </div>
+       
+        <div class="d-flex col justify-content-center align-items-center">
+            <table class="table table-striped" style="max-width: 30vw">
+                {% for dict in dicts %}
+                <tr>
+                    <td>Question {{dict['num']|string}}</td>
+                    <td>{{dict['type']}}</td>
+                    <td>{{dict['difficulty']}}</td>
+                    <td>{{dict['page_num']}}</td>
+                    <td>{{dict['points']}}</td>
+                    <td>{{dict['duration']}}</td>
+
+                    <td>{{dict['description']}}</td>
+
+                    <td>{{dict['image']}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}  

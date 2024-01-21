@@ -17,7 +17,8 @@ app = Flask(__name__)
 
 @bp.route('/')
 def index():
-    return render_template('main/index.html')
+    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    return render_template('main/index.html', image_url=image_url)
 
 # Routing
 @bp.route('/search', methods=['GET', 'POST'])
@@ -61,10 +62,35 @@ def cards():
     print(len(course_list))
     return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
+@bp.route('/questions')
+# @login_required
+def questions():
+    # LIST OF QUESTIONS
+    questions = []
+    questions_dict = []
+    num = 1
+
+    for question in questions: 
+        dict = {
+            "q_num": num,
+            "type": question.question_type,
+            "difficulty": question.difficulty,
+            "description": question.question_text,
+            "page_num": question.page_num,
+            "points": question.num_points,
+            "image": question.exam_image,
+            "duration": question.duration
+        }
+        num += 1
+    
+        questions_dict.append(dict)
+
+    return render_template('questions.html', dict = dict)
+
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
 def create():
-    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    image_url = url_for('static', filename='styles/imgs/6.Effortless.svg')
     if request.method == 'POST':
         file = request.files['fileUpload']
         text_to_parse = process_document(file)
