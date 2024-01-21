@@ -21,6 +21,9 @@ def index():
     db.insert_default_school('ubc', 'vancouver', 'canada')
     db.insert_alternate_school('ubc', 'university of british columbia')
 
+    db.insert_course_full_db('CSC', '110', 'Introduction to Programming 1',
+                             'Learn Programming', 'uvic')
+
     text_to_parse = open("file.json", "r")
     text = json.loads(text_to_parse.read())
 
