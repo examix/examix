@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS course;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS exam;
 DROP TABLE IF EXISTS school;
+DROP TABLE IF EXISTS school_alternates;
 DROP TABLE IF EXISTS page;
 
 CREATE TABLE user (
@@ -28,7 +29,7 @@ CREATE TABLE course (
     name INTEGER,
     description TEXT(200),
     school_id INTEGER,
-    CONSTRAINT Course_School_FK FOREIGN KEY (school_id) REFERENCES School(school_id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT Course_School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE question (
@@ -71,14 +72,19 @@ CREATE TABLE exam(
     num_questions INTEGER,
     pages INTEGER,
     CONSTRAINT Course_FK FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT School_FK FOREIGN KEY (school_id) REFERENCES School(school_id) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE school (
-    school_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
+    name TEXT PRIMARY KEY,
     city TEXT,
     country TEXT
+);
+
+CREATE TABLE school_alternates (
+    name TEXT PRIMARY KEY,
+    default_name TEXT,
+    CONSTRAINT School_FK FOREIGN KEY (default_name) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

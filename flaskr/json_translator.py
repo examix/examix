@@ -11,6 +11,12 @@ bp = Blueprint('json_translator', __name__)
 
 @bp.route('/request')
 def index():
+    db.insert_default_school('uvic', 'victoria', 'canada')
+    db.insert_alternate_school('uvic', 'university of victoria')
+
+    db.insert_default_school('ubc', 'vancouver', 'canada')
+    db.insert_alternate_school('ubc', 'university of british columbia')
+
     text_to_parse = open("file.json", "r")
     text = json.loads(text_to_parse.read())
 

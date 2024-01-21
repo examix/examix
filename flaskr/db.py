@@ -44,9 +44,34 @@ def init_app(app):
 # Insert
 
 
+def insert_default_school(name, city, country):
+    db = get_db()
+    try:
+        db.execute(
+            'INSERT INTO school (name, city, country)'
+            ' VALUES (?, ?, ?)',
+            (name, city, country)
+        )
+    except sqlite3.IntegrityError:
+        pass
+    db.commit()
+
+
+def insert_alternate_school(default_name, alternate_name):
+    db = get_db()
+    try:
+        db.execute(
+            'INSERT INTO school_alternates (name, default_name)'
+            ' VALUES (?, ?)',
+            (alternate_name, default_name)
+        )
+    except sqlite3.IntegrityError:
+        pass
+    db.commit()
+
+
 def insert_full_exam(exam):
     insert_exam_db(exam)
-
 
 
 def insert_exam_db(exam):
