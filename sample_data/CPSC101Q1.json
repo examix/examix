@@ -1,0 +1,45 @@
+{
+    "num_pages": 2,
+    "difficulty": 0,
+    "pdf_name": "csc101.pdf",
+    "duration": 15, 
+    "num_questions": 3,
+    "num_points": 6,
+    "pages": 2,
+    "school" : "ubc",
+    "department": "cpsc",
+    "course_code": "101",
+    "pages": [{
+        "page_num": 0,
+        "width": 0,
+        "height": 0,
+        "questions": [{
+            "question_text": "1. Draw a tree that illustrates the hierarchical relationships among the following domain names:\n• ubc.ca\n• wmst.ubc.ca\n• cs.ubc.ca\n• ugrad.cs.ubc.ca\n• ontario.ca",
+            "difficulty": 1,
+            "page_num": 0,
+            "num_points": 2,
+            "exam_image": "",
+            "duration": 5
+            },
+            {
+            "question_text": "Let’s call the table below “Game”. All positions are filled in except for the one on the top\nright, namely Game[1,3], which is blank.\n• What is Game[2,1]?\n• Suppose that a value is entered into the unfilled position according to the following  assignment:\nGame[1,3]= Game[3,2].\nWhat would be the values of the following entries after this assignment? (Check one possibility for each.)",
+            "difficulty": 2,
+            "page_num": 0,
+            "num_points": 2,
+            "exam_image": "",
+            "duration": 5
+            }]
+        },{
+         "page_num": 1,
+         "width": 0,
+         "height": 0,
+         "questions": [{
+            "question_text": "3. The HTML specification just below produces the view on the bottom left. Change the specification to produce the view on the bottom right.",
+            "difficulty": 1,
+            "page_num": 0,
+            "num_points": 2,
+            "exam_image": "",
+            "duration": 5
+            }]
+        }]
+}
