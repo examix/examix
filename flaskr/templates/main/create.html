@@ -11,22 +11,22 @@
           <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
         </div>
         <div class="form">
-            <form action="">
+            <form action="/create" method="post">
                 <label for="file" id="fileLabel">File</label><br>
-                <input type="file" class="form-control" id="customFile" />
+                <input type="file" name="file" class="form-control" id="customFile" accept=".pdf" required>
                 <hr>
                 <label for="university">University</label><br>
-                <input type="text" id="university" name="university" value=""><br>
+                <input type="text" name="university" id="university" name="university" value="" pattern="[A-Za-z]+" required><br>
                 <label for="university">Course Department</label><br>
-                <input type="text" id="courseDept" name="courseDept" value=""><br>
+                <input type="text" name="courseDept" id="courseDept" name="courseDept" value="" pattern="[A-Za-z]+" required><br>
                 <label for="university">Course Number</label><br>
-                <input type="text" id="courseNum" name="courseNum" value=""><br><br>
+                <input type="text" name="courseNum" id="courseNum" name="courseNum" value="" pattern="[0-9]+" required><br><br>
                 <input type="submit" value="Upload &rarr;" class="centered-submit-button">
               </form> 
         </div>
     </div>
     <div class="image">
-      <img src="{{ image_url }}" alt="calm person"/>
+      <img src="{{ image_url }}" alt="calm person" class="wobbling-svg"/>
     </div>
 </div>
-{% endblock %}  
+{% endblock %}

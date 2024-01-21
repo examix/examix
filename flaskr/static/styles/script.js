@@ -24,3 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
         difficultyValue.innerHTML = message;
     });
 });
+
+//***Animation slide in
+// JavaScript to add 'loaded' class to body when the page is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('loaded');
+});

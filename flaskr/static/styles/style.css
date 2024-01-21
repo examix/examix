@@ -49,6 +49,16 @@ body {
     background: white;
     margin: 0;
     height: 100%;
+
+    /* For sliding/easing in */
+    opacity: 0;
+    transform: translateY(20px); /* Initial translation in the Y direction */
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in; /* Apply transition effects */
+}
+
+body.loaded {
+    opacity: 1;
+    transform: translateY(0); /* Translate back to the original position when the 'loaded' class is applied */
 }
 
 span {
@@ -126,7 +136,16 @@ input[type=text] {
     border-color: #DDDDDD;
     border-width: 2px;
     border-style: solid;
+    transition: border-color 0.3s ease-in-out;
 }
+
+input[type=text]:hover {
+    border-color: #737373;
+}
+
+/* input[type=text]:invalid {
+    border-color: red;
+} */
 
 input[type=file] {
     height: 5vh;
@@ -135,6 +154,11 @@ input[type=file] {
     border-radius: 3px;
     border-color: #DDDDDD;
     border-width: 2px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type=file]:hover {
+    border-color: #737373;
 }
 
 .centered-submit-button {
@@ -210,4 +234,28 @@ input[type=range]::-moz-range-thumb {
 hr {
     border: 1px solid #737373;
     margin-top: 8%;
+}
+
+/*********************************Animations*/
+@keyframes wobble {
+    0% {
+        transform: translateX(1px) rotate(1deg);
+    }
+    25% {
+        transform: translateX(-1px) rotate(-1deg);
+    }
+    50% {
+        transform: translateX(1px) rotate(1deg);
+    }
+    75% {
+        transform: translateX(-1px) rotate(-1deg);
+    }
+    100% {
+        transform: translateX(1px) rotate(1deg);
+    }
+}
+
+.wobbling-svg {
+    animation: wobble 6s ease-in-out infinite;
+    transform-origin: center; /* Set the transform origin to the center of the SVG */
 }

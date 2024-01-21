@@ -6,7 +6,7 @@ from werkzeug.exceptions import abort
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-bp = Blueprint('main', __name__)
+bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
@@ -30,32 +30,52 @@ def search():
 def remix():
     return render_template('main/remix.html')
 
-@bp.route('/create')
+@bp.route('/create', methods=['POST'])
 # @login_required
 def create():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
-    return render_template('main/create.html', image_url=image_url)
-    # if request.method == 'POST':
-    #     title = request.form['title']
-    #     body = request.form['body']
-    #     error = None
+    if request.method == 'POST':
+        file = request.files['fileUpload']
+        uni = request.form['university']
+        courseDept = request.form['courseDept']
+        courseNum = request.form['couseNum']
 
-    #     if not title:
-    #         error = 'Title is required.'
+        error = ""
 
-    #     if error is not None:
-    #         flash(error)
-    #     else:
-    #         db = get_db()
-    #         db.execute(
-    #             'INSERT INTO post (title, body, author_id)'
-    #             ' VALUES (?, ?, ?)',
-    #             (title, body, g.user['id'])
-    #         )
-    #         db.commit()
-    #         return redirect(url_for('main.index'))
+        if file.filename == '' or not is_pdf(file):
+            error = 'File is required. File must be of .pdf type.'
+        elif not uni or uni.isalpha():
+            error = 'University is required. Input must be alphabetic.'
+        elif not courseDept or courseDept.isalpha():
+            error = 'Course department is required. Input must be alphabetic '
+        elif not courseNum or is_number(courseNum):
+            error = 'Couse Number is required. Input must be numeric'
 
-    # return render_template('main/create.html')
+        if error is not None:
+            flash(error)
+        else:
+            # db = get_db()
+            # db.execute(
+            #     'INSERT INTO post (title, body, author_id)'
+            #     ' VALUES (?, ?, ?)',
+            #     (title, body, g.user['id'])
+            # )
+            # db.commit()
+            return redirect('main/create.html', image_url=image_url)
+
+    return redirect('/search')
+
+def is_pdf(file):
+    # Check if the file content type is PDF
+    if file.content_type == 'application/pdf':
+        return True
+
+    # Check if the file extension is PDF
+    allowed_extensions = {'pdf'}
+    return '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in allowed_extensions
+
+def is_number(value):
+    return value.isdigit()
 
 def get_post(id, check_author=True):
     post = get_db().execute(

@@ -8,6 +8,17 @@
   {% endblock %}
 </head>
 
+<title>examix</title>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 <body>
   <nav class="navbar navbar-expand-lg px-5 py-5">
     <!-- navbar logo -->
