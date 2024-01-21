@@ -5,7 +5,30 @@
 {% endblock %}
 
 {% block content %}
-    <p>
-    {{ test }}
-    </p>
+    {%  for page in test %}
+        <ul>
+            <li>
+                {{ page.page_num }}
+            </li>
+            <li>
+                {{ page.width }}
+            </li>
+            <li>
+                {{ page.height }}
+            </li>
+        </ul>
+    {% endfor %}
+    {%  for page in pages_from_db%}
+        <ul>
+            <li>
+                {{ page['page_num'] }}
+            </li>
+            <li>
+                {{ page['width'] }}
+            </li>
+            <li>
+                {{ page['height'] }}
+            </li>
+        </ul>
+    {% endfor %}
 {% endblock %}
