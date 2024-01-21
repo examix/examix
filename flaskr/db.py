@@ -209,11 +209,14 @@ def get_exam_by_cid(course_id):
     ).fetchall()
     return exam
 
-def get_questions_db():
+def get_questions_db(exam_id):
     db = get_db()
     question = db.execute(
-        'SELECT question_text, difficulty, page_num, vertices, question_type, num_points, exam_image, duration, answer'
-        ' FROM question'
+    """SELECT question, difficulty, question.page_num, vertices, question_type, num_points,
+        exam_image, duration, answer
+        FROM question JOIN page ON question.page_id = page.page_id
+        WHERE page.exam_id = ?""",
+        (exam_id,)
     ).fetchall()
     return question
 

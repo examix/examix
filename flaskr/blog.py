@@ -64,30 +64,33 @@ def cards():
     print(len(course_list))
     return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
-@bp.route('/questions')
+@bp.route('/questions', methods = ['GET', 'POST'])
 # @login_required
 def questions():
     # LIST OF QUESTIONS
-    questions = []
-    questions_dict = []
+    #exam_id = request.form['exam_id']
+    #card_num = 0 # note same as exam_num
+
+    questions = db.get_questions_db(1)
+    questions_list = []
     num = 1
 
     for question in questions: 
-        dict = {
+        question_dict = {
             "q_num": num,
-            "type": question.question_type,
-            "difficulty": question.difficulty,
-            "description": question.question_text,
-            "page_num": question.page_num,
-            "points": question.num_points,
-            "image": question.exam_image,
-            "duration": question.duration
+            "type": question['question_type'],
+            "difficulty": question['difficulty'],
+            "description": question['question'],
+            "page_num": question['page_num'],
+            "points": question['num_points'],
+            "image": question['exam_image'],
+            "duration": question['duration']
         }
         num += 1
     
-        questions_dict.append(dict)
+        questions_list.append(question_dict)
 
-    return render_template('questions.html', dict = dict)
+    return render_template('main/questions.html', questions_list=questions_list)
 
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required

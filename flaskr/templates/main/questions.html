@@ -8,10 +8,6 @@
     <div class="content">
         <div class="center">
             <table class="table table-striped" style="max-width: 30vw">
-                <!-- <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Overall Questions</th> -->
-                
                 <tr>
                     <td id="titleQ"></td>
                     <td id="typeQ"></td>
@@ -19,9 +15,7 @@
                     <td id="pageNumQ"></td>
                     <td id="pointsQ"></td>
                     <td id="timeQ"></td>
-
                     <td id="descriptionQ"></td>
-
                     <td id="imageQ"></td>
                 </tr>
             </table>
@@ -29,17 +23,19 @@
        
         <div class="d-flex col justify-content-center align-items-center">
             <table class="table table-striped" style="max-width: 30vw">
-                {% for dict in dicts %}
+                {% for dict in questions_list %}
                 <tr>
-                    <td>Question {{dict['num']|string}}</td>
-                    <td>{{dict['type']}}</td>
-                    <td>{{dict['difficulty']}}</td>
-                    <td>{{dict['page_num']}}</td>
-                    <td>{{dict['points']}}</td>
-                    <td>{{dict['duration']}}</td>
-
+                    <tr>
+                        <td>Question {{dict['q_num']|string}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{dict['type']}}</td>
+                        <td>{{dict['difficulty']}}</td>
+                        <td>{{dict['page_num']}}</td>
+                        <td>{{dict['points']}}</td>
+                        <td>{{dict['duration']}}</td>
+                    </tr>
                     <td>{{dict['description']}}</td>
-
                     <td>{{dict['image']}}</td>
                 </tr>
                 {% endfor %}
