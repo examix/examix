@@ -22,9 +22,9 @@ def parse_search(search_string):
     return [dept, code, school]
 
 
-def search(search_list):
-    dept = search_list[0]
-    code = search_list[1]
-    school = search_list[2]
-    exams = db.get_exam_db(dept=dept, course_number=code, school_name=school)
-    return exams
+#def search(search_list):
+#    dept = search_list[0]
+#    code = search_list[1]
+#    school = search_list[2]
+#    exams = db.get_exam_db(dept=dept, course_number=code, school_name=school)
+#    return exams
