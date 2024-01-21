@@ -1,29 +1,30 @@
-#!/bin/env python3
-
-import os
+import os, json
 from typing import Optional, Sequence
 
 from google.api_core.client_options import ClientOptions
 from google.cloud import documentai
 
-def process_document(filename: str) -> documentai.Document:
-    project_id = os.getenv("GCLOUD_PROJECT_ID")
+def process_document(fp) -> dict:
+    project_id = 'potent-poetry-411704'
+    #os.getenv("GCLOUD_PROJECT_ID")
     location = "us" # Format is "us" or "eu"
-    processor_id = os.getenv("GCLOUD_PROCESSOR_ID")
+    processor_id = '3527739efa1575b3'
+        #os.getenv("GCLOUD_PROCESSOR_ID"))
     processor_version = "rc" # Refer to https://cloud.google.com/document-ai/docs/manage-processor-versions for more information
     mime_type = "application/pdf" # Refer to https://cloud.google.com/document-ai/docs/file-types for supported file types
 
     assert project_id
     assert processor_id
 
-    return __process_document(project_id, location, processor_id, processor_version, filename, mime_type)
+    doc = __process_document(project_id, location, processor_id, processor_version, fp, mime_type)
+    return json.loads(documentai.Document.to_json(doc))
 
 def __process_document(
     project_id: str,
     location: str,
     processor_id: str,
     processor_version: str,
-    file_path: str,
+    fp: str,
     mime_type: str,
     process_options: Optional[documentai.ProcessOptions] = None,
 ) -> documentai.Document:
@@ -42,8 +43,7 @@ def __process_document(
     )
 
     # Read the file into memory
-    with open(file_path, "rb") as image:
-        image_content = image.read()
+    image_content = fp.read()
 
     # Configure the process request
     request = documentai.ProcessRequest(
@@ -59,13 +59,3 @@ def __process_document(
     # https://cloud.google.com/document-ai/docs/reference/rest/v1/Document
     return result.document
 
-
-def main():
-    file_path = "./test.pdf"
-
-    doc = process_document(file_path)
-    print(doc)
-
-
-if __name__ == "__main__":
-    main()
