@@ -79,11 +79,11 @@ def extract_image(page, fname):
     with open(fname, 'wb') as fp:
         fp.write(base64.decodebytes(bytes(page['image']['content'], 'utf-8')))
 
-def extract_question_image(imgfile, bounds, outfile = None):
+def extract_question_image(imgfp, bounds, outfile = None):
     #with open(imgfile, 'rb') as fp:
     #    buf_fp = io.BytesIO(fp.read())
 
-    with Image.open(imgfile) as im:
+    with Image.open(imgfp) as im:
         result = im.crop(box=(bounds[0][0], bounds[0][1], bounds[2][0], bounds[2][1]) )
     
     output = ''
@@ -113,6 +113,9 @@ def write_image(image_base64, fname):
         fp.write(base64.decodebytes(image_base64))
         #fp.write(image_base64)
 
+def get_intro_text(text):
+    return text.split("1.")[0]
+
 def search_points(question_text):
     math_style_markers = "(?:\[(\d+)\] \d+)"
     written_style_markers = "(\d+)\s*(?:marks?|points?)"
@@ -123,7 +126,7 @@ def search_points(question_text):
     
     return sum([int(val) for val in re.findall(written_style_markers, question_text)] + [0]) 
     
-def search_duration(text):
+def search_duration(json):
     result = 0
     lines = json['text'].split('\n')
     #lines = text.split('\n')
@@ -155,4 +158,3 @@ def search_duration(text):
 
     return result                
             
-

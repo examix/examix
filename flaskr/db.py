@@ -114,6 +114,7 @@ def insert_question_db(question_list, page_id):
         )
     db.commit()
 
+
 def insert_pages_db(page_list):
     db = get_db()
     for page in page_list:
@@ -123,6 +124,7 @@ def insert_pages_db(page_list):
             (page.page_num, page.width, page.height)
         )
     db.commit()
+
 
 def insert_page_db(page, exam_id):
     db = get_db()
@@ -136,27 +138,58 @@ def insert_page_db(page, exam_id):
     insert_question_db(questions, page_id)
     db.commit()
 
+
+def insert_course_db(course):
+    db = get_db()
+    db.execute(
+        'INSERT INTO course (department, code, name, description, school_id)'
+        ' VALUES (?, ?, ?, ?, ?)',
+        (course.department, course.course_code, course.course_name, course.description, course.school)
+    )
+    db.commit()
+
+
+def insert_course_full_db(department, code, name, description, school):
+    db = get_db()
+    db.execute(
+        'INSERT INTO course (department, code, name, description, school_id)'
+        ' VALUES (?, ?, ?, ?, ?)',
+        (department, code, name, description, school)
+    )
+    db.commit()
+
+
 # Get
 
-#TODO: Join courses!
+def get_schools():
+    db = get_db()
+    schools = db.execute(
+        """SELECT name
+        FROM school
+        UNION 
+        SELECT name
+        FROM school_alternates"""
+    ).fetchall()
+    return schools
+
+
 def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
     db = get_db()
-    query = """SELECT num_pages, difficulty, prof, pdf_name, duration, exam_date, exam_type, 
+    query = """SELECT num_pages, exam.course_id, difficulty, prof, pdf_name, duration, exam_date, exam_type, 
                     exam.num_questions, exam.school_id
                 FROM exam
                 JOIN school ON exam.school_id = school.name
                 FULL OUTER JOIN course ON exam.course_id = course.course_id
                 WHERE exam.school_id = school.name"""
-    if dept:
+    if dept is not None:
         query += " AND course.department = '" + dept + "'"
-    if course_number:
+    if course_number is not None:
         query += " AND course.code = '" + course_number + "'"
-    if school_name:
+    if school_name is not None:
         query += " AND school.name = '" + school_name + "'"
     if prof:
         query += " AND exam.prof = '" + prof + "'"
-    print(query)
-    exam = db.execute(query).fetchone()
+    exam = db.execute(query).fetchall()
     return exam
 
 
@@ -177,3 +210,16 @@ def get_pages_db():
     ).fetchall()
     return pages
 
+
+def get_courses(department, course_code, school):
+    db = get_db()
+    query = """SELECT course_id, department, code, name, description, school_id
+                FROM course
+                WHERE department = '""" + department + "'"
+    if course_code:
+        query += " AND code = '" + course_code + "'"
+    if school:
+        query += " AND school_id = '" + school + "'"
+
+    courses = db.execute(query).fetchall()
+    return courses

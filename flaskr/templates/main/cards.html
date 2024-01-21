@@ -11,24 +11,12 @@
                     <th>Course Code</th>
                     <th>Course Name</th>
                     <th>Overall Questions</th>
-                    
-                  <tr>
-                    <td>CSC 110</td>
-                    <td>Fundamentals of Programming: 1</td>
-                    <td>23 Overall Questions</td>
-                  </tr>
 
+                  {% for dict in course_list %}
                   <tr>
-                    <td>CSC 355</td>
-                    <td>Digital Logic and Computer Organization</td>
-                    <td>19 Overall Questions</td>
-                  </tr>
-
-                  {% for dict in dicts %}
-                  <tr>
-                    <td>{{dict['course'].department + dict['course']|string}}</td>
-                    <td>{{dict['course'].description}}</td>
-                    <td>{{dict['num'].description}}</td>
+                    <td>{{dict['course'].department + ' ' + dict['course'].code|string}}</td>
+                    <td>{{dict['course'].name}}</td>
+                    <td>{{dict['total_questions']}} Overall Questions</td>
                   </tr>
                   {% endfor %}
             </table>

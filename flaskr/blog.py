@@ -5,55 +5,85 @@ from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
+import flaskr.db as db
+import flaskr.search as searcher
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
-    return render_template('main/index.html', posts=posts, image_url=image_url)
+    return render_template('main/index.html', image_url=image_url)
 
 # Routing
-@bp.route('/search')
+@bp.route('/search', methods=['GET', 'POST'])
 # @login_required
 def search():
+    if request.method == 'POST':
+        return redirect(url_for('blog.cards'), code=307)
+        #return render_template('main/cards.html')
     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
     return render_template('main/search.html', image_url=image_url)
 
 @bp.route('/remix')
-# @login_required
 def remix():
     return render_template('main/remix.html')
 
-@bp.route('/cards')
-# @login_required
+@bp.route('/cards', methods=['GET', 'POST'])
 def cards():
-    # LIST OF COURSES WHICH MATCH CRITERIA FROM QUERY 
-    courses = []
-    courses_dict = []
+    # LIST OF COURSES WHICH MATCH CRITERIA FROM QUERY
+    search_term = request.form['search']
+    result_list = searcher.parse_search(search_term)
+    dept = result_list[0]
+    code = result_list[1]
+    school = result_list[2]
 
-    for course in courses: 
+    # query courses and exams
+    courses = db.get_courses(dept, code, school)
+    exams = db.get_exam_db(dept, code, school)
+
+    course_list = []
+
+    for course in courses:
         num = 0
-        # NEED TO QUERY ALL THE EXAMS FOR A COURSE 
-        exams = []
-        for exam in exams: 
-            if exam.department == course.department and exam.course_code == course.course_code:
-                num += exam.num_questions
-        dict = {
+        for exam in exams:
+            if exam['course_id'] == course['course_id']:
+                num += exam['num_questions']
+
+        course_dict = {
             "course": course,
             "total_questions": num
         }
     
-        courses_dict.append(dict)
+        course_list.append(course_dict)
+    print(len(course_list))
+    return render_template('main/cards.html', course_list=course_list, name='CSC', uni='UVIC')
 
-    return render_template('cards.html', dict = dict)
+@bp.route('/questions')
+# @login_required
+def questions():
+    # LIST OF QUESTIONS
+    questions = []
+    questions_dict = []
+    num = 1
+
+    for question in questions: 
+        dict = {
+            "q_num": num,
+            "type": question.question_type,
+            "difficulty": question.difficulty,
+            "description": question.question_text,
+            "page_num": question.page_num,
+            "points": question.num_points,
+            "image": question.exam_image,
+            "duration": question.duration
+        }
+        num += 1
+    
+        questions_dict.append(dict)
+
+    return render_template('questions.html', dict = dict)
 
 @bp.route('/questions')
 # @login_required
