@@ -4,50 +4,46 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-<div class="d-flex justify-content-center align-items-center"?>
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <!-- Content for the first column -->
-        <h2>Column 1</h2>
-        <div class="d-flex justify-content-center align-items-center">
-          <form>
-            <div class="input-group mb-3">
-              <input type="file" class="form-control" id="inputGroupFile02">
-              <label class="input-group-text" for="inputGroupFile02">Upload</label>
-            </div>
-        
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-        
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-        
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-        
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+<h2 class="text-center" style="padding-top: 2vh; font-weight: 700;">Upload your Exam</h2>
+<div class="container" style="padding-top: 10vh; padding-left: 6vw;">
+  <div class="row">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <!-- Content for the first column -->
+      <form>
+        <div class="form-group mb-3">
+          <label for="exampleInputPassword1">Exam File</label>
+          <input type="file" class="form-control" id="inputGroupFile02">
         </div>
-      </div>
+    
+        <div class="form-group mb-3">
+          <label for="university">University</label>
+          <input type="text" class="form-control" id="university" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="department">Course Department</label>
+          <input type="text" class="form-control" id="department" placeholder="Password">
+        </div>
+    
+        <div class="form-group mb-5">
+          <label for="number">Course Number</label>
+          <input type="text" class="form-control" id="number" placeholder="Password">
+        </div>
+        
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
 
-      <div class="col-md-6">
-        <!-- Content for the second column -->
-        <img src="{{ image_url }}" alt="calm person" class="img-large mx-auto">
-      </div>
+    <div class="col-md-6 text-center">
+      <!-- Content for the second column -->
+      <img src="{{ image_url }}" alt="calm person" class="img-large2 mx-auto">
     </div>
   </div>
-
 </div>
+
+
 
 <!-- <div class="wrap">
   <div class="content">

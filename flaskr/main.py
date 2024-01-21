@@ -31,10 +31,18 @@ def search():
 def remix():
     return render_template('main/remix.html')
 
+@bp.route('/cards')
+# @login_required
+def cards():
+    image_url = url_for('static', filename='styles/imgs/20.Searching.svg')
+    name = 'CSC'
+    uni = 'University of Victoria'
+    return render_template('main/cards.html', name=name, uni = uni, )
+
 @bp.route('/create')
 # @login_required
 def create():
-    image_url = url_for('static', filename='styles/imgs/2.Searching.svg')
+    image_url = url_for('static', filename='styles/imgs/20.Searching.svg')
     return render_template('main/create.html', image_url=image_url)
     # if request.method == 'POST':
     #     title = request.form['title']

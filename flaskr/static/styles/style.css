@@ -70,12 +70,12 @@ span {
 
 /******************************************Text*/
 /*Large text*/
-h1 {
-    font-family: 'Lora', serif;
+/* h1 {
+    /* font-family: 'Lora', serif;
     font-size: 2rem;
     font-weight: bold;
-    text-align: center;
-}
+    text-align: center; */
+
 
 /*Medium text*/
 .text {
@@ -107,6 +107,22 @@ h1 {
     width: 100%; /* Adjust the width as needed */
     height: auto; /* Maintain the aspect ratio */
     max-width: 800px; /* Optional: Set a maximum width if needed */
+  }
+
+.img-large2 {
+    width: 50%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+    max-width: 800px; /* Optional: Set a maximum width if needed */
+}
+
+.rounded-rectangle {
+    width: 200px;
+    height: 100px;
+    background-color: #3498db; /* Set your desired background color */
+    border-radius: 15px; /* Adjust the border-radius value for rounded corners */
+    color: #fff; /* Set text color to contrast with the background */
+    text-align: center;
+    line-height: 100px; /* Center text vertically */
   }
 
 /******************************************Form*/
