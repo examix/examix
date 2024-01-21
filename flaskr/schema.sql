@@ -26,9 +26,10 @@ CREATE TABLE course (
     course_id INTEGER PRIMARY KEY AUTOINCREMENT,
     department TEXT(4),
     code INTEGER,
-    name INTEGER,
+    name TEXT,
     description TEXT(200),
-    school_id INTEGER,
+    school_id TEXT,
+    num_questions INTEGER,
     CONSTRAINT Course_School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -61,13 +62,13 @@ CREATE TABLE page(
 CREATE TABLE exam(
     exam_id INTEGER PRIMARY KEY AUTOINCREMENT,
     course_id INTEGER,
-    school_id INTEGER,
+    school_id TEXT,
     num_pages INTEGER,
     difficulty INTEGER,
     prof TEXT(200),
     pdf_name TEXT,
     duration FLOAT,
-    date DATE,
+    exam_date DATE,
     exam_type TEXT,
     num_questions INTEGER,
     pages INTEGER,
