@@ -107,18 +107,21 @@ def exams():
     for exam in list_exams:
         print(exam['duration'])
 
-    return render_template('main/exams.html', course_list=course_list, name=department, code=code, uni=school)
+    return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
     time = request.form['time']
     #questions = db.get_questions_db(1)
     #johns question functoin
-    questions = rf.remix(time, 1)
+    print(time)
+    questions, exam_time, exam_difficulty = rf.remix(int(time), 1)
+    print(len(questions))
     questions_list = []
     num = 1
 
     for question in questions:
+        print(type(question))
         question_dict = {
             "q_num": num,
             "type": question['question_type'],
@@ -165,31 +168,6 @@ def questions():
         questions_list.append(question_dict)
 
     return render_template('main/questions.html', questions_list=questions_list)
-
-@bp.route('/remixresults', methods = ['GET', 'POST'])
-def remix_result():
-    questions = db.get_questions_db(1)
-    #johns question functoin
-    questions_list = []
-    num = 1
-
-    for question in questions:
-        question_dict = {
-            "q_num": num,
-            "type": question['question_type'],
-            "difficulty": question['difficulty'],
-            "description": question['question'],
-            "page_num": question['page_num'],
-            "points": question['num_points'],
-            "image": question['exam_image'],
-            "duration": question['duration'],
-            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
-        }
-        num += 1
-
-        questions_list.append(question_dict)
-
-    return render_template('main/remix_questions.html', questions_list=questions_list)
 
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
