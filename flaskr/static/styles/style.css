@@ -25,6 +25,36 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; } */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Lora:wght@700&display=swap');
+/*
+Fonts:
+Inter: font-family: 'Inter', sans-serif;
+Lora: font-family: 'Lora', serif;
+
+Colours:
+White: #FFFFFF;
+Saturated purple: #0E00AB;
+Black: #000000;
+*/
+h1 {
+    font-size: 48px;
+}
+
 body {
-    background: black;
+    background: white;
+}
+
+.wrap {
+    display: grid;
+    align-items: center; 
+    grid-template-columns: 1fr 1fr;
+    column-gap: 5px;
+
+    padding-left: 20%;
+    padding-right: 20%;
+
+}
+
+.text {
+    font-size: 20px;
 }

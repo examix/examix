@@ -21,7 +21,8 @@ def index():
 @bp.route('/create')
 # @login_required
 def create():
-    return render_template('main/create.html')
+    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    return render_template('main/create.html', image_url=image_url)
     # if request.method == 'POST':
     #     title = request.form['title']
     #     body = request.form['body']
