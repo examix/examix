@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}JSON{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    {%  for page in test %}
+        <ul>
+            <li>
+                {{ page.page_num }}
+            </li>
+            <li>
+                {{ page.width }}
+            </li>
+            <li>
+                {{ page.height }}
+            </li>
+        </ul>
+    {% endfor %}
+    <ul>
+        <li>
+            {{ exam['num_pages'] }}
+        </li>
+        <li>
+            {{ exam['num_questions'] }}
+        </li>
+        <li>
+            {{ exam['duration'] }}
+        </li>
+    </ul>
+{% endblock %}
