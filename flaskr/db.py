@@ -196,6 +196,7 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
     if prof:
         query += " AND exam.prof = '" + prof + "'"
     print(query)
+    print(query)
     exam = db.execute(query).fetchall()
     return exam
 
@@ -214,14 +215,21 @@ def get_exam_by_cid(course_id):
 
 #def get_questions_db():
 def get_questions_db(exam_id = None):
+#def get_questions_db(exam_id):
     db = get_db()
     if exam_id:
+        if exam_id:
         question = db.execute(
-        """SELECT question, difficulty, question.page_num, vertices, question_type, num_points,
-            exam_image, duration, answer
-            FROM question JOIN page ON question.page_id = page.page_id
-            WHERE page.exam_id = ?""",
-            (exam_id,)
+            """SELECT question, difficulty, question.page_num, vertices, question_type, num_points,
+                exam_image, duration, answer
+                FROM question JOIN page ON question.page_id = page.page_id
+                WHERE page.exam_id = ?""",
+                (exam_id,)
+            ).fetchall()
+    else:
+        question = db.execute(
+        'SELECT question, difficulty, page_num, vertices, question_type, num_points, exam_image, duration, answer'
+        ' FROM question'
         ).fetchall()
     else:
         question = db.execute(

@@ -7,6 +7,8 @@ import flaskr.db as db
 import flaskr.json_parser as json_parser
 import flaskr.remix_functions as rf
 import flaskr.sample_data.preformatted_parser as pf
+import flaskr.remix_functions as rf
+import flaskr.sample_data.preformatted_parser as pf
 import base64, io
 
 bp = Blueprint('json_translator', __name__)
@@ -25,7 +27,13 @@ def index():
 
     db.insert_course_full_db('CPSC', '101', 'Connecting with Computer Science', 
                              'Learn Computer Science', 'ubc')
+    db.insert_course_full_db('CPSC', '101', 'Connecting with Computer Science', 
+                             'Learn Computer Science', 'ubc')
 
+    pf.json_to_db('flaskr/sample_data/CPSC101Q1.json')
+    pf.json_to_db('flaskr/sample_data/CPSC101Q3.json')
+    '''
+    ext_to_parse = open("file.json", "r")
     pf.json_to_db('flaskr/sample_data/CPSC101Q1.json')
     pf.json_to_db('flaskr/sample_data/CPSC101Q3.json')
     '''
@@ -40,8 +48,12 @@ def index():
     db.insert_full_exam(exam)
     
     exam = db.get_exam_db(school_name="ubc") # gets random exam from db
+    
+    exam = db.get_exam_db(school_name="ubc") # gets random exam from db
 
     return render_template('pages/testing_parser.html', test=test, exam=exam)
+    '''
+    return "success"
     '''
     return "success"
 
@@ -95,9 +107,9 @@ def create_exam(pages, exam_points, exam_dur):
     exam_type = ""
     num_questions = sum_questions(pages)
     pages = pages
-    school = "uvic"
+    school = "ubc"
     exam = Exam(num_pages, difficulty, prof, pdf_name, duration, date, exam_type, num_questions, exam_points, pages, school)
-    exam.difficulty = rf.calc_exam_difficulty(exam)
+    exam.difficulty = 2 # rf.calc_exam_difficulty(exam)
     return exam
 
 

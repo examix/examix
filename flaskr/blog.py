@@ -13,6 +13,7 @@ import json
 from flaskr.parse_document import process_document
 from flask import render_template, redirect, url_for
 from flask_session import Session
+import flaskr.remix_functions as rf
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -32,8 +33,10 @@ def search():
     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
     return render_template('main/search.html', image_url=image_url)
 
-@bp.route('/remix')
+@bp.route('/remix', methods=['GET', 'POST'])
 def remix():
+    if request.method == 'POST':
+        return redirect(url_for('blog.remix_result'), code=307)
     return render_template('main/remix.html')
 
 @bp.route('/cards', methods=['GET', 'POST'])
@@ -104,13 +107,14 @@ def exams():
     for exam in list_exams:
         print(exam['duration'])
 
-    return render_template('main/exams.html', list_exams = list_exams, department=department, code=code)
-
+    return render_template('main/exams.html', course_list=course_list, name=department, code=code, uni=school)
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
-    questions = db.get_questions_db(1)
+    time = request.form['time']
+    #questions = db.get_questions_db(1)
     #johns question functoin
+    questions = rf.remix(time, 1)
     questions_list = []
     num = 1
 
@@ -139,7 +143,9 @@ def questions():
     #exam_id = request.form['exam_id']
     #card_num = 0 # note same as exam_num
 
-    questions = db.get_questions_db(1)
+    #exam_id = db.
+    exam_id = request.args.get('exam_id')
+    questions = db.get_questions_db(exam_id)
     questions_list = []
     num = 1
 
@@ -161,6 +167,33 @@ def questions():
 
     return render_template('main/questions.html', questions_list=questions_list)
 
+
+@bp.route('/remixresults', methods = ['GET', 'POST'])
+def remix_result():
+    questions = db.get_questions_db(1)
+    #johns question functoin
+    questions_list = []
+    num = 1
+
+    for question in questions:
+        question_dict = {
+            "q_num": num,
+            "type": question['question_type'],
+            "difficulty": question['difficulty'],
+            "description": question['question'],
+            "page_num": question['page_num'],
+            "points": question['num_points'],
+            "image": question['exam_image'],
+            "duration": question['duration'],
+            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+        }
+        num += 1
+
+        questions_list.append(question_dict)
+
+    return render_template('main/remix_questions.html', questions_list=questions_list)
+>>>>>>> 298bfc8 (finished courses and exams)
+
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
 def create():
@@ -170,7 +203,7 @@ def create():
         text_to_parse = process_document(file)
         text = text_to_parse
             #json.loads(text_to_parse))
-    
+        
         exam_dur = jt.json_parser.search_duration(text)
         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
         pages = jt.parse_pages(text, exam_points, exam_dur)
