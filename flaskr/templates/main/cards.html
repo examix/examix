@@ -42,7 +42,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
+<script>AA
   $(document).ready(function() {
     $('tr').click(function() {
       var department = $(this).data('department');
@@ -55,7 +55,7 @@
       } else {
         window.location = `/exams?department=${department}&code=${code}&school=${school}&prof=${prof}`
       }
-    });
   });
+});
 </script>
 {% endblock %}
