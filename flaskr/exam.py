@@ -18,6 +18,13 @@ class Page:
         self.height = height
         self.questions = questions
 
+class Course:
+    def __init__(self, department, course_code, course_name, description, school):
+        self.department = department
+        self.course_code = course_code
+        self.course_name = course_name
+        self.description = description
+        self.school = school
 
 class Question:
     def __init__(self, question_text, difficulty, page_num, vertices, question_type, num_points, exam_image, duration,
