@@ -74,13 +74,15 @@ def insert_full_exam(exam):
     insert_exam_db(exam)
 
 
-def insert_exam_db(exam):
+def insert_exam_db(exam, course_dept, course_num):
     db = get_db()
+    course_id = db.execute('SELECT course_id FROM course WHERE department = ? AND code = ?', (course_dept, course_num)).fetchone()[0]
     db.execute(
-        'INSERT INTO exam (num_pages, difficulty, prof, pdf_name, duration, exam_date, exam_type, num_questions, school_id)'
+        'INSERT INTO exam (num_pages, difficulty, prof, pdf_name, duration, exam_date, '
+        'exam_type, num_questions, school_id, course_id)'
         ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         (exam.num_pages, exam.difficulty, exam.prof, exam.pdf_name, exam.duration, exam.date, exam.exam_type,
-         exam.num_questions, exam.school)
+         exam.num_questions, exam.school, course_id)
     )
     exam_id = db.execute('SELECT last_insert_rowid()').fetchone()[0]
     print(exam_id)
@@ -192,6 +194,18 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
     exam = db.execute(query).fetchall()
     return exam
 
+def get_exam_by_cid(course_id):
+    db = get_db()
+    exam = db.execute(
+        """SELECT num_pages, exam.course_id, difficulty, prof, pdf_name, duration, exam_date, exam_type, 
+                    exam.num_questions, exam.school_id
+                FROM exam
+                JOIN school ON exam.school_id = school.name
+                FULL OUTER JOIN course ON exam.course_id = course.course_id
+                WHERE exam.course_id = ?""",
+        (course_id,)
+    ).fetchall()
+    return exam
 
 def get_questions_db():
     db = get_db()

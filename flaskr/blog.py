@@ -7,6 +7,9 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 import flaskr.db as db
 import flaskr.search as searcher
+import flaskr.json_translator as jt
+import flaskr.json_parser as json_parser
+import json
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -65,9 +68,19 @@ def create():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
     if request.method == 'POST':
         file = request.files['fileUpload']
+
+        text = json.loads(text_to_parse.read())
+
+        exam_dur = jt.json_parser.search_duration(text)
+        exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
+        test = jt.parse_pages(text, exam_points, exam_dur)
+        exam = jt.create_exam(test, exam_points, exam_dur)
+
+        db.insert_full_exam(exam)
+
         uni = request.form['university']
-        courseDept = request.form['courseDept']
-        courseNum = request.form['courseNum']
+        course_dept = request.form['courseDept']
+        course_num = request.form['courseNum']
 
         error = ""
 
@@ -75,21 +88,14 @@ def create():
             error = 'File is required. File must be of .pdf type.'
         elif not uni:
             error = 'University is required. Input must be alphabetic.'
-        elif not courseDept:
+        elif not course_dept:
             error = 'Course department is required. Input must be alphabetic '
-        elif not courseNum or is_number(courseNum):
-            error = 'Couse Number is required. Input must be numeric'
+        elif not course_num:
+            error = 'Course Number is required. Input must be alphanumeric'
 
         if error is not None:
             flash(error)
         else:
-            # db = get_db()
-            # db.execute(
-            #     'INSERT INTO post (title, body, author_id)'
-            #     ' VALUES (?, ?, ?)',
-            #     (title, body, g.user['id'])
-            # )
-            # db.commit()
             return redirect('/search')
 
     return render_template('main/create.html', image_url=image_url)
