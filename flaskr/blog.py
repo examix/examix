@@ -136,7 +136,6 @@ def questions():
     return render_template('main/questions.html', questions_list=questions_list)
 
 
-
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
     questions = db.get_questions_db(1)
