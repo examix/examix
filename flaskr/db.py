@@ -193,6 +193,7 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
         query += " AND school.name = '" + school_name + "'"
     if prof:
         query += " AND exam.prof = '" + prof + "'"
+    print(query)
     exam = db.execute(query).fetchall()
     return exam
 

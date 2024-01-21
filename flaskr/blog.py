@@ -69,31 +69,40 @@ def cards():
 
 @bp.route('/exams', methods=['POST', 'GET'])
 def exams():
+        # output exams to questions     
     department = request.args.get('department')
     code = request.args.get('code')
     school = request.args.get('school')
-    print('were working' + department)
-    print('were working' + code)
+    prof = request.args.get('prof')
+    print(department)
+    print(code)
+    print(school)
+    print(prof)
 
-    # query courses and exams
-    courses = db.get_courses(department, code, school)
-    exams = db.get_exam_db(department, code, school)
+    # list of exams for one course given course_id
+    exams = db.get_exam_db(department, code, school, prof)
 
-    course_list = []
+    list_exams = []
+    num = 1
 
-    for course in courses:
-        num = 0
-        for exam in exams:
-            if exam['course_id'] == course['course_id']:
-                num += exam['num_questions']
-
-        course_dict = {
-            "course": course,
-            "total_questions": num
+    for exam in exams:
+        exam_dict = {
+            "exam_id": num,
+            "num_pages": exam["num_pages"],
+            "difficulty": exam["difficulty"],
+            "duration": exam["duration"],
+            "num_questions": exam["num_questions"],
+            "num_points": 0,  # Optional attribute, defaulting to None if not present
+            "pages": '',
+            "school": '',
+            "department": '',
+            "course_code": 0
         }
-    
-        course_list.append(course_dict)
-    print(len(course_list))
+        num += 1
+        list_exams.append(exam_dict)
+
+    for exam in list_exams:
+        print(exam['duration'])
 
     return render_template('main/exams.html', course_list=course_list, name=department, code=code, uni=school)
 
@@ -125,6 +134,34 @@ def questions():
         questions_list.append(question_dict)
 
     return render_template('main/questions.html', questions_list=questions_list)
+
+
+
+@bp.route('/remixresults', methods = ['GET', 'POST'])
+def remix_result():
+    questions = db.get_questions_db(1)
+    #johns question functoin
+    questions_list = []
+    num = 1
+
+    for question in questions:
+        question_dict = {
+            "q_num": num,
+            "type": question['question_type'],
+            "difficulty": question['difficulty'],
+            "description": question['question'],
+            "page_num": question['page_num'],
+            "points": question['num_points'],
+            "image": question['exam_image'],
+            "duration": question['duration'],
+            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+        }
+        num += 1
+
+        questions_list.append(question_dict)
+
+    return render_template('main/remix_questions.html', questions_list=questions_list)
+>>>>>>> 298bfc8 (finished courses and exams)
 
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
