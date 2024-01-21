@@ -3,48 +3,101 @@
 {% block head %}
   {{ super() }}
 {% endblock %}
+<style>
+    .upvote-container {
+    text-align: center;
+    }
+
+    .upvote-button {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .upvote-button:hover {
+        background-color: #2980b9;
+    }
+
+    #upvoteCount {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    .content{
+       display: flex;
+    }
+</style>
+
 {% block content %}
 <div class="wrap" style="padding-left: 15%;">
     <div class="content">
-        <div class="center">
-            <table class="table table-striped" style="max-width: 30vw">
-                <!-- <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Overall Questions</th> -->
-                
-                <tr>
-                    <td id="titleQ"></td>
-                    <td id="typeQ"></td>
-                    <td id="difficultyQ"></td>
-                    <td id="pageNumQ"></td>
-                    <td id="pointsQ"></td>
-                    <td id="timeQ"></td>
-
-                    <td id="descriptionQ"></td>
-
-                    <td id="imageQ"></td>
-                </tr>
+        <div id="click" class="d-flex col justify-content-center align-items-center" style="float: left; overflow:scroll; max-height:40vw;">
+            <table id="click" class="table table-striped zui-table zui-table-horizontal zui-table-highlight" style="max-width: 30vw;margin-top:35%">
+                {% for dict in questions_list %}
+                        <tr style="border:none;"><td style="border:none"></td></tr>
+                        <tr><td style="border:none;background-color:white;!important"></td></tr>
+                        <tr>
+                            <th id="tq{{dict['num']|string}}" colspan="3" style="padding-top:10%;">Question {{dict['q_num']|string}}</th>
+                        </tr>
+                        <tr>
+                        <th>Points</th>
+                        <th>Difficulty</th>
+                        <th>Estimated Time</th>
+                        </tr>
+                        <tr>
+                            <td id="tp{{dict['num']|string}}">{{dict['points']}}</td>
+                            <td id="tdi{{dict['num']|string}}">{{dict['difficulty']}}</td>
+                            <td id="tdu{{dict['num']|string}}">{{dict['duration']}}</td>
+                        </tr>
+                        <tr id="click" description="{{dict['description']}}">
+                            <td style="text-overflow: ellipsis" id="tde{{dict['num']|string}}" colspan="3">{{dict['description_short']}}</td>
+                        </tr>
+                {% endfor %}
             </table>
         </div>
-       
-        <div class="d-flex col justify-content-center align-items-center">
+        <div class="center" style="float: left; margin-top:20%;">
             <table class="table table-striped" style="max-width: 30vw">
-                {% for dict in dicts %}
                 <tr>
-                    <td>Question {{dict['num']|string}}</td>
-                    <td>{{dict['type']}}</td>
-                    <td>{{dict['difficulty']}}</td>
-                    <td>{{dict['page_num']}}</td>
-                    <td>{{dict['points']}}</td>
-                    <td>{{dict['duration']}}</td>
-
-                    <td>{{dict['description']}}</td>
-
-                    <td>{{dict['image']}}</td>
+                    <td id="descriptionQ"></td>
                 </tr>
-                {% endfor %}
             </table>
         </div>
     </div>
 </div>
-{% endblock %}  
+<script>
+const clickElement = document.getElementById('click');
+    if (clickElement) {
+        clickElement.addEventListener('click', () => {
+            //let text = document.getElementById('click').innerHTML;
+const targetRow = event.target.closest('tr');
+            if (targetRow) {
+                console.log(targetRow);
+                const description = targetRow.getAttribute('description');
+                document.getElementById('descriptionQ').innerHTML = description;
+            }        //let title = document.getElementById('titleQ');
+        //let difficulty = document.getElementById('difficultyQ');
+        //let points = document.getElementById('pointsQ');
+        //let time = document.getElementById('timeQ');
+
+        //let description = document.getElementById('descriptionQ');
+
+        //let image = document.getElementById('imageQ');
+
+        //title.innerHTML = document.getElementById('tq').innerHTML;
+        //difficulty.innerHTML = document.getElementById('tdi').innerHTML;
+        //points.innerHTML = document.getElementById('tp').innerHTML;
+        //time.innerHTML = document.getElementById('tdu').innerHTML;
+
+        //description.innerHTML = document.getElementById('tde').innerHTML;
+
+        //image.innerHTML = document.getElementById('ti').innerHTML;
+        });
+    }
+</script>
+
+{% endblock %}
