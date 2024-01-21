@@ -2,9 +2,8 @@ from flask import (
     Blueprint, render_template
 )
 import json
-from exam import Exam, Page, Question
+from flaskr.exam import Exam, Page, Question
 import flaskr.db as db
-from flaskr.db import get_db
 import flaskr.json_parser as json_parser
 
 bp = Blueprint('json_translator', __name__)
@@ -12,6 +11,12 @@ bp = Blueprint('json_translator', __name__)
 
 @bp.route('/request')
 def index():
+    db.insert_default_school('uvic', 'victoria', 'canada')
+    db.insert_alternate_school('uvic', 'university of victoria')
+
+    db.insert_default_school('ubc', 'vancouver', 'canada')
+    db.insert_alternate_school('ubc', 'university of british columbia')
+
     text_to_parse = open("file.json", "r")
     text = json.loads(text_to_parse.read())
 
@@ -19,7 +24,8 @@ def index():
     exam = create_exam(test)
 
     db.insert_full_exam(exam)
-    exam = db.get_exam_db() # gets random exam from db
+    exam = db.get_exam_db(school_name="uvic") # gets random exam from db
+    print(exam)
     return render_template('pages/testing_parser.html', test=test, exam=exam)
 
 
@@ -67,7 +73,7 @@ def create_exam(pages):
     exam_type = ""
     num_questions = sum_questions(pages)
     pages = pages
-    school = 0
+    school = "uvic"
     exam = Exam(num_pages, difficulty, prof, pdf_name, duration, date, exam_type, num_questions, pages, school)
     return exam
 
