@@ -39,7 +39,7 @@ def create_app(test_config=None):
     app.register_blueprint(blog.bp)
     #app.add_url_rule('/', endpoint='index')
 
-    from . import parsing
-    app.register_blueprint(parsing.bp)
+    from . import json_translator
+    app.register_blueprint(json_translator.bp)
 
     return app

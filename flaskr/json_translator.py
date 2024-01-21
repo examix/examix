@@ -7,7 +7,7 @@ import flaskr.db as db
 from flaskr.db import get_db
 import flaskr.json_parser as json_parser
 
-bp = Blueprint('parsing', __name__)
+bp = Blueprint('json_translator', __name__)
 
 
 @bp.route('/request')
