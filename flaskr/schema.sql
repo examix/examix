@@ -29,7 +29,6 @@ CREATE TABLE course (
     name TEXT,
     description TEXT(200),
     school_id TEXT,
-    num_questions INTEGER,
     CONSTRAINT Course_School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -73,6 +72,7 @@ CREATE TABLE exam(
     num_questions INTEGER,
     num_points INTEGER,
     pages INTEGER,
+    num_points INTEGER,
     CONSTRAINT Course_FK FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );

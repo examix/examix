@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="wrap">
+    <div class="image">
+        <img src="{{ image_url }}" alt="calm person"/>
+    </div>
+    <div class="content">
+        <div class="center">
+          <h1>Search for exams</h1>
+          <p class="text">Search by university, department, or course number</p>
+        </div>
+        <div class="form">
+            <form action="/search" method="post">
+                <label for="search">Search</label><br>
+                <input type="text" id="search" name="search" value=""><br><br>
+                <input type="submit" value="Search &rarr;" class="centered-submit-button">
+              </form> 
+        </div>
+    </div>
+</div>
+{% endblock %}  

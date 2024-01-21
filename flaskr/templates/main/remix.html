@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="wrap">
+    <div class="content" style="flex: 1;">
+        <div class="center">
+          <h1>Exam Remix</h1>
+          <p class="text">Lorem Ipsum ahahahaha ahah ahaha aha</p>
+        </div>
+    </div>
+    <div class="form" style="flex: 1;">
+        <form action="">
+            <label id="remixHeader" for="header"><b>Remix your exams</b></label><br>
+            <label for="subHeader">Create an exam perfectly customised to you</label><br>
+            <label for="time" id="time">Time</label><br>
+            <input type="text" id="time" name="time" value=""><br>
+            <div class="slider-container">
+                <label for="customRange">Difficulty: <span id="difficultyValue">Medium</span></label><br>
+                <input type="range" class="form-range" id="customRange" min="0" max="4" value="2" step="1">
+                <p><span id="tooltip1">Easy</span> <span id="tooltip2">Hard</span></p><br>
+            </div>
+            <label for="course">Course</label><br>
+            <input type="text" id="course" name="course" value=""><br><br>
+            <input type="submit" value="Upload &rarr;" class="centered-submit-button">
+          </form> 
+    </div>
+</div>
+{% endblock %}  

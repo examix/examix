@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="wrap">
+    <div class="content">
+        <div class="form">
+            <form action="">
+                <label for="file">File</label><br>
+                <input type="file" id="file" name="file" value=""><br>
+                <hr>
+                <label for="university">University</label><br>
+                <input type="text" id="university" name="university" value=""><br>
+                <label for="university">Course Department</label><br>
+                <input type="text" id="courseDept" name="courseDept" value=""><br>
+                <label for="university">Course Number</label><br>
+                <input type="text" id="courseNum" name="courseNum" value=""><br><br>
+                <input type="submit" value="Submit">
+              </form> 
+        </div>
+    </div>
+    <div class="image">
+
+    </div>
+</div>
+{% endblock %}

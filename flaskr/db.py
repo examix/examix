@@ -136,9 +136,40 @@ def insert_page_db(page, exam_id):
     insert_question_db(questions, page_id)
     db.commit()
 
+
+def insert_course_db(course):
+    db = get_db()
+    db.execute(
+        'INSERT INTO course (department, code, name, description, school_id)'
+        ' VALUES (?, ?, ?, ?, ?)',
+        (course.department, course.course_code, course.course_name, course.description, course.school)
+    )
+    db.commit()
+
+
+def insert_course_full_db(department, code, name, description, school):
+    db = get_db()
+    db.execute(
+        'INSERT INTO course (department, code, name, description, school_id)'
+        ' VALUES (?, ?, ?, ?, ?)',
+        (department, code, name, description, school)
+    )
+    db.commit()
+
+
 # Get
 
-#TODO: Join courses!
+def get_schools():
+    db = get_db()
+    schools = db.execute(
+        """SELECT name
+        FROM school
+        UNION 
+        SELECT name
+        FROM school_alternates"""
+    ).fetchall()
+    return schools
+
 def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
     db = get_db()
     query = """SELECT num_pages, difficulty, prof, pdf_name, duration, exam_date, exam_type, 
