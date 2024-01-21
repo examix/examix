@@ -31,32 +31,34 @@
     .content{
        display: flex;
     }
+
+    #click tr:hover {
+        background-color: #f5f5f5; /* Change background color on hover */
+    }
 </style>
 
 {% block content %}
 <div class="wrap" style="padding-left: 15%;">
     <div class="content">
         <div id="click" class="d-flex col justify-content-center align-items-center" style="float: left; overflow:scroll; max-height:40vw;">
-            <table id="click" class="table table-striped zui-table zui-table-horizontal zui-table-highlight" style="max-width: 30vw;margin-top:35%">
+            <table id="click" class="table table-striped zui-table zui-table-horizontal zui-table-highlight" style="max-width: 30vw; margin-top: 35%; border-collapse: collapse;">
                 {% for dict in questions_list %}
-                        <tr style="border:none;"><td style="border:none"></td></tr>
-                        <tr><td style="border:none;background-color:white;"></td></tr>
-                        <tr>
-                            <th id="tq{{dict['num']|string}}" colspan="3" style="padding-top:10%;">Question {{dict['q_num']|string}}</th>
-                        </tr>
-                        <tr>
-                        <th>Points</th>
-                        <th>Difficulty</th>
-                        <th>Estimated Time</th>
-                        </tr>
-                        <tr>
-                            <td id="tp{{dict['num']|string}}">{{dict['points']}}</td>
-                            <td id="tdi{{dict['num']|string}}">{{dict['difficulty']}}</td>
-                            <td id="tdu{{dict['num']|string}}">{{dict['duration']}}</td>
-                        </tr>
-                        <tr id="click" description="{{dict['description']}}">
-                            <td style="text-overflow: ellipsis" id="tde{{dict['num']|string}}" colspan="3">{{dict['description_short']}}</td>
-                        </tr>
+                    <tr>
+                        <th id="tq{{dict['num']|string}}" colspan="3" style="padding-top: 10%; background-color: white !important; box-shadow: none !important;border-bottom-width: 0 !important;">Question {{dict['q_num']|string}}</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: white !important;box-shadow: none !important;border-bottom-width: 0 !important;">Points</th>
+                        <th style="background-color: white !important;box-shadow: none !important;border-bottom-width: 0 !important;">Difficulty</th>
+                        <th style="background-color: white !important;box-shadow: none !important;border-bottom-width: 0 !important;">Estimated Time</th>
+                    </tr>
+                    <tr>
+                        <td id="tp{{dict['num']|string}}" style="background-color: white !important;box-shadow: none !important;border-bottom-width: 0 !important;">{{dict['points']}}</td>
+                        <td id="tdi{{dict['num']|string}}" style="background-color: white !important;box-shadow: none !important;border-bottom-width: 0 !important;">{{dict['difficulty']}}</td>
+                        <td id="tdu{{dict['num']|string}}" style="background-color: white !important;box-shadow: none !important;border-bottom-width: 0 !important;">{{dict['duration']}}</td>
+                    </tr>
+                    <tr id="click" description="{{dict['description']}}" style="">
+                        <td style="text-overflow: ellipsis" id="tde{{dict['num']|string}}" colspan="3">{{dict['description_short']}}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>

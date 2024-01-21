@@ -376,3 +376,25 @@ tr.item:hover td {
 .firstLine td{
     border-bottom: 2px solid black;
 }
+
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #FFFFFF;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #737373;
+    border-radius: 3px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
