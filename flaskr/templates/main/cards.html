@@ -1,105 +1,61 @@
 {% extends 'base.html' %}
+
 <style>
-  .all-posts {
-    padding: 20px;
-}
-
-table.test td {
-    background-color: white;
-    border: none;
-}
-
-td:first-child {
-    border-left-style: solid;
-    border-top-left-radius: 15px; 
-    border-bottom-left-radius: 15px;
-}
-
-td:last-child {
-    border-right-style: solid;
-    border-bottom-right-radius: 15px; 
-    border-top-right-radius: 15px; 
-}
-
-table.test {
-    border-collapse: separate;
-}
-
-/* row hover styling */
-tr.item:hover td {
-  background-color: lightblue;
-}
-
-.post-title {
-    font-weight: bold;
-    font-size: 18px; /* Adjust the font size as needed */
-}
-
-.post-content {
-    font-size: 14px; /* Adjust the font size as needed */
-}
-
-.post-text {
-    color: #1E2125;
-}
-
-.firstLine td{
-  border-bottom: 2px solid black;
-}
+  /* Add your styles here */
 </style>
 
 {% block content %}
-<!-- <div class="container all-posts">
-  <table class="test" style="border-spacing: 0 20px;">
-    <tr class="item">
-      <td>
-        <div>
-            <div class="post-title post-text">title</div>
-            <div class="post-content post-text">content</div>
-        </div>
-    </td>
-    <td class="post-text">@rafaelpark</td>
-    <td class="post-text">time</td>
-    </tr>
-  </table>
-</div> -->
-
-<!-- <div class="d-flex justify-content-center align-items-center" style="padding-top: 5vh;">
-    <div class="col text-center">
-        <h1>Results for {{ name + ' ' + code }}</h1>
-        <p>Results for {{ uni }}</p>
-
-        <div class="d-flex col justify-content-center align-items-center">
-            <table class="table table-striped" style="max-width: 30vw">
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Overall Questions</th>
-
-                  {% for dict in course_list %}
-                  <tr>
-                    <td>{{dict['course'].department + ' ' + dict['course'].code|string}}</td>
-                    <td>{{dict['course'].name}}</td>
-                    <td>{{dict['total_questions']}} Overall Questions</td>
-                  </tr>
-                  {% endfor %}
-            </table>
-        </div>
+<div class="container">
+  <div class="d-flex row justify-content-center align-items-center">
+    <div class="col-sm text-center">
+      {% if name == null %}
+      <h2 style="font-weight: 700">Results for {{ code }}</h2>
+      {% else %}
+      {% if code %}
+          <h2 style="font-weight: 700">Results for {{ name + ' ' + code }}</h2>
+      {% else %}
+          <h2 style="font-weight: 700">Results for {{ name }}</h2>
+      {% endif %}
+      {% endif %}
     </div>
-</div>  -->
-<div class="container all-posts">
-  <table class="test" style="border-spacing: 0 20px;">
-    {% for dict in course_list %}
-    <tr class="item">
-      <td>{{dict['course'].department + ' ' + dict['course'].code|string}}</td>
-      <td>{{dict['course'].name}}</td>
-      <td>{{dict['total_questions']}} Overall Questions</td>
-    </tr>
-    <tr>
-      <td colspan="3"><hr/></td>
-    </tr>
-    {% endfor %}    
-</table> 
+
+    <table class="zui-table zui-table-horizontal zui-table-highlight">
+      <thead>
+        <tr>
+            <th>Course</th>
+            <th>Course Name</th>
+            <th>Total Questions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in course_list %}
+        <tr data-department="{{ course['course'].department }}" data-code="{{ course['course'].code }}" data-school="{{ course['course'].school }}" data-prof="{{ course['course'].prof }}">
+          <td>{{ course['course'].department|string + ' ' + course['course'].code|string }}</td>
+          <td>{{ course['course'].name }}</td>
+          <td>{{ course['total_questions'] }} Overall Questions</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('tr').click(function() {
+      var department = $(this).data('department');
+      var code = $(this).data('code');
+      var school = $(this).data('school');
+      var prof = $(this).data('prof');
+
+      if (typeof school == 'string'){
+        window.location = `/exams?department=${department}&code=${code}&prof=${prof}`
+      } else {
+        window.location = `/exams?department=${department}&code=${code}&school=${school}&prof=${prof}`
+      }
+  });
+});
+</script>
 
 {% endblock %}

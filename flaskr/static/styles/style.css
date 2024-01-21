@@ -283,3 +283,40 @@ hr {
     animation: wobble 6s ease-in-out infinite;
     transform-origin: center; /* Set the transform origin to the center of the SVG */
 }
+
+tr:first-child {
+    border-left-style: solid;
+    border-top-left-radius: 15px; 
+    border-bottom-left-radius: 15px;
+}
+
+tr:last-child {
+    border-right-style: solid;
+    border-bottom-right-radius: 15px; 
+    border-top-right-radius: 15px; 
+}
+
+.zui-table {
+    min-height: 1vh;
+}
+
+.zui-table thead th {
+    padding: 10px;
+    text-align: center;
+}
+
+.zui-table tbody td {
+    color: #333;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+    border-radius: 10px;
+}
+
+.zui-table-highlight tbody tr:hover {
+    background-color: #e7e7e7;
+    border-radius: 50px;
+}rgb(0, 102, 255)rgb(107, 166, 255)rgb(234, 234, 234)
+/* .zui-table-horizontal tbody td {
+    border-left: none;
+    border-right: none;
+} */

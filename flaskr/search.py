@@ -10,9 +10,9 @@ def parse_search(search_string):
 
     for string in string_list:
         if string[0].isnumeric():
-            code = string
+            code = string.upper()
         elif string in schools_in_db:
-            school = string
+            school = string.lower()
         else:
             dept = string
     return [dept, code, school]

@@ -183,6 +183,8 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
                 JOIN school ON exam.school_id = school.name
                 JOIN course ON exam.course_id = course.course_id
                 WHERE exam.school_id = school.name"""
+
+    # FULL OUTER JOIN course ON exam.course_id = course.course_id
     if dept is not None:
         query += " AND course.department = '" + dept + "'"
     if course_number is not None:
@@ -191,6 +193,7 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
         query += " AND school.name = '" + school_name + "'"
     if prof:
         query += " AND exam.prof = '" + prof + "'"
+    print(query)
     exam = db.execute(query).fetchall()
     return exam
 
@@ -207,12 +210,22 @@ def get_exam_by_cid(course_id):
     ).fetchall()
     return exam
 
-def get_questions_db():
+#def get_questions_db():
+def get_questions_db(exam_id = None):
     db = get_db()
-    question = db.execute(
-        'SELECT question_text, difficulty, page_num, vertices, question_type, num_points, exam_image, duration, answer'
+    if exam_id:
+        question = db.execute(
+        """SELECT question, difficulty, question.page_num, vertices, question_type, num_points,
+            exam_image, duration, answer
+            FROM question JOIN page ON question.page_id = page.page_id
+            WHERE page.exam_id = ?""",
+            (exam_id,)
+        ).fetchall()
+    else:
+        question = db.execute(
+        'SELECT question, difficulty, page_num, vertices, question_type, num_points, exam_image, duration, answer'
         ' FROM question'
-    ).fetchall()
+        ).fetchall()
     return question
 
 
