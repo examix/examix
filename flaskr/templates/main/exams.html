@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+<style>
+  /* Add your styles here */
+</style>
+
+{% block content %}
+
+<div class="container">
+  <div class="d-flex row justify-content-center align-items-center">
+    <div class="col-sm text-center">
+      {% if name == null %}
+      <h2 style="font-weight: 700">Results for {{ code }}</h2>
+      {% else %}
+      {% if code == null %}
+          <h2 style="font-weight: 700">Results for {{ name }}</h2>
+      {% else %}
+          <h2 style="font-weight: 700">Results for {{ name + code}}</h2>
+      {% endif %}
+      {% endif %}
+    </div>
+
+
+    <table class="zui-table zui-table-horizontal zui-table-highlight">
+      <thead>
+        <tr>
+            <th>questions</th>
+            <th>id</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for exam in list_exams %}
+        <tr data-exam_id="{{ exam['exam_id']}}">
+          <td>{{ exam['num_questions'] }}</td>
+          <td>{{ exam['exam_id'] }}</td>
+        </tr>
+        
+        {% endfor %}
+      </tbody>
+    </table>
+    
+
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('tr').click(function() {
+      var exam_id = $(this).data('exam_id');
+      window.location = `/questions?exam_id=${exam_id}`;
+    }); // Added closing parenthesis here
+  });
+</script>
+
+{% endblock %}
