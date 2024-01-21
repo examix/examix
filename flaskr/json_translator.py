@@ -95,9 +95,9 @@ def create_exam(pages, exam_points, exam_dur):
     exam_type = ""
     num_questions = sum_questions(pages)
     pages = pages
-    school = "uvic"
+    school = "ubc"
     exam = Exam(num_pages, difficulty, prof, pdf_name, duration, date, exam_type, num_questions, exam_points, pages, school)
-    exam.difficulty = rf.calc_exam_difficulty(exam)
+    exam.difficulty = 2 # rf.calc_exam_difficulty(exam)
     return exam
 
 
