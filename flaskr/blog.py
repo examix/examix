@@ -55,6 +55,31 @@ def cards():
 
     return render_template('cards.html', dict = dict)
 
+@bp.route('/questions')
+# @login_required
+def questions():
+    # LIST OF QUESTIONS
+    questions = []
+    questions_dict = []
+    num = 1
+
+    for question in questions: 
+        dict = {
+            "q_num": num,
+            "type": question.question_type,
+            "difficulty": question.difficulty,
+            "description": question.question_text,
+            "page_num": question.page_num,
+            "points": question.num_points,
+            "image": question.exam_image,
+            "duration": question.duration
+        }
+        num += 1
+    
+        questions_dict.append(dict)
+
+    return render_template('questions.html', dict = dict)
+
 @bp.route('/create', methods=['GET', 'POST'])
 # @login_required
 def create():
