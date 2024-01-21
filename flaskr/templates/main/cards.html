@@ -27,7 +27,7 @@ table.test {
 
 /* row hover styling */
 tr.item:hover td {
-    background-color: #F0F2F3;
+  background-color: lightblue;
 }
 
 .post-title {
@@ -49,7 +49,7 @@ tr.item:hover td {
 </style>
 
 {% block content %}
-<div class="container all-posts">
+<!-- <div class="container all-posts">
   <table class="test" style="border-spacing: 0 20px;">
     <tr class="item">
       <td>
@@ -62,7 +62,7 @@ tr.item:hover td {
     <td class="post-text">time</td>
     </tr>
   </table>
-</div>
+</div> -->
 
 <!-- <div class="d-flex justify-content-center align-items-center" style="padding-top: 5vh;">
     <div class="col text-center">
@@ -85,7 +85,21 @@ tr.item:hover td {
             </table>
         </div>
     </div>
-</div> -->
+</div>  -->
+<div class="container all-posts">
+  <table class="test" style="border-spacing: 0 20px;">
+    {% for dict in course_list %}
+    <tr class="item">
+      <td>{{dict['course'].department + ' ' + dict['course'].code|string}}</td>
+      <td>{{dict['course'].name}}</td>
+      <td>{{dict['total_questions']}} Overall Questions</td>
+    </tr>
+    <tr>
+      <td colspan="3"><hr/></td>
+    </tr>
+    {% endfor %}    
+</table> 
+</div>
 
 
 {% endblock %}

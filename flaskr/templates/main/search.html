@@ -4,7 +4,7 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-<div class="wrap">
+<div class="wrap" style="padding-right: 15%;">
     <div class="image">
         <img src="{{ image_url }}" alt="calm person"/>
     </div>
@@ -16,7 +16,7 @@
         <div class="form">
             <form action="/search" method="post">
                 <label for="search">Search</label><br>
-                <input type="text" id="search" name="search" value=""><br><br>
+                <input type="text" id="search" name="search" value="" placeholder="Enter search" required><br><br>
                 <input type="submit" value="Search &rarr;" class="centered-submit-button">
               </form> 
         </div>
