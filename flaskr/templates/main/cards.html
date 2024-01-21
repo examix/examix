@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="padding-top: 5vh;">
+    <div class="col text-center">
+        <h1>Results for {{ name }}</h1>
+        <p>Results for {{ uni }}</p>
+
+        <div class="d-flex col justify-content-center align-items-center">
+            <table class="table table-striped" style="max-width: 30vw">
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Overall Questions</th>
+                    
+                  <tr>
+                    <td>CSC 110</td>
+                    <td>Fundamentals of Programming: 1</td>
+                    <td>23 Overall Questions</td>
+                  </tr>
+
+                  <tr>
+                    <td>CSC 355</td>
+                    <td>Digital Logic and Computer Organization</td>
+                    <td>19 Overall Questions</td>
+                  </tr>
+
+                  {% for dict in dicts %}
+                  <tr>
+                    <td>{{dict['course'].department + dict['course']|string}}</td>
+                    <td>{{dict['course'].description}}</td>
+                    <td>{{dict['num'].description}}</td>
+                  </tr>
+                  {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+{% endblock %}

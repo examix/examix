@@ -1,5 +1,5 @@
 class Exam:
-    def __init__(self, num_pages, difficulty, prof, pdf_name, duration, date, exam_type, num_questions, pages, school):
+    def __init__(self, num_pages, difficulty, prof, pdf_name, duration, date, exam_type, num_questions, pages, school, department, course_code):
         self.num_pages = num_pages
         self.difficulty = difficulty
         self.prof = prof
@@ -10,6 +10,10 @@ class Exam:
         self.num_questions = num_questions
         self.pages = pages
         self.school = school
+        self.department = department 
+        self.course_code = course_code
+        self.department = department
+        self.course_code = course_code
 
 
 class Page:

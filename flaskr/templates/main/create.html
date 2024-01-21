@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<h2 class="text-center" style="padding-top: 2vh; font-weight: 700;">Upload your Exam</h2>
+<div class="container" style="padding-top: 10vh; padding-left: 6vw;">
+  <div class="row">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <!-- Content for the first column -->
+      <form action="/create" method="post" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+          <label for="file">File</label>
+          <input type="file" name="fileUpload" class="form-control" id="inputGroupFile02">
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="university">University</label>
+          <input type="text" name="university" class="form-control" id="university" aria-describedby="university" placeholder="Enter university">
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="department">Course Department</label>
+          <input type="text" name="courseDept" class="form-control" id="department" placeholder="Enter course department">
+        </div>
+    
+        <div class="form-group mb-5">
+          <label for="number">Course Number</label>
+          <input type="text" name="courseNum" class="form-control" id="number" placeholder="Enter course number">
+        </div>
+        
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6 text-center">
+      <!-- Content for the second column -->
+      <img src="{{ image_url }}" alt="calm person" class="img-large2 mx-auto">
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="wrap">
+  <div class="content">
+      <div class="center">
+        <h1>Upload your exam</h1>
+        <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
+      </div>
+      <div class="form">
+          <form action="">
+              <label for="file" id="fileLabel">File</label><br>
+              <input type="file" class="form-control" id="customFile" />
+              <hr>
+              <label for="university">University</label><br>
+              <input type="text" id="university" name="university" value=""><br>
+              <label for="university">Course Department</label><br>
+              <input type="text" id="courseDept" name="courseDept" value=""><br>
+              <label for="university">Course Number</label><br>
+              <input type="text" id="courseNum" name="courseNum" value=""><br><br>
+              <input type="submit" value="Submit" class="centered-submit-button">
+            </form> 
+      </div>
+  </div>
+  <div class="image">
+    <img src="{{ image_url }}" alt="calm person"/>
+  </div> -->
+</div>
+
+{% endblock %}  
