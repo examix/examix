@@ -8,7 +8,15 @@
 <div class="container">
   <div class="d-flex row justify-content-center align-items-center">
     <div class="col-sm text-center">
-      <h2 style="font-weight: 700">Results for {{ name + ' ' + code }}</h1>
+      {% if name == null %}
+      <h2 style="font-weight: 700">Results for {{ code }}</h2>
+      {% else %}
+      {% if code %}
+          <h2 style="font-weight: 700">Results for {{ name + ' ' + code }}</h2>
+      {% else %}
+          <h2 style="font-weight: 700">Results for {{ name }}</h2>
+      {% endif %}
+      {% endif %}
     </div>
 
     <table class="zui-table zui-table-horizontal zui-table-highlight">
@@ -21,8 +29,8 @@
       </thead>
       <tbody>
         {% for course in course_list %}
-        <tr data-department="{{ course['course'].department }}" data-code="{{ course['course'].code }}" data-school="{{ course['course'].school }}">
-          <td>{{ course['course'].department + ' ' + course['course'].code|string }}</td>
+        <tr data-department="{{ course['course'].department }}" data-code="{{ course['course'].code }}" data-school="{{ course['course'].school }}" data-prof="{{ course['course'].prof }}">
+          <td>{{ course['course'].department|string + ' ' + course['course'].code|string }}</td>
           <td>{{ course['course'].name }}</td>
           <td>{{ course['total_questions'] }} Overall Questions</td>
         </tr>
@@ -39,25 +47,13 @@
       var department = $(this).data('department');
       var code = $(this).data('code');
       var school = $(this).data('school');
+      var prof = $(this).data('prof');
 
       if (typeof school == 'string'){
-        window.location = `/exams?department=${department}&code=${code}`
+        window.location = `/exams?department=${department}&code=${code}&prof=${prof}`
       } else {
-        window.location = `/exams?department=${department}&code=${code}&school=${school}`
+        window.location = `/exams?department=${department}&code=${code}&school=${school}&prof=${prof}`
       }
-
-     // $.ajax({
-     //   url: 'buffer',
-    //    type: 'POST',
-    //    data: { 'department': department, 'code': code },
-    //    success: function(response) {
-          // Assuming your response contains the URL to redirect to
-          // If not, you can hardcode the URL or modify the server response accordingly
-
-          // Redirect to the specified URL
-    //      window.location.replace("/buffer")
-     //   },
-     // });
     });
   });
 </script>
