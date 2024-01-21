@@ -1,6 +1,17 @@
+from flask import (
+    Blueprint, render_template
+)
 import json
 from flaskr.exam import Exam, Page, Question
+import flaskr.db
 
+bp = Blueprint('performatted_parser', __name__)
+
+@bp.route('/populate')
+def json_to_db():
+    ex = read_json('flaskr/sample_data/CPSC101Q1.json')
+    flaskr.db.insert_full_exam(ex, ex.department, ex.course_code) 
+    return 'success'
 
 def read_json(fname) -> Exam:
     with open(fname) as fp:

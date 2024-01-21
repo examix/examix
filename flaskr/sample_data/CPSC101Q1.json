@@ -7,8 +7,8 @@
     "num_points": 6,
     "pages": 2,
     "school" : "ubc",
-    "department": "cpsc",
-    "course_code": "101",
+    "department": "CSC",
+    "course_code": "110",
     "pages": [{
         "page_num": 0,
         "width": 0,
