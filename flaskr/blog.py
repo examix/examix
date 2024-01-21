@@ -13,6 +13,7 @@ import json
 from flaskr.parse_document import process_document
 from flask import render_template, redirect, url_for
 from flask_session import Session
+import flaskr.remix_functions as rf
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -32,8 +33,10 @@ def search():
     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
     return render_template('main/search.html', image_url=image_url)
 
-@bp.route('/remix')
+@bp.route('/remix', methods=['GET', 'POST'])
 def remix():
+    if request.method == 'POST':
+        return redirect(url_for('blog.remix_result'), code=307)
     return render_template('main/remix.html')
 
 @bp.route('/cards', methods=['GET', 'POST'])
@@ -108,8 +111,10 @@ def exams():
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
-    questions = db.get_questions_db(1)
+    time = request.form['time']
+    #questions = db.get_questions_db(1)
     #johns question functoin
+    questions = rf.remix(time, 1)
     questions_list = []
     num = 1
 
