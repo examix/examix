@@ -33,6 +33,23 @@ def remix(exp_time, diff, school="uvic", department="CSC", course_code="110"):
     results = [seed_q]
 
     while time_diff > 0.2 and time <= exp_time:
+
+    #exams = db.get_exam_by_cid(1)
+
+    #questions = []
+    #for exam in exams:
+    #    for page in exam[:
+    #        questions.extend([question for question in page.questions])
+
+    questions = db.get_questions_db()
+
+    seed_q = questions.pop(random.randint(0, len(questions) - 1))
+    time = seed_q['duration']
+    time_diff = calc_time_diff(time, exp_time)
+    cur_difficulty = seed_q['difficulty']
+    results = [seed_q]
+
+    while time_diff > 0.2 and time <= exp_time:
         singles = []
         doubles = []
         for question in questions:
@@ -52,7 +69,7 @@ def remix(exp_time, diff, school="uvic", department="CSC", course_code="110"):
         while candidates and new_time > exp_time*ACCEPTABLE_ERROR:
             candidates.pop(0) 
             new_time = time + sum([q[1] for q in candidates[0][0]] if candidates else [])
-        
+
         if not candidates:
             break
         
