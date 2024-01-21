@@ -320,7 +320,6 @@ td:first-child {
 }
 
 td:last-child {
-
     border-right-style: solid;
     border-bottom-right-radius: 15px; 
     border-top-right-radius: 15px; 
@@ -340,6 +339,7 @@ td:last-child {
     padding: 10px;
     text-shadow: 1px 1px 1px #fff;
     /*border-radius: 10px;*/
+    border-radius: 10px;
 }
 
 .zui-table-highlight tbody tr:hover {
@@ -376,3 +376,7 @@ tr.item:hover td {
 .firstLine td{
     border-bottom: 2px solid black;
 }
+/* .zui-table-horizontal tbody td {
+    border-left: none;
+    border-right: none;
+} */
