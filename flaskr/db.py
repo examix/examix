@@ -183,6 +183,8 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
                 JOIN school ON exam.school_id = school.name
                 JOIN course ON exam.course_id = course.course_id
                 WHERE exam.school_id = school.name"""
+
+    # FULL OUTER JOIN course ON exam.course_id = course.course_id
     if dept is not None:
         query += " AND course.department = '" + dept + "'"
     if course_number is not None:
