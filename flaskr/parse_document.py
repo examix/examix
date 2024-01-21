@@ -1,12 +1,12 @@
 #!/bin/env python3
 
-import os
+import os, json
 from typing import Optional, Sequence
 
 from google.api_core.client_options import ClientOptions
 from google.cloud import documentai
 
-def process_document(filename: str) -> documentai.Document:
+def process_document(filename: str) -> dict:
     project_id = os.getenv("GCLOUD_PROJECT_ID")
     location = "us" # Format is "us" or "eu"
     processor_id = os.getenv("GCLOUD_PROCESSOR_ID")
@@ -16,7 +16,8 @@ def process_document(filename: str) -> documentai.Document:
     assert project_id
     assert processor_id
 
-    return __process_document(project_id, location, processor_id, processor_version, filename, mime_type)
+    doc = __process_document(project_id, location, processor_id, processor_version, filename, mime_type)
+    return json.loads(documentai.Document.to_json(doc))
 
 def __process_document(
     project_id: str,
