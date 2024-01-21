@@ -3,30 +3,37 @@
 {% block head %}
   {{ super() }}
 {% endblock %}
-{% block create %}
-<div class="wrap">
-    <div class="content">
-        <div class="center">
-          <h1>Upload your exam</h1>
-          <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
-        </div>
+{% block content %}
+
+<div class="hero">
+  <div class="row">
+
+    <div class="text-center col-sm d-flex justify-content-center align-items-center">
+      <div class="left-hero">
+        <h1>Upload your Exams</h1>
+        <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
         <div class="form">
-            <form action="">
-                <label for="file" id="fileLabel">File</label><br>
-                <input type="file" class="form-control" id="customFile" />
-                <hr>
-                <label for="university">University</label><br>
-                <input type="text" id="university" name="university" value=""><br>
-                <label for="university">Course Department</label><br>
-                <input type="text" id="courseDept" name="courseDept" value=""><br>
-                <label for="university">Course Number</label><br>
-                <input type="text" id="courseNum" name="courseNum" value=""><br><br>
-                <input type="submit" value="Submit" class="centered-submit-button">
-              </form> 
-        </div>
+          <form action="">
+              <label for="file" id="fileLabel">File</label><br>
+              <input type="file" class="form-control" id="customFile" />
+              <hr>
+              <label for="university">University</label><br>
+              <input type="text" id="university" name="university" value=""><br>
+              <label for="university">Course Department</label><br>
+              <input type="text" id="courseDept" name="courseDept" value=""><br>
+              <label for="university">Course Number</label><br>
+              <input type="text" id="courseNum" name="courseNum" value=""><br><br>
+              <input type="submit" value="Submit" class="btn btn-dark">
+            </form> 
+      </div>
+      </div>
     </div>
-    <div class="image">
-      <img src="{{ image_url }}" alt="calm person"/>
+
+    <div class="text-center col-sm">
+      <img src="{{ image_url }}" alt="picture" class="image-hero-upload">
     </div>
+  </div>
 </div>
+
+
 {% endblock %}  

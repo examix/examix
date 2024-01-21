@@ -16,7 +16,8 @@ def index():
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
-    return render_template('main/index.html', posts=posts)
+    image_url2 = url_for('static', filename='styles/imgs/6.Effortless.svg')
+    return render_template('main/index.html', image_url2=image_url2)
 
 @bp.route('/create')
 # @login_required
