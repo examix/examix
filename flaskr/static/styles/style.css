@@ -22,8 +22,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content label { font-weight: bold; margin-bottom: 0.5em; }
 .content input, .content textarea { margin-bottom: 1em; }
 .content textarea { min-height: 12em; resize: vertical; }
-input.danger { color: #cc2f2e; }
-input[type=submit] { align-self: start; min-width: 10em; } */
+input.danger { color: #cc2f2e; } */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Lora:wght@700&display=swap');
 /*
@@ -36,25 +35,104 @@ White: #FFFFFF;
 Saturated purple: #0E00AB;
 Black: #000000;
 */
-h1 {
-    font-size: 48px;
+
+/******************************************Bootstrap*/
+input[type=submit] { align-self: start; min-width: 10em; }
+
+/******************************************General HTML elements*/
+* {
+    box-sizing: border-box;
 }
 
 body {
+    font-family: 'Inter', sans-serif;
     background: white;
+    margin: 0;
 }
 
-.wrap {
-    display: grid;
-    align-items: center; 
-    grid-template-columns: 1fr 1fr;
-    column-gap: 5px;
-
-    padding-left: 20%;
-    padding-right: 20%;
-
+/******************************************Text*/
+/*Large text*/
+h1 {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
 }
 
+/*Medium text*/
 .text {
-    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/*Note: Small text is 0.7rem*/
+
+.accentText {
+    color: #0E00AB;
+}
+
+/******************************************Page content (excluding nav bar)*/
+.wrap {
+    display: flex;
+    align-items: center; 
+
+    padding: 20px;
+    margin-left: 15%;
+
+}
+
+/******************************************Form*/
+.form {
+    flex: 1;
+    padding: 0 20px;
+}
+
+form {
+    width: 100%;
+}
+
+label {
+    font-size: 0.7rem;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    height: 5vh;
+}
+
+input[type=file] {
+    height: 5vh;
+    font-size: 0.7rem;
+    width: 100%;
+    border-radius: 3px;
+    border-color: #777777;
+}
+
+.centered-submit-button {
+    display: block;
+    margin: 0 auto;
+}
+
+#fileButton {
+    border: 1px solid #000;
+    width: 100%;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+/*********************************Images*/
+.image {
+    flex: 1;
+    text-align: center;
+}
+
+img {
+    width: 60%;
+    height: auto;
 }
