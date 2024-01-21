@@ -29,22 +29,51 @@
        
         <div class="d-flex col justify-content-center align-items-center">
             <table class="table table-striped" style="max-width: 30vw">
-                {% for dict in dicts %}
-                <tr>
-                    <td>Question {{dict['num']|string}}</td>
-                    <td>{{dict['type']}}</td>
-                    <td>{{dict['difficulty']}}</td>
-                    <td>{{dict['page_num']}}</td>
-                    <td>{{dict['points']}}</td>
-                    <td>{{dict['duration']}}</td>
+                {% for oneDict in dicts %}
+                <tr onclick="showQuestion()">
+                    <td id="tq{{oneDict['num']|string}}">Question {{oneDict['num']|string}}</td>
+                    <td id="tt{{oneDict['num']|string}}">{{oneDict['type']}}</td>
+                    <td id="tdi{{oneDict['num']|string}}">{{oneDict['difficulty']}}</td>
+                    <td id="tpn{{oneDict['num']|string}}">{{oneDict['page_num']}}</td>
+                    <td id="tp{{oneDict['num']|string}}">{{oneDict['points']}}</td>
+                    <td id="tdu{{oneDict['num']|string}}">{{oneDict['duration']}}</td>
 
-                    <td>{{dict['description']}}</td>
+                    <td id="tde{{oneDict['num']|string}}">{{oneDict['description']}}</td>
 
-                    <td>{{dict['image']}}</td>
+                    <td id="ti{{oneDict['num']|string}}">{{oneDict['image']}}</td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
 </div>
+
+<script>
+
+    function showQuestion() {
+        let title = document.getElementById('titleQ');
+        let type = document.getElementById('typeQ');
+        let difficulty = document.getElementById('difficultyQ');
+        let pageNum = document.getElementById('pageNumQ');
+        let points = document.getElementById('pointsQ');
+        let time = document.getElementById('timeQ');
+
+        let description = document.getElementById('descriptionQ');
+
+        let image = document.getElementById('imageQ');
+
+        title.innerHTML = document.getElementById('tq').innerHTML;
+        type.innerHTML = document.getElementById('tt').innerHTML;
+        difficulty.innerHTML = document.getElementById('tdi').innerHTML;
+        pageNum.innerHTML = document.getElementById('tpn').innerHTML;
+        points.innerHTML = document.getElementById('tp').innerHTML;
+        time.innerHTML = document.getElementById('tdu').innerHTML;
+
+        description.innerHTML = document.getElementById('tde').innerHTML;
+
+        image.innerHTML = document.getElementById('ti').innerHTML;
+    }
+
+</script>
+
 {% endblock %}  
