@@ -32,6 +32,9 @@ def get_block_vert(block) -> int:
     # first vertex seems to always be the top-left vertex
     return int(block['layout']['boundingPoly']['vertices'][0]['y'])
 
+def is_question_border(string):
+    return True if  re.match("\d*\.", string, flags=re.DOTALL) else False
+
 def get_question_blocks(json, page_num) -> list[list[dict]]:
     blocks = get_blocks(json, page_num)
 
@@ -43,8 +46,7 @@ def get_question_blocks(json, page_num) -> list[list[dict]]:
 
         text = get_block_text(json, block)
 
-        # question border
-        if re.match("\d*\.", text, flags=re.DOTALL):
+        if is_question_border(text):
             if in_question:
                 results.append(cur_question)
             #else:
@@ -100,14 +102,57 @@ def extract_question_image(imgfile, bounds, outfile = None):
     #with io.BytesIO() as buf_fp:
     #result.save(buf_fp, format='PNG')
     #output = base64.encodebytes(buf_fp.read())
-    #output = buf_fp.read()
+    #output = buf_fp.read(le)
     #buf_fp.close()
 
     return output
+   
 
-    
 def write_image(image_base64, fname):
     with open(fname, 'wb') as fp:
         fp.write(base64.decodebytes(image_base64))
         #fp.write(image_base64)
+
+def search_points(question_text):
+    math_style_markers = "(?:\[(\d+)\] \d+)"
+    written_style_markers = "(\d+)\s*(?:marks?|points?)"
+
+    math_style_match = re.match(written_style_markers, question_text)
+    if math_style_match:
+        return int(math_style_match.groups(1))
+    
+    return sum([int(val) for val in re.findall(written_style_markers, question_text)] + [0]) 
+    
+def search_duration(text):
+    result = 0
+    lines = json['text'].split('\n')
+    #lines = text.split('\n')
+
+    hrs_search_regex  = '(?:(?P<hrs>\d+)\s*(?:hours?|hrs?))' 
+    mins_search_regex = '(?:(?P<mins>\d+)\s*(?:minutes?|mins?))'
+    mins_search_regex2 = '(?:(?P<mins2>\d+)\s*(?:minutes?|mins?))'
+    search_regex_str  = '(?:%s|%s)\s*(?:and)?\s*%s?' % (hrs_search_regex, mins_search_regex, mins_search_regex2)
+    search_obj = re.compile(search_regex_str)
+    #print(search_regex_str)
+
+    for line in lines:
+        if is_question_border(line):
+            break
+        duration_match =  search_obj.search(line)
+        if duration_match:
+            groups = duration_match.groupdict(default=0)
+
+            groups['mins'] = int(groups['mins']) + int(groups['mins2'])
+
+            if groups['hrs']:
+                result += 3600 * int(groups['hrs'])
+            if groups['mins']:
+                result +=   60 * int(groups['mins'])
+
+            if result > 0:
+                break
+
+
+    return result                
+            
 
