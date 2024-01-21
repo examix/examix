@@ -212,6 +212,7 @@ def get_exam_by_cid(course_id):
 
 #def get_questions_db():
 def get_questions_db(exam_id = None):
+#def get_questions_db(exam_id):
     db = get_db()
     if exam_id:
         question = db.execute(
