@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, Flask
 )
 from werkzeug.exceptions import abort
 
@@ -7,6 +7,7 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 
 bp = Blueprint('blog', __name__)
+app = Flask(__name__)
 
 @bp.route('/')
 def index():
@@ -30,7 +31,7 @@ def search():
 def remix():
     return render_template('main/remix.html')
 
-@bp.route('/create', methods=['POST'])
+@bp.route('/create', methods=['GET', 'POST'])
 # @login_required
 def create():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
@@ -38,15 +39,15 @@ def create():
         file = request.files['fileUpload']
         uni = request.form['university']
         courseDept = request.form['courseDept']
-        courseNum = request.form['couseNum']
+        courseNum = request.form['courseNum']
 
         error = ""
 
         if file.filename == '' or not is_pdf(file):
             error = 'File is required. File must be of .pdf type.'
-        elif not uni or uni.isalpha():
+        elif not uni:
             error = 'University is required. Input must be alphabetic.'
-        elif not courseDept or courseDept.isalpha():
+        elif not courseDept:
             error = 'Course department is required. Input must be alphabetic '
         elif not courseNum or is_number(courseNum):
             error = 'Couse Number is required. Input must be numeric'
@@ -61,9 +62,9 @@ def create():
             #     (title, body, g.user['id'])
             # )
             # db.commit()
-            return redirect('main/create.html', image_url=image_url)
+            return redirect('/search')
 
-    return redirect('/search')
+    return render_template('main/create.html', image_url=image_url)
 
 def is_pdf(file):
     # Check if the file content type is PDF

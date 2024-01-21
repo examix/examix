@@ -9,25 +9,25 @@
   <div class="row">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
       <!-- Content for the first column -->
-      <form>
+      <form action="/create" method="post" enctype="multipart/form-data">
         <div class="form-group mb-3">
-          <label for="exampleInputPassword1">Exam File</label>
-          <input type="file" class="form-control" id="inputGroupFile02">
+          <label for="file">File</label>
+          <input type="file" name="fileUpload" class="form-control" id="inputGroupFile02">
         </div>
     
         <div class="form-group mb-3">
           <label for="university">University</label>
-          <input type="text" class="form-control" id="university" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="text" name="university" class="form-control" id="university" aria-describedby="university" placeholder="Enter university">
         </div>
     
         <div class="form-group mb-3">
           <label for="department">Course Department</label>
-          <input type="text" class="form-control" id="department" placeholder="Password">
+          <input type="text" name="courseDept" class="form-control" id="department" placeholder="Enter course department">
         </div>
     
         <div class="form-group mb-5">
           <label for="number">Course Number</label>
-          <input type="text" class="form-control" id="number" placeholder="Password">
+          <input type="text" name="courseNum" class="form-control" id="number" placeholder="Enter course number">
         </div>
         
         <div class="text-center">
