@@ -102,7 +102,7 @@ def exams():
     for exam in list_exams:
         print(exam['duration'])
 
-    return render_template('main/exams.html', list_exams = list_exams)
+    return render_template('main/exams.html', list_exams = list_exams, department=department, code=code)
 
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
