@@ -143,7 +143,9 @@ def questions():
     #exam_id = request.form['exam_id']
     #card_num = 0 # note same as exam_num
 
-    questions = db.get_questions_db(1)
+    #exam_id = db.
+    exam_id = request.args.get('exam_id')
+    questions = db.get_questions_db(exam_id)
     questions_list = []
     num = 1
 
