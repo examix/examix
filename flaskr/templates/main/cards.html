@@ -1,9 +1,72 @@
 {% extends 'base.html' %}
+<style>
+  .all-posts {
+    padding: 20px;
+}
+
+table.test td {
+    background-color: white;
+    border: none;
+}
+
+td:first-child {
+    border-left-style: solid;
+    border-top-left-radius: 15px; 
+    border-bottom-left-radius: 15px;
+}
+
+td:last-child {
+    border-right-style: solid;
+    border-bottom-right-radius: 15px; 
+    border-top-right-radius: 15px; 
+}
+
+table.test {
+    border-collapse: separate;
+}
+
+/* row hover styling */
+tr.item:hover td {
+    background-color: #F0F2F3;
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 18px; /* Adjust the font size as needed */
+}
+
+.post-content {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+.post-text {
+    color: #1E2125;
+}
+
+.firstLine td{
+  border-bottom: 2px solid black;
+}
+</style>
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="padding-top: 5vh;">
+<div class="container all-posts">
+  <table class="test" style="border-spacing: 0 20px;">
+    <tr class="item">
+      <td>
+        <div>
+            <div class="post-title post-text">title</div>
+            <div class="post-content post-text">content</div>
+        </div>
+    </td>
+    <td class="post-text">@rafaelpark</td>
+    <td class="post-text">time</td>
+    </tr>
+  </table>
+</div>
+
+<!-- <div class="d-flex justify-content-center align-items-center" style="padding-top: 5vh;">
     <div class="col text-center">
-        <h1>Results for {{ name }}</h1>
+        <h1>Results for {{ name + ' ' + code }}</h1>
         <p>Results for {{ uni }}</p>
 
         <div class="d-flex col justify-content-center align-items-center">
@@ -22,11 +85,7 @@
             </table>
         </div>
     </div>
-
-
-
-
-</div>
+</div> -->
 
 
 {% endblock %}

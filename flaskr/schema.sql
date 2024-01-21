@@ -100,6 +100,9 @@ INSERT INTO course (department, code, name, description, school_id) VALUES
 
 INSERT INTO exam (course_id, school_id, num_pages, difficulty, prof, pdf_name, duration, exam_date, exam_type, num_questions, num_points, pages) VALUES
     (1, 'UVic', 10, 3, 'Dr. Smith', 'cs101_midterm.pdf', 2.5, '2024-01-15', 'Midterm', 20, 100, 5),
-    (2, 'AUBC', 15, 2, 'Prof. Johnson', 'math201_final.pdf', 3.0, '2024-05-10', 'Final', 30, 150, 8);
+    (2, 'UVic', 12, 4, 'Prof. Johnson', 'cs201_final.pdf', 3.0, '2024-05-20', 'Final', 25, 120, 6),
+    (3, 'UVic', 8, 2, 'Dr. Brown', 'math101_midterm.pdf', 2.0, '2024-02-10', 'Midterm', 15, 80, 4),
+    (4, 'UVic', 15, 3, 'Prof. White', 'phy101_final.pdf', 2.5, '2024-06-01', 'Final', 18, 90, 7);
+
 
 

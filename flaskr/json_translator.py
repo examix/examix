@@ -34,7 +34,7 @@ def index():
 
     db.insert_full_exam(exam)
     exam = db.get_exam_db(school_name="uvic") # gets random exam from db
-    print(exam)
+
     return render_template('pages/testing_parser.html', test=test, exam=exam)
 
 
