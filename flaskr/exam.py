@@ -9,13 +9,13 @@ class Exam:
         self.date = date
         self.exam_type = exam_type
         self.num_questions = num_questions
+        self.num_points = num_points
         self.pages = pages
         self.school = school
         self.department = department 
         self.course_code = course_code
         self.department = department
         self.course_code = course_code
-
 
 class Page:
     def __init__(self, page_num, width, height, questions=None):
