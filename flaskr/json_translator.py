@@ -5,6 +5,7 @@ import json
 from flaskr.exam import Exam, Page, Question
 import flaskr.db as db
 import flaskr.json_parser as json_parser
+import flaskr.remix_functions as rf
 import base64, io
 
 bp = Blueprint('json_translator', __name__)
@@ -89,6 +90,7 @@ def create_exam(pages, exam_points, exam_dur):
     pages = pages
     school = "uvic"
     exam = Exam(num_pages, difficulty, prof, pdf_name, duration, date, exam_type, num_questions, exam_points, pages, school)
+    exam.difficulty = rf.calc_exam_difficulty(exam)
     return exam
 
 
