@@ -25,12 +25,13 @@ CREATE TABLE post (
 CREATE TABLE course (
     course_id INTEGER PRIMARY KEY AUTOINCREMENT,
     department TEXT(4),
-    code INTEGER,
+    code TEXT(4),
     name TEXT,
     description TEXT(200),
     school_id TEXT,
     CONSTRAINT Course_School_FK FOREIGN KEY (school_id) REFERENCES School(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE question (
     question_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -70,6 +71,7 @@ CREATE TABLE exam(
     exam_date DATE,
     exam_type TEXT,
     num_questions INTEGER,
+    num_points INTEGER,
     pages INTEGER,
     num_points INTEGER,
     CONSTRAINT Course_FK FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE ON UPDATE CASCADE,
