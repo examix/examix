@@ -296,12 +296,12 @@ hr {
 
 .navbar-nav .nav-link:hover {
     color: #FFFFFF;
-    background-color: #FFAC63; /* Add background color on hover */
+    background-color: #0E00AB; /* Add background color on hover */
     border-radius: 5px; /* Add rounded corners */
 }
 
 .navbar-nav .logo:hover {
-    color: #FFAC63;
+    color: #0E00AB;
 }
 /* ============ table row styling ============ */
 .all-posts {
@@ -339,7 +339,7 @@ td:last-child {
     color: #333;
     padding: 10px;
     text-shadow: 1px 1px 1px #fff;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 .zui-table-highlight tbody tr:hover {
