@@ -296,12 +296,20 @@ hr {
 
 .navbar-nav .nav-link:hover {
     color: #FFFFFF;
+<<<<<<< HEAD
     background-color: #0E00AB; /* Add background color on hover */
+=======
+    background-color: #FFAC63; /* Add background color on hover */
+>>>>>>> 05598c3 (Styles to style.css)
     border-radius: 5px; /* Add rounded corners */
 }
 
 .navbar-nav .logo:hover {
+<<<<<<< HEAD
     color: #0E00AB;
+=======
+    color: #FFAC63;
+>>>>>>> 05598c3 (Styles to style.css)
 }
 /* ============ table row styling ============ */
 .all-posts {
@@ -320,6 +328,10 @@ td:first-child {
 }
 
 td:last-child {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 05598c3 (Styles to style.css)
     border-right-style: solid;
     border-bottom-right-radius: 15px; 
     border-top-right-radius: 15px; 
