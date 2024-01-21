@@ -43,13 +43,10 @@ def init_app(app):
 
 # Insert
 
+
 def insert_full_exam(exam):
     insert_exam_db(exam)
-    pages = exam.pages
-    insert_pages_db(pages)
-    for page in pages:
-        questions = page.questions
-        insert_questions_db(questions)
+
 
 
 def insert_exam_db(exam):
@@ -59,6 +56,11 @@ def insert_exam_db(exam):
         ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         (exam.num_pages, exam.difficulty, exam.prof, exam.pdf_name, exam.duration, exam.date, exam.exam_type, exam.num_questions, exam.school)
     )
+    exam_id = db.execute('SELECT last_insert_rowid()').fetchone()[0]
+    print(exam_id)
+    pages = exam.pages
+    for page in pages:
+        insert_page_db(page, exam_id)
     db.commit()
 
 
@@ -74,6 +76,18 @@ def insert_questions_db(question_list):
     db.commit()
 
 
+def insert_question_db(question_list, page_id):
+    db = get_db()
+    for question in question_list:
+        db.execute(
+            'INSERT INTO question (question, difficulty, page_num, vertices, question_type, num_points, '
+            'exam_image, duration, answer, page_id)'
+            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            (question.question_text, question.difficulty, question.page_num, str(question.vertices),
+             question.question_type, question.num_points, question.exam_image, question.duration, question.answer, page_id)
+        )
+    db.commit()
+
 def insert_pages_db(page_list):
     db = get_db()
     for page in page_list:
@@ -82,6 +96,18 @@ def insert_pages_db(page_list):
             ' VALUES (?, ?, ?)',
             (page.page_num, page.width, page.height)
         )
+    db.commit()
+
+def insert_page_db(page, exam_id):
+    db = get_db()
+    db.execute(
+        'INSERT INTO page (page_num, width, height, exam_id)'
+        ' VALUES (?, ?, ?, ?)',
+        (page.page_num, page.width, page.height, int(exam_id))
+    )
+    page_id = db.execute('SELECT last_insert_rowid()').fetchone()[0]
+    questions = page.questions
+    insert_question_db(questions, page_id)
     db.commit()
 
 # Get
