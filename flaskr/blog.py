@@ -21,6 +21,8 @@ def index():
     return render_template('main/index.html', image_url=image_url)
 
 # Routing
+
+
 @bp.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
@@ -101,7 +103,7 @@ def create():
         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
         pages = jt.parse_pages(text, exam_points, exam_dur)
         exam = jt.create_exam(pages, exam_points, exam_dur)
-        course_dept = request.form['courseDept']
+        course_dept = request.form['courseDept'].upper()
         course_num = request.form['courseNum']
 
         db.insert_full_exam(exam, course_dept, course_num)
