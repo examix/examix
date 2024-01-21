@@ -1,5 +1,8 @@
 import re
 import base64
+import io
+import tempfile
+from PIL import Image
 
 def get_blocks(json, page_num): 
     return sorted(json['pages'][page_num]['blocks'], key=get_block_vert)
@@ -58,18 +61,53 @@ def get_question_blocks(json, page_num) -> list[list[dict]]:
 def get_question_text(json, question_blocks) -> str:
     return ''.join([get_block_text(json, block) for block in question_blocks])
 
-def get_question_bounds(question_blocks) -> list[tuple[int, int]]:
+def get_question_bounds(question_blocks, next_question = None) -> list[tuple[int, int]]:
     blocks_vertices = [get_block_vertices(block) for block in question_blocks]
     top_lefts = [vertices[0] for vertices in blocks_vertices]
     bottom_rights = [vertices[2] for vertices in blocks_vertices]
 
-    top = min([vertex[1] for vertex in top_lefts])
-    left = min([vertex[0] for vertex in top_lefts])
-    bottom = max([vertex[1] for vertex in bottom_rights])
-    right = max([vertex[0] for vertex in bottom_rights])
+    top = min([vertex[1] for vertex in top_lefts]) - 10
+    left = min([vertex[0] for vertex in top_lefts]) - 10
+    bottom = get_block_vertices(next_question[0])[0][1] if next_question else  max([vertex[1] for vertex in bottom_rights]) + 10
+    right = max([vertex[0] for vertex in bottom_rights]) + 10
 
     return [(left, top), (right, top), (right, bottom), (left, bottom)]
 
 def extract_image(page, fname):
     with open(fname, 'wb') as fp:
         fp.write(base64.decodebytes(bytes(page['image']['content'], 'utf-8')))
+
+def extract_question_image(imgfile, bounds, outfile = None):
+    #with open(imgfile, 'rb') as fp:
+    #    buf_fp = io.BytesIO(fp.read())
+
+    with Image.open(imgfile) as im:
+        result = im.crop(box=(bounds[0][0], bounds[0][1], bounds[2][0], bounds[2][1]) )
+    
+    output = ''
+    if outfile:
+        with open(outfile, "wb") as out_fp:
+            result.save(out_fp)
+        with open(outfile, "rb") as fp:
+            output = base64.encodebytes(fp.read())
+    else:
+        with tempfile.TemporaryFile() as outfp:
+            result.save(outfp, format='PNG')
+            outfp.seek(0, 0)
+            output = base64.encodebytes(outfp.read())
+    
+
+    #with io.BytesIO() as buf_fp:
+    #result.save(buf_fp, format='PNG')
+    #output = base64.encodebytes(buf_fp.read())
+    #output = buf_fp.read()
+    #buf_fp.close()
+
+    return output
+
+    
+def write_image(image_base64, fname):
+    with open(fname, 'wb') as fp:
+        fp.write(base64.decodebytes(image_base64))
+        #fp.write(image_base64)
+
