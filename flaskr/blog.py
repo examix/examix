@@ -11,6 +11,8 @@ import flaskr.json_translator as jt
 import flaskr.json_parser as json_parser
 import json
 from flaskr.parse_document import process_document
+from flask import render_template, redirect, url_for
+from flask_session import Session
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -60,9 +62,40 @@ def cards():
     
         course_list.append(course_dict)
     print(len(course_list))
+
     return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
-@bp.route('/questions')
+@bp.route('/exams', methods=['POST', 'GET'])
+def exams():
+    department = request.args.get('department')
+    code = request.args.get('code')
+    school = request.args.get('school')
+    print('were working' + department)
+    print('were working' + code)
+
+    # query courses and exams
+    courses = db.get_courses(department, code, school)
+    exams = db.get_exam_db(department, code, school)
+
+    course_list = []
+
+    for course in courses:
+        num = 0
+        for exam in exams:
+            if exam['course_id'] == course['course_id']:
+                num += exam['num_questions']
+
+        course_dict = {
+            "course": course,
+            "total_questions": num
+        }
+    
+        course_list.append(course_dict)
+    print(len(course_list))
+
+    return render_template('main/exams.html', course_list=course_list, name=department, code=code, uni=school)
+
+@bp.route('/questions', methods=['GET', 'POST'])
 # @login_required
 def questions():
     # LIST OF QUESTIONS
@@ -96,7 +129,7 @@ def create():
         text_to_parse = process_document(file)
         text = text_to_parse
             #json.loads(text_to_parse))
-
+    
         exam_dur = jt.json_parser.search_duration(text)
         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
         pages = jt.parse_pages(text, exam_points, exam_dur)
