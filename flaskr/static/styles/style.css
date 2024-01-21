@@ -51,12 +51,20 @@ body {
     height: 100%;
 }
 
+span {
+    font-size: 0.7rem;
+}
+
+/******************************************Navbar*/
 .nav-items {
     font-weight: 400;
 }
 
-.nav-items {
-    font-weight: 400;
+.lora-logo {
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
 }
 
 /******************************************Text*/
@@ -81,76 +89,17 @@ h1 {
     color: #0E00AB;
 }
 
-/******************************************Page content (excluding nav bar)*/
-.wrap {
-    display: flex;
-    align-items: center; 
-
-    padding: 20px;
-    margin-left: 15%;
-
-}
-
-/******************************************Form*/
-.form {
-    flex: 1;
-    padding: 0 20px;
-}
-
-form {
-    width: 100%;
-}
-
-label {
-    font-size: 0.7rem;
-}
-
-input[type=text] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    height: 5vh;
-}
-
-input[type=file] {
-    height: 5vh;
-    font-size: 0.7rem;
-    width: 100%;
-    border-radius: 3px;
-    border-color: #777777;
-}
-
-/******************************************Text*/
-/*Large text*/
-h1 {
-    font-family: 'Lora', serif;
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-/*Medium text*/
-.text {
-    font-family: 'Inter', sans-serif;
+/*Misc header styling*/
+#remixHeader {
     font-size: 1rem;
-    text-align: center;
-}
-
-/*Note: Small text is 0.7rem*/
-
-.accentText {
-    color: #0E00AB;
 }
 
 /******************************************Page content (excluding nav bar)*/
 .wrap {
     display: flex;
     align-items: center; 
-
     padding: 20px;
-    margin-left: 15%;
-
+    padding-right: 15%;
 }
 
 /******************************************Form*/
@@ -173,6 +122,10 @@ input[type=text] {
     margin-bottom: 10px;
     box-sizing: border-box;
     height: 5vh;
+    border-radius: 3px;
+    border-color: #DDDDDD;
+    border-width: 2px;
+    border-style: solid;
 }
 
 input[type=file] {
@@ -180,21 +133,18 @@ input[type=file] {
     font-size: 0.7rem;
     width: 100%;
     border-radius: 3px;
-    border-color: #777777;
+    border-color: #DDDDDD;
+    border-width: 2px;
 }
 
 .centered-submit-button {
     display: block;
     margin: 0 auto;
-}
-
-#fileButton {
-    border: 1px solid #000;
-    width: 100%;
+    background-color: #0E00AB;
+    border: none;
     border-radius: 3px;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
+    color: #FFFFFF;
+    /* font-size: 0.7rem; */
 }
 
 /*********************************Images*/
@@ -206,4 +156,58 @@ input[type=file] {
 img {
     width: 60%;
     height: auto;
+}
+
+/*********************************Slider*/
+.slider-container {
+    width: 100%;
+}
+
+.slider-container .p {
+    width: 100%;
+}
+
+#tooltip1 {
+    float: left;
+}
+
+#tooltip2 {
+    float: right;
+}
+
+input[type=range]{
+    
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+input[type=range]:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0E00AB;
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0E00AB;
+    cursor: pointer;
+}
+
+/*********************************Embelishments*/
+hr {
+    border: 1px solid #737373;
+    margin-top: 8%;
 }

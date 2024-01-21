@@ -18,6 +18,18 @@ def index():
     ).fetchall()
     return render_template('main/index.html', posts=posts)
 
+# Routing
+@bp.route('/search')
+# @login_required
+def search():
+    image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
+    return render_template('main/search.html', image_url=image_url)
+
+@bp.route('/remix')
+# @login_required
+def remix():
+    return render_template('main/remix.html')
+
 @bp.route('/create')
 # @login_required
 def create():
