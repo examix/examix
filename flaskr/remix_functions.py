@@ -32,6 +32,7 @@ def remix(exp_time, diff, school="uvic", department="CSC", course_code="110"):
     cur_difficulty = seed_q['difficulty']
     results = [seed_q]
 
+    #exams = db.get_exam_by_cid(1)
 
     #questions = []
     #for exam in exams:

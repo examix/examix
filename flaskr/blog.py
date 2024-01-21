@@ -111,7 +111,7 @@ def exams():
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
-    time = request.form['time']
+    time = int(request.form['time'])
     #questions = db.get_questions_db(1)
     #johns question functoin
     print(time)
