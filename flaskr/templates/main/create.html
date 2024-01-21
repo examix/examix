@@ -4,29 +4,75 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-<div class="wrap">
-    <div class="content">
-        <div class="center">
-          <h1>Upload your exam</h1>
-          <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
+<div class="d-flex justify-content-center align-items-center"?>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Content for the first column -->
+        <h2>Column 1</h2>
+        <div class="d-flex justify-content-center align-items-center">
+          <form>
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" id="inputGroupFile02">
+              <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+        
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+        
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+        
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
-        <div class="form">
-            <form action="">
-                <label for="file" id="fileLabel">File</label><br>
-                <input type="file" class="form-control" id="customFile" />
-                <hr>
-                <label for="university">University</label><br>
-                <input type="text" id="university" name="university" value=""><br>
-                <label for="university">Course Department</label><br>
-                <input type="text" id="courseDept" name="courseDept" value=""><br>
-                <label for="university">Course Number</label><br>
-                <input type="text" id="courseNum" name="courseNum" value=""><br><br>
-                <input type="submit" value="Upload &rarr;" class="centered-submit-button">
-              </form> 
-        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- Content for the second column -->
+        <img src="{{ image_url }}" alt="calm person" class="img-large mx-auto">
+      </div>
     </div>
-    <div class="image">
-      <img src="{{ image_url }}" alt="calm person"/>
-    </div>
+  </div>
+
 </div>
+
+<!-- <div class="wrap">
+  <div class="content">
+      <div class="center">
+        <h1>Upload your exam</h1>
+        <p class="text">Help by contributing to our <span class="accentText">growing</span> problem bank</p>
+      </div>
+      <div class="form">
+          <form action="">
+              <label for="file" id="fileLabel">File</label><br>
+              <input type="file" class="form-control" id="customFile" />
+              <hr>
+              <label for="university">University</label><br>
+              <input type="text" id="university" name="university" value=""><br>
+              <label for="university">Course Department</label><br>
+              <input type="text" id="courseDept" name="courseDept" value=""><br>
+              <label for="university">Course Number</label><br>
+              <input type="text" id="courseNum" name="courseNum" value=""><br><br>
+              <input type="submit" value="Submit" class="centered-submit-button">
+            </form> 
+      </div>
+  </div>
+  <div class="image">
+    <img src="{{ image_url }}" alt="calm person"/>
+  </div> -->
+</div>
+
 {% endblock %}  

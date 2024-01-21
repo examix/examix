@@ -16,13 +16,14 @@ def index():
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
-    return render_template('main/index.html', posts=posts)
+    image_url2 = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    return render_template('main/index.html', image_url2=image_url2)
 
 # Routing
 @bp.route('/search')
 # @login_required
 def search():
-    image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
+    image_url = url_for('static', filename='styles/imgs/2.Searching.svg')
     return render_template('main/search.html', image_url=image_url)
 
 @bp.route('/remix')
@@ -33,7 +34,7 @@ def remix():
 @bp.route('/create')
 # @login_required
 def create():
-    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    image_url = url_for('static', filename='styles/imgs/2.Searching.svg')
     return render_template('main/create.html', image_url=image_url)
     # if request.method == 'POST':
     #     title = request.form['title']
