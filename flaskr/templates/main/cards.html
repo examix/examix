@@ -7,23 +7,31 @@
         <p>Results for {{ uni }}</p>
 
         <div class="d-flex col justify-content-center align-items-center">
-            <div class="rounded-rectangle "></div>
-            <table>
-                <tr>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
-                  </tr>
+            <table class="table table-striped" style="max-width: 30vw">
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Overall Questions</th>
+                    
                   <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
+                    <td>CSC 110</td>
+                    <td>Fundamentals of Programming: 1</td>
+                    <td>23 Overall Questions</td>
                   </tr>
+
                   <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
+                    <td>CSC 355</td>
+                    <td>Digital Logic and Computer Organization</td>
+                    <td>19 Overall Questions</td>
                   </tr>
+
+                  {% for course in courses %}
+                    
+                  {% endfor %}
+
+
+
+
+
             </table>
         </div>
     </div>

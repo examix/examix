@@ -11,7 +11,6 @@ class Exam:
         self.pages = pages
         self.school = school
 
-
 class Page:
     def __init__(self, page_num, width, height, questions=None):
         self.page_num = page_num

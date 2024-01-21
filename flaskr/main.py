@@ -37,6 +37,7 @@ def cards():
     image_url = url_for('static', filename='styles/imgs/20.Searching.svg')
     name = 'CSC'
     uni = 'University of Victoria'
+    courses = []
     return render_template('main/cards.html', name=name, uni = uni, )
 
 @bp.route('/create')
