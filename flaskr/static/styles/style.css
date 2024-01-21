@@ -49,7 +49,7 @@ body {
     background: white;
     margin: 0;
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 
     /* For sliding/easing in */
     opacity: 0;
