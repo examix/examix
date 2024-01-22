@@ -112,10 +112,11 @@ def exams():
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
     time = int(request.form['time'])
+    #diff = float(request.form['customRange'])
     #questions = db.get_questions_db(1)
     #johns question functoin
-    print(time)
-    questions, exam_time, exam_difficulty = rf.remix(int(time), 1)
+    #print(time)
+    questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
     print(len(questions))
     questions_list = []
     num = 1
