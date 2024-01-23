@@ -297,13 +297,11 @@ hr {
 .navbar-nav .nav-link:hover {
     color: #FFFFFF;
     background-color: #0E00AB; /* Add background color on hover */
-    background-color: #FFAC63; /* Add background color on hover */
     border-radius: 5px; /* Add rounded corners */
 }
 
 .navbar-nav .logo:hover {
     color: #0E00AB;
-    color: #FFAC63;
 }
 /* ============ table row styling ============ */
 .all-posts {
