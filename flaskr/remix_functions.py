@@ -32,6 +32,21 @@ def remix(exp_time, diff, school="uvic", department="CSC", course_code="110"):
     cur_difficulty = seed_q['difficulty']
     results = [seed_q]
 
+    #exams = db.get_exam_by_cid(1)
+
+    #questions = []
+    #for exam in exams:
+    #    for page in exam[:
+    #        questions.extend([question for question in page.questions])
+
+    questions = db.get_questions_db()
+
+    seed_q = questions.pop(random.randint(0, len(questions) - 1))
+    time = seed_q['duration']
+    time_diff = calc_time_diff(time, exp_time)
+    cur_difficulty = seed_q['difficulty']
+    results = [seed_q]
+
     while time_diff > 0.2 and time <= exp_time:
         singles = []
         doubles = []
@@ -39,20 +54,20 @@ def remix(exp_time, diff, school="uvic", department="CSC", course_code="110"):
             cur_deiv, new_avg =  calc_dieviation([question], cur_difficulty, time, diff)
             singles.append( ([question], cur_deiv, new_avg) )
 
-        for q_pair in itertools.product(questions, questions):
-            cur_deiv, new_avg =  calc_dieviation(q_pair, cur_difficulty, time, diff)
-            doubles.append( (q_pair, cur_deiv, new_avg) )
+        #for q_pair in itertools.product(questions, questions):
+        #    cur_deiv, new_avg =  calc_dieviation(q_pair, cur_difficulty, time, diff)
+        #    doubles.append( (q_pair, cur_deiv, new_avg) )
 
         candidates = sorted(singles + doubles, key=lambda x: x[1])
 
         if not candidates:
             break
 
-        new_time = time + sum([q[1] for q in candidates[0][0]])
+        new_time = time + sum([q[7] for q in candidates[0][0]])
         while candidates and new_time > exp_time*ACCEPTABLE_ERROR:
             candidates.pop(0) 
-            new_time = time + sum([q[1] for q in candidates[0][0]] if candidates else [])
-        
+            new_time = time + sum([q[7] for q in candidates[0][0]] if candidates else [])
+
         if not candidates:
             break
         
@@ -65,4 +80,5 @@ def remix(exp_time, diff, school="uvic", department="CSC", course_code="110"):
         time_diff = calc_time_diff(time, exp_time)
         
     results_dict = [  { key : result[key] for key in result.keys() } for result in results  ]
+    print("len of results: %s" % (results_dict))
     return results_dict, time, cur_difficulty

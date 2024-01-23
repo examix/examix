@@ -13,6 +13,7 @@ import json
 from flaskr.parse_document import process_document
 from flask import render_template, redirect, url_for
 from flask_session import Session
+import flaskr.remix_functions as rf
 
 bp = Blueprint('blog', __name__)
 app = Flask(__name__)
@@ -32,8 +33,10 @@ def search():
     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
     return render_template('main/search.html', image_url=image_url)
 
-@bp.route('/remix')
+@bp.route('/remix', methods=['GET', 'POST'])
 def remix():
+    if request.method == 'POST':
+        return redirect(url_for('blog.remix_result'), code=307)
     return render_template('main/remix.html')
 
 @bp.route('/cards', methods=['GET', 'POST'])
@@ -104,17 +107,22 @@ def exams():
     for exam in list_exams:
         print(exam['duration'])
 
-    return render_template('main/exams.html', list_exams = list_exams, department=department, code=code)
-
+    return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
-    questions = db.get_questions_db(1)
+    time = int(request.form['time'])
+    #diff = float(request.form['customRange'])
+    #questions = db.get_questions_db(1)
     #johns question functoin
+    #print(time)
+    questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
+    print(len(questions))
     questions_list = []
     num = 1
 
     for question in questions:
+        print(type(question))
         question_dict = {
             "q_num": num,
             "type": question['question_type'],
@@ -139,7 +147,8 @@ def questions():
     #exam_id = request.form['exam_id']
     #card_num = 0 # note same as exam_num
 
-    questions = db.get_questions_db(1)
+    exam_id = request.args.get('exam_id')
+    questions = db.get_questions_db(exam_id)
     questions_list = []
     num = 1
 

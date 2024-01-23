@@ -49,7 +49,7 @@ body {
     background: white;
     margin: 0;
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 
     /* For sliding/easing in */
     opacity: 0;
@@ -284,16 +284,45 @@ hr {
     transform-origin: center; /* Set the transform origin to the center of the SVG */
 }
 
-tr:first-child {
+/* ============ navbar styling ============ */
+.navbar {
+    background-color: #FFFFFF; /* Background color matching the image */
+}
+
+.navbar-nav a {
+    color: #1E2125;
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFFFFF;
+    background-color: #0E00AB; /* Add background color on hover */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.navbar-nav .logo:hover {
+    color: #0E00AB;
+}
+/* ============ table row styling ============ */
+.all-posts {
+    padding: 20px;
+}
+
+#table.test td {
+    background-color: white;
+    border: none;
+}
+
+td:first-child {
     border-left-style: solid;
-    border-top-left-radius: 15px; 
+    border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
 }
 
-tr:last-child {
+td:last-child {
     border-right-style: solid;
-    border-bottom-right-radius: 15px; 
-    border-top-right-radius: 15px; 
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .zui-table {
@@ -305,17 +334,45 @@ tr:last-child {
     text-align: center;
 }
 
-.zui-table tbody td {
-    color: #333;
-    padding: 10px;
-    text-shadow: 1px 1px 1px #fff;
-    border-radius: 10px;
-}
+/*.zui-table tbody td {*/
+/*    color: #333;*/
+/*    padding: 10px;*/
+/*    text-shadow: 1px 1px 1px #fff;*/
+/*    !*border-radius: 10px;*!*/
+/*    border-radius: 10px;*/
+/*}*/
 
 .zui-table-highlight tbody tr:hover {
     background-color: #e7e7e7;
-    border-radius: 50px;
-}rgb(0, 102, 255)rgb(107, 166, 255)rgb(234, 234, 234)
+    border-radius: 20px;
+}
+
+
+table.test {
+    border-collapse: separate;
+}
+
+/* row hover styling */
+tr.item:hover td {
+    background-color: #F0F2F3;
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 18px; /* Adjust the font size as needed */
+}
+
+.post-content {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+.post-text {
+    color: #1E2125;
+}
+
+.firstLine td{
+    border-bottom: 2px solid black;
+}
 /* .zui-table-horizontal tbody td {
     border-left: none;
     border-right: none;

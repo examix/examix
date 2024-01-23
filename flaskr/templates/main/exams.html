@@ -14,7 +14,7 @@
       {% if code == null %}
           <h2 style="font-weight: 700">Results for {{ name }}</h2>
       {% else %}
-          <h2 style="font-weight: 700">Results for {{ name + code}}</h2>
+          <h2 style="font-weight: 700">Results for {{ name + ' ' + code|string }}</h2>
       {% endif %}
       {% endif %}
     </div>
@@ -23,15 +23,15 @@
     <table class="zui-table zui-table-horizontal zui-table-highlight">
       <thead>
         <tr>
-            <th>questions</th>
-            <th>id</th>
+            <th>Questions</th>
+            <th>Exam id</th>
         </tr>
       </thead>
       <tbody>
         {% for exam in list_exams %}
-        <tr data-exam_id="{{ exam['exam_id']}}">
+        <tr data-exam_id="{{ exam['exam_id'] }}">
           <td>{{ exam['num_questions'] }}</td>
-          <td>{{ exam['exam_id'] }}</td>
+          <td>{{ exam['exam_id']|string }}</td>
         </tr>
         
         {% endfor %}
