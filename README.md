@@ -5,9 +5,9 @@
 ## Environment setup
 examix uses the Flask and React frameworks with a SQLite database backend and Google
 Document AI for document parsing. Our backend scripts are written in Python. To
-set up the approipte Python modules, use the provided `requirements.txt` file:
+set up the required Python modules, use the provided `requirements.txt` file:
 
-`$ pip install -r requirements.txt`
+`$ python3 -m pip install -r requirements.txt`
 
 To host the document upload backend, you'll need a Google Cloud account setup
 with a Document OCR processor set up. If you're unfamilar with the process,
@@ -40,3 +40,6 @@ Work in progress!
 We use feature based branches - to begin work on a feature or bugfix, create a
 branch for the your contributions on the feature.
 
+## Gallery
+<img src="docs/images/examix-search-page.png" width="50%" alt="examix search page"/>
+<img src="docs/images/examix-upload-page.png" width="50%" alt="examix upload page"/>
