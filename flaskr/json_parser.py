@@ -124,14 +124,12 @@ def search_points(question_text):
 def search_duration(json):
     result = 0
     lines = json['text'].split('\n')
-    #lines = text.split('\n')
 
     hrs_search_regex  = '(?:(?P<hrs>\d+)\s*(?:hours?|hrs?))' 
     mins_search_regex = '(?:(?P<mins>\d+)\s*(?:minutes?|mins?))'
     mins_search_regex2 = '(?:(?P<mins2>\d+)\s*(?:minutes?|mins?))'
     search_regex_str  = '(?:%s|%s)\s*(?:and)?\s*%s?' % (hrs_search_regex, mins_search_regex, mins_search_regex2)
     search_obj = re.compile(search_regex_str)
-    #print(search_regex_str)
 
     for line in lines:
         if is_question_border(line):
