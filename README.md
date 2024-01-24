@@ -1,6 +1,6 @@
 # examix
 **nwHacks 2024 submission** &#124; Intuitive Exam Bank incorporated with AI for personalized studying.
-<img src="docs/images/examix-banner.png" width="75%" alt="examix banner"/>
+<img src="docs/images/examix-banner.png" width="100%" alt="examix banner"/>
 
 ## Environment setup
 examix uses the Flask and React frameworks with a SQLite database backend and Google
@@ -19,7 +19,7 @@ You'll also need SQLite installed on your device. On Linux, installing the
 ## Running the app
 First, intialize the database with the following command:
 
-`flask --app flaskr init-db`
+`$ flask --app flaskr init-db`
 
 Then, the local development server can be started with:
 
@@ -41,5 +41,4 @@ We use feature based branches - to begin work on a feature or bugfix, create a
 branch for the your contributions on the feature.
 
 ## Gallery
-<img src="docs/images/examix-search-page.png" width="50%" alt="examix search page"/>
-<img src="docs/images/examix-upload-page.png" width="50%" alt="examix upload page"/>
+<img src="docs/images/examix-search-page.png" width="49%" alt="examix search page"/> <img src="docs/images/examix-upload-page.png" width="49%" alt="examix upload page"/>
