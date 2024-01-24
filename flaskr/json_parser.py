@@ -1,7 +1,4 @@
-import re
-import base64
-import io
-import tempfile
+import re, base64, io, tempfile
 from PIL import Image
 
 def get_blocks(json, page_num): 
@@ -49,10 +46,8 @@ def get_question_blocks(json, page_num) -> list[list[dict]]:
         if is_question_border(text):
             if in_question:
                 results.append(cur_question)
-            #else:
             cur_question = [block]
 
-            #in_question = not in_question
             in_question = True
         elif in_question:
             cur_question.append(block)
@@ -63,15 +58,15 @@ def get_question_blocks(json, page_num) -> list[list[dict]]:
 def get_question_text(json, question_blocks) -> str:
     return ''.join([get_block_text(json, block) for block in question_blocks])
 
-def get_question_bounds(question_blocks, next_question = None) -> list[tuple[int, int]]:
+def get_question_bounds(question_blocks, next_question = None, padding: int = 10) -> list[tuple[int, int]]:
     blocks_vertices = [get_block_vertices(block) for block in question_blocks]
     top_lefts = [vertices[0] for vertices in blocks_vertices]
     bottom_rights = [vertices[2] for vertices in blocks_vertices]
 
-    top = min([vertex[1] for vertex in top_lefts]) - 10
-    left = min([vertex[0] for vertex in top_lefts]) - 10
-    bottom = get_block_vertices(next_question[0])[0][1] if next_question else  max([vertex[1] for vertex in bottom_rights]) + 10
-    right = max([vertex[0] for vertex in bottom_rights]) + 10
+    top = min([vertex[1] for vertex in top_lefts]) - padding
+    left = min([vertex[0] for vertex in top_lefts]) - padding
+    bottom = get_block_vertices(next_question[0])[0][1] if next_question else max([vertex[1] for vertex in bottom_rights]) + padding
+    right = max([vertex[0] for vertex in bottom_rights]) + padding
 
     return [(left, top), (right, top), (right, bottom), (left, bottom)]
 
@@ -129,14 +124,12 @@ def search_points(question_text):
 def search_duration(json):
     result = 0
     lines = json['text'].split('\n')
-    #lines = text.split('\n')
 
     hrs_search_regex  = '(?:(?P<hrs>\d+)\s*(?:hours?|hrs?))' 
     mins_search_regex = '(?:(?P<mins>\d+)\s*(?:minutes?|mins?))'
     mins_search_regex2 = '(?:(?P<mins2>\d+)\s*(?:minutes?|mins?))'
     search_regex_str  = '(?:%s|%s)\s*(?:and)?\s*%s?' % (hrs_search_regex, mins_search_regex, mins_search_regex2)
     search_obj = re.compile(search_regex_str)
-    #print(search_regex_str)
 
     for line in lines:
         if is_question_border(line):

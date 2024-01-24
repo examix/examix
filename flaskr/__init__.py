@@ -44,8 +44,5 @@ def create_app(test_config=None):
     from . import json_translator
     app.register_blueprint(json_translator.bp)
 
-    from .sample_data import preformatted_parser
-    app.register_blueprint(preformatted_parser.bp)
-   
 
     return app

@@ -85,7 +85,6 @@ def insert_exam_db(exam, course_dept, course_num):
          exam.num_questions, exam.school, course_id, exam.num_points)
     )
     exam_id = db.execute('SELECT last_insert_rowid()').fetchone()[0]
-    print(exam_id)
     pages = exam.pages
     for page in pages:
         insert_page_db(page, exam_id)
@@ -193,7 +192,6 @@ def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
         query += " AND school.name = '" + school_name + "'"
     if prof:
         query += " AND exam.prof = '" + prof + "'"
-    print(query)
     exam = db.execute(query).fetchall()
     return exam
 

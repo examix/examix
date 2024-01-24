@@ -29,21 +29,7 @@ def index():
 
     pf.json_to_db('flaskr/sample_data/CPSC101Q1.json')
     pf.json_to_db('flaskr/sample_data/CPSC101Q3.json')
-    '''
-    ext_to_parse = open("file.json", "r")
-    text = json.loads(text_to_parse.read())
 
-    exam_dur = json_parser.search_duration(text)
-    exam_points = json_parser.search_points(json_parser.get_intro_text(text['text']))
-    test = parse_pages(text, exam_points, exam_dur)
-    exam = create_exam(test, exam_points, exam_dur)
-
-    db.insert_full_exam(exam)
-    
-    exam = db.get_exam_db(school_name="ubc") # gets random exam from db
-
-    return render_template('pages/testing_parser.html', test=test, exam=exam)
-    '''
     return "success"
 
 

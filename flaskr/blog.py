@@ -66,7 +66,6 @@ def cards():
         }
     
         course_list.append(course_dict)
-    print(len(course_list))
 
     return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
@@ -77,10 +76,6 @@ def exams():
     code = request.args.get('code')
     school = request.args.get('school')
     prof = request.args.get('prof')
-    print(department)
-    print(code)
-    print(school)
-    print(prof)
 
     # list of exams for one course given course_id
     exams = db.get_exam_db(department, code, school, prof)
@@ -104,9 +99,6 @@ def exams():
         num += 1
         list_exams.append(exam_dict)
 
-    for exam in list_exams:
-        print(exam['duration'])
-
     return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
@@ -115,14 +107,11 @@ def remix_result():
     #diff = float(request.form['customRange'])
     #questions = db.get_questions_db(1)
     #johns question functoin
-    #print(time)
     questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
-    print(len(questions))
     questions_list = []
     num = 1
 
     for question in questions:
-        print(type(question))
         question_dict = {
             "q_num": num,
             "type": question['question_type'],
