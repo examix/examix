@@ -5,11 +5,9 @@ from google.api_core.client_options import ClientOptions
 from google.cloud import documentai
 
 def process_document(fp) -> dict:
-    project_id = 'potent-poetry-411704'
-    #os.getenv("GCLOUD_PROJECT_ID")
+    project_id = os.getenv("GCLOUD_PROJECT_ID")
     location = "us" # Format is "us" or "eu"
-    processor_id = '3527739efa1575b3'
-        #os.getenv("GCLOUD_PROCESSOR_ID"))
+    processor_id = os.getenv("GCLOUD_PROCESSOR_ID")
     processor_version = "rc" # Refer to https://cloud.google.com/document-ai/docs/manage-processor-versions for more information
     mime_type = "application/pdf" # Refer to https://cloud.google.com/document-ai/docs/file-types for supported file types
 
