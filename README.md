@@ -3,18 +3,31 @@
 <img src="docs/images/examix-banner.png" width="100%" alt="examix banner"/>
 
 ## Environment setup
+### Dependencies
 examix uses the Flask and React frameworks with a SQLite database backend and Google
 Document AI for document parsing. Our backend scripts are written in Python. To
 set up the required Python modules, use the provided `requirements.txt` file:
 
 `$ python3 -m pip install -r requirements.txt`
 
+You'll also need SQLite installed on your device. On Linux, installing the
+`sqlite` package from your package manager is usually sufficient.
+
+### Document OCR setup
 To host the document upload backend, you'll need a Google Cloud account setup
 with a Document OCR processor set up. If you're unfamilar with the process,
 Google has a good tutorial at https://codelabs.developers.google.com/codelabs/docai-ocr-python
 
-You'll also need SQLite installed on your device. On Linux, installing the
-`sqlite` package from your package manager is usually sufficient.
+Once you have this setup, our backend searches for the Project ID and Processor
+ID of your document processor in the `GCLOUD_PROJECT_ID` and
+`GCLOUD_PROCESSOR_ID` environment variables, respectively. To help you set this
+up, a sample shell script to initalize these varaibles is in the docs directory. Fill
+in the placeholder fileds in the script, then run
+
+`$ source docs/activate.sh`
+
+to setup the enrionment variables in your shell.
+
 
 ## Running the app
 First, intialize the database with the following command:
