@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="width:50%">
   <div class="d-flex row justify-content-center align-items-center">
     <div class="col-sm text-center">
       {% if name == null %}
@@ -26,9 +26,9 @@
       <tbody>
         {% for course in course_list %}
         <tr data-department="{{ course['course'].department }}" data-code="{{ course['course'].code }}" data-school="{{ course['course'].school }}" data-prof="{{ course['course'].prof }}">
-          <td>{{ course['course'].department|string + ' ' + course['course'].code|string }}</td>
-          <td>{{ course['course'].name }}</td>
-          <td>{{ course['total_questions'] }} Overall Questions</td>
+          <td style="text-align:center">{{ course['course'].department|string + ' ' + course['course'].code|string }}</td>
+          <td style="text-align:center">{{ course['course'].name }}</td>
+          <td style="text-align:center">{{ course['total_questions'] }}</td>
         </tr>
         {% endfor %}
       </tbody>

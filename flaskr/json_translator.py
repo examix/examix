@@ -8,6 +8,7 @@ import flaskr.json_parser as json_parser
 import flaskr.remix_functions as rf
 import flaskr.sample_data.preformatted_parser as pf
 import base64, io
+import math
 
 bp = Blueprint('json_translator', __name__)
 
@@ -78,7 +79,7 @@ def parse_questions(text, page_idx, page_num, img, exam_points, exam_dur):
         with io.BytesIO(img) as imgfp:
             exam_image = json_parser.extract_question_image(imgfp, vertices)
 
-        duration = (num_points / exam_points) * exam_dur 
+        duration = round((num_points / exam_points) * exam_dur / 60)
         cur_question = Question(question_text, difficulty, page_num, vertices,
                                 question_type, num_points, exam_image, duration)
         cur_questions.append(cur_question)
