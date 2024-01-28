@@ -4,7 +4,7 @@
 
 ## Environment setup
 ### Dependencies
-examix uses the Flask and React frameworks with a SQLite database backend and Google
+examix uses the Flask framework with a SQLite database backend and Google
 Document AI for document parsing. Our backend scripts are written in Python. To
 set up the required Python modules, use the provided `requirements.txt` file:
 
@@ -22,7 +22,7 @@ Once you have this setup, our backend searches for the Project ID and Processor
 ID of your document processor in the `GCLOUD_PROJECT_ID` and
 `GCLOUD_PROCESSOR_ID` environment variables, respectively. To help you set this
 up, a sample shell script to initalize these varaibles is in the docs directory. Fill
-in the placeholder fileds in the script, then run
+in the placeholder values in the script, then run
 
 `$ source docs/activate.sh`
 
