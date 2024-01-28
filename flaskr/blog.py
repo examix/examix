@@ -12,7 +12,6 @@ import flaskr.json_parser as json_parser
 import json
 from flaskr.parse_document import process_document
 from flask import render_template, redirect, url_for
-from flask_session import Session
 import flaskr.remix_functions as rf
 
 bp = Blueprint('blog', __name__)
@@ -22,6 +21,11 @@ app = Flask(__name__)
 def index():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
     return render_template('main/index.html', image_url=image_url)
+
+@bp.route('/test2')
+def test2():
+    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
+    return render_template('main/test.html', image_url=image_url)
 
 # Routing
 
@@ -261,3 +265,5 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('main.index'))
+
+
