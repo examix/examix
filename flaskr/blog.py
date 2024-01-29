@@ -9,7 +9,6 @@ import flaskr.db as db
 import flaskr.search as searcher
 import flaskr.json_translator as jt
 import flaskr.json_parser as json_parser
-import json
 from flaskr.parse_document import process_document
 from flask import render_template, redirect, url_for
 import flaskr.remix_functions as rf
@@ -22,12 +21,41 @@ def index():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
     return render_template('main/index.html', image_url=image_url)
 
-@bp.route('/test2')
-def test2():
-    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
-    return render_template('main/test.html', image_url=image_url)
+@bp.route('/test3')
+def test3():
+
+    class Person:
+        def __init__(self, name, age, extra_info):
+            self.name = name
+            self.age = age
+            self.extra_info = extra_info
+
+    # Sample data
+    persons_data = [
+        Person("John", 25, "Extra information for John"),
+        Person("Jane", 30, "Extra information for Jane"),
+        # Add more data as needed
+    ]
+    image_url = url_for('static', filename='images/ubc.png')
+    image_url2 = url_for('static', filename='images/uvic.png')
+    persons = []
+    return render_template('main/test-child-2.html', image_url=image_url, image_url2=image_url2, persons = persons_data)
 
 # Routing
+
+@bp.route('/test2')
+def test2():
+    image_url = url_for('static', filename='images/ubc.png')
+    image_url2 = url_for('static', filename='images/uvic.png')
+    return render_template('main/test-child-1.html', image_url=image_url, image_url2=image_url2)
+
+
+
+
+
+
+
+
 
 
 @bp.route('/search', methods=['GET', 'POST'])
