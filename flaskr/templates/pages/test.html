@@ -1,6 +1,74 @@
+{% extends 'test.html' %}
 
-{% for course in course_array %}
+{% block style %}
+<style>
+    /* Styles for the table */
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: 20px;
+    }
 
-{{ course.course_id }}
+    table, th, td {
+        border: 1px solid black;
+    }
 
-{% endfor %}
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Styles for the extra information container */
+    .extra-info {
+        display: none;
+        border: 1px solid black;
+        padding: 10px;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Table to display person information -->
+    <table class="table" id="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in persons %}
+                <tr class="table-row" data-info="{{ person.extra_info }}">
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.age }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Container to display extra information -->
+    <div id="extra-info-container" class="extra-info"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get all table rows
+            var tableRows = document.querySelectorAll('.table-row');
+
+            tableRows.forEach(function (row) {
+                // Add click event listener to each row
+                row.addEventListener('click', function () {
+                    // Hide all extra info containers
+                    document.querySelectorAll('.extra-info').forEach(function (info) {
+                        info.style.display = 'none';
+                    });
+
+                    // Show extra info for the clicked row
+                    var extraInfoContainer = document.getElementById('extra-info-container');
+                    extraInfoContainer.textContent = row.getAttribute('data-info');
+                    extraInfoContainer.style.display = 'block';
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -22,10 +22,10 @@
 {% endblock %}
 
 {% block content %}
-
+<h1 class="pb-4 text-center">Search for Courses</h1>
 
 <form method="POST">   
-    <div class="input-group mb-3">
+    <div class="input-group mb-4">
         <input type="text" class="form-control" name="search_result" placeholder="Search for a course.." aria-label="Recipient's username" aria-describedby="button-addon2" required>
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
     </div>
@@ -43,7 +43,10 @@
         </thead>
         <tbody>
             {% for course in course_array %}
-            <tr onClick="window.location.href='/test-child-2?course_id={{ course.course_id }}'">
+            {% set department_code = course.department + '_' + course.code|string %}
+            {% set name = course.name %}
+            {% set num_questions = course.num_questions|string %}
+            <tr onClick="window.location.href='/exams?course_id={{ course.course_id }}&department_code={{ department_code }}'">
                 {% if course.school_id== 'UBC' %}
                     <td class="image-column">
                         <img src="{{ ubc_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
@@ -55,15 +58,12 @@
                 {% endif %}
                 
                 <td>{{ course.department + ' ' + course.code|string }}</td>
-                <td>{{ course.name }}</td>
-                <td>{{ course.num_questions|string + ' ' + 'Exams'}}</td>
-
+                <td>{{ name }}</td>
+                <td>{{ num_questions + ' ' + 'Exams'}}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-
 </div>
 
 {% endblock %}

@@ -22,7 +22,7 @@ def index():
     return render_template('main/index.html', image_url=image_url)
 
 
-# Routing
+# ROUTING
 
 @bp.route('/search', methods=['GET', 'POST'])
 def search():
@@ -65,8 +65,31 @@ def search():
         return render_template('pages/search.html', course_array=course_array, ubc_image = ubc_image, uvic_image = uvic_image)
     
     course_array = db.get_all_courses()
-    
+
     return render_template('pages/search.html', course_array=course_array, ubc_image = ubc_image, uvic_image = uvic_image)
+
+
+@bp.route('/exams', methods=['GET', 'POST'])
+def exams():
+    course_id = request.args.get('course_id')
+    department_code = request.args.get('department_code')
+    print(course_id)
+
+    return render_template('pages/exams.html', course_id = course_id, department_code = department_code)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -151,37 +174,37 @@ def cards():
 
     return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
 
-@bp.route('/exams', methods=['POST', 'GET'])
-def exams():
-        # output exams to questions     
-    department = request.args.get('department')
-    code = request.args.get('code')
-    school = request.args.get('school')
-    prof = request.args.get('prof')
+# @bp.route('/exams', methods=['POST', 'GET'])
+# def exams():
+#         # output exams to questions     
+#     department = request.args.get('department')
+#     code = request.args.get('code')
+#     school = request.args.get('school')
+#     prof = request.args.get('prof')
 
-    # list of exams for one course given course_id
-    exams = db.get_exam_db(department, code, school, prof)
+#     # list of exams for one course given course_id
+#     exams = db.get_exam_db(department, code, school, prof)
 
-    list_exams = []
-    num = 1
+#     list_exams = []
+#     num = 1
 
-    for exam in exams:
-        exam_dict = {
-            "exam_id": num,
-            "num_pages": exam["num_pages"],
-            "difficulty": exam["difficulty"],
-            "duration": exam["duration"],
-            "num_questions": exam["num_questions"],
-            "num_points": 0,  # Optional attribute, defaulting to None if not present
-            "pages": '',
-            "school": '',
-            "department": '',
-            "course_code": 0
-        }
-        num += 1
-        list_exams.append(exam_dict)
+#     for exam in exams:
+#         exam_dict = {
+#             "exam_id": num,
+#             "num_pages": exam["num_pages"],
+#             "difficulty": exam["difficulty"],
+#             "duration": exam["duration"],
+#             "num_questions": exam["num_questions"],
+#             "num_points": 0,  # Optional attribute, defaulting to None if not present
+#             "pages": '',
+#             "school": '',
+#             "department": '',
+#             "course_code": 0
+#         }
+#         num += 1
+#         list_exams.append(exam_dict)
 
-    return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
+#     return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
