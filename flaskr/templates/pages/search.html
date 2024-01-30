@@ -1,0 +1,69 @@
+{% extends "test.html" %}
+{% block title %}Test Child 1{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+        .table-container {
+            max-height: 70vh;
+            overflow: auto;
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+        }
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa; /* Add a background color for better visibility */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+<form method="POST">   
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="search_result" placeholder="Search for a course.." aria-label="Recipient's username" aria-describedby="button-addon2" required>
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+    </div>
+</form>
+
+<div class="table-container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="image-column">School</th>
+                <th scope="col">Course</th>
+                <th scope="col">Name</th>
+                <th scope="col">Total Exams</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in course_array %}
+            <tr onClick="window.location.href='/test-child-2?course_id={{ course.course_id }}'">
+                {% if course.school_id== 'UBC' %}
+                    <td class="image-column">
+                        <img src="{{ ubc_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
+                    </td>
+                {% elif course.school_id == 'UVIC' %}
+                    <td class="image-column">
+                        <img src="{{ uvic_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
+                    </td>
+                {% endif %}
+                
+                <td>{{ course.department + ' ' + course.code|string }}</td>
+                <td>{{ course.name }}</td>
+                <td>{{ course.num_questions|string + ' ' + 'Exams'}}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+{% endblock %}

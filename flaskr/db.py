@@ -43,7 +43,6 @@ def init_app(app):
 
 # Insert
 
-
 def insert_default_school(name, city, country):
     db = get_db()
     try:
@@ -245,5 +244,12 @@ def get_courses(department, course_code, school):
     if school:
         query += " AND school_id = '" + school + "'"
 
+    courses = db.execute(query).fetchall()
+    return courses
+
+
+def get_all_courses():
+    db = get_db()
+    query = "SELECT course_id, department, code, name, description, school_id FROM course"
     courses = db.execute(query).fetchall()
     return courses

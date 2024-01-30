@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, Flask
+    Blueprint, flash, g, redirect, render_template, request, url_for, Flask, jsonify
 )
 from werkzeug.exceptions import abort
 
@@ -21,8 +21,66 @@ def index():
     image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
     return render_template('main/index.html', image_url=image_url)
 
-@bp.route('/test3')
-def test3():
+
+# Routing
+
+@bp.route('/search', methods=['GET', 'POST'])
+def search():
+    ubc_image = url_for('static', filename='images/ubc.png')
+    uvic_image = url_for('static', filename='images/uvic.png')
+
+    if request.method == 'POST':
+        search_result = request.form['search_result']
+
+        parsed_result = searcher.parse_search(search_result)
+        # parsed search query results
+        dept = parsed_result[0]
+        code = parsed_result[1]
+        school_id = parsed_result[2]
+
+        # get all the courses that match the search query
+        courses = db.get_courses(dept, code, school_id)
+        exams = db.get_exam_db(dept, code, school_id)
+
+        # converting the list of courses to json
+        course_array = []
+        for course in courses:
+            num = 0
+            for exam in exams:
+                if exam['course_id'] == course['course_id']:
+                    num += exam['num_questions'] 
+
+            course_dict = {
+                "course_id" : course['course_id'],
+                "department" : course['department'],
+                "code" : course['code'],
+                "name" : course['name'],
+                "school_id" : course['school_id'],
+                # "course" : dict(course),
+                "num_questions": num
+            }
+
+            course_array.append(course_dict)
+
+        return render_template('pages/search.html', course_array=course_array, ubc_image = ubc_image, uvic_image = uvic_image)
+    
+    course_array = db.get_all_courses()
+    
+    return render_template('pages/search.html', course_array=course_array, ubc_image = ubc_image, uvic_image = uvic_image)
+
+
+
+
+
+
+
+
+
+
+
+
+@bp.route('/course', methods=['GET', 'POST'])
+def course():
 
     class Person:
         def __init__(self, name, age, extra_info):
@@ -41,13 +99,6 @@ def test3():
     persons = []
     return render_template('main/test-child-2.html', image_url=image_url, image_url2=image_url2, persons = persons_data)
 
-# Routing
-
-@bp.route('/test2')
-def test2():
-    image_url = url_for('static', filename='images/ubc.png')
-    image_url2 = url_for('static', filename='images/uvic.png')
-    return render_template('main/test-child-1.html', image_url=image_url, image_url2=image_url2)
 
 
 
@@ -57,13 +108,12 @@ def test2():
 
 
 
-
-@bp.route('/search', methods=['GET', 'POST'])
-def search():
-    if request.method == 'POST':
-        return redirect(url_for('blog.cards'), code=307)
-    image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
-    return render_template('main/search.html', image_url=image_url)
+# @bp.route('/search', methods=['GET', 'POST'])
+# def search():
+#     if request.method == 'POST':
+#         return redirect(url_for('blog.cards'), code=307)
+#     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
+#     return render_template('main/search.html', image_url=image_url)
 
 @bp.route('/remix', methods=['GET', 'POST'])
 def remix():

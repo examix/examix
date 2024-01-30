@@ -1,6 +1,8 @@
 {% extends 'test.html' %}
+
 {% block style %}
 <style>
+    /* Styles for the table */
     table {
         border-collapse: collapse;
         width: 50%;
@@ -16,6 +18,7 @@
         text-align: left;
     }
 
+    /* Styles for the extra information container */
     .extra-info {
         display: none;
         border: 1px solid black;
@@ -26,7 +29,8 @@
 {% endblock %}
 
 {% block content %}
-    <table id="data-table">
+    <!-- Table to display person information -->
+    <table class="table" id="data-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -35,21 +39,24 @@
         </thead>
         <tbody>
             {% for person in persons %}
-            <tr class="table-row" data-info="{{ person.extra_info }}">
-                <td>{{ person.name }}</td>
-                <td>{{ person.age }}</td>
-            </tr>
+                <tr class="table-row" data-info="{{ person.extra_info }}">
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.age }}</td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>
 
+    <!-- Container to display extra information -->
     <div id="extra-info-container" class="extra-info"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Get all table rows
             var tableRows = document.querySelectorAll('.table-row');
 
             tableRows.forEach(function (row) {
+                // Add click event listener to each row
                 row.addEventListener('click', function () {
                     // Hide all extra info containers
                     document.querySelectorAll('.extra-info').forEach(function (info) {
