@@ -17,7 +17,7 @@
 {% block content %}
 <!-- HEADER -->
 <div class="mb-5 text-center" style="background-color: rgb(255, 255, 255)">
-    <h1 style="font-weight: 600;">Search for Courses</h1>
+    <p style="font-size: 45px; font-weight: 600; margin-bottom: 0px;">Search for a Course</p>
 </div>
 
 <!-- SEARCH BAR -->
@@ -45,11 +45,11 @@
             {% set name = course.name %}
             {% set num_questions = course.num_questions|string %}
             <tr onClick="window.location.href='/exams?&department={{ course.department }}&code={{ course.code }}&school={{ course.school_id }}&exam_id=0'">
-                {% if course.school_id== 'UBC' %}
+                {% if course.school_id.upper() == 'UBC' %}
                     <td class="image-column text-center">
                         <img src="{{ ubc_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
                     </td>
-                {% elif course.school_id == 'UVIC' %}
+                {% elif course.school_id.upper() == 'UVIC' %}
                     <td class="image-column text-center">
                         <img src="{{ uvic_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
                     </td>

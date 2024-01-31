@@ -18,14 +18,13 @@ def test():
 
 @bp.route('/request')
 def index():
-    db.insert_default_school('uvic', 'victoria', 'canada')
-    db.insert_alternate_school('uvic', 'university of victoria')
+    db.insert_default_school('uvic', 'Victoria', 'Canada')
+    db.insert_alternate_school('uvic', 'University of Victoria')
 
-    db.insert_default_school('ubc', 'vancouver', 'canada')
-    db.insert_alternate_school('ubc', 'university of british columbia')
+    db.insert_default_school('ubc', 'Vancouver', 'Canada')
+    db.insert_alternate_school('ubc', 'University of British Columbia')  # Change to camel case
 
-    db.insert_course_full_db('CPSC', '101', 'Connecting with Computer Science', 
-                             'Learn Computer Science', 'ubc')
+    db.insert_course_full_db('CPSC', '101', 'Introduction to Computer Science', 'An introductory course that covers the fundamental concepts of computer science. Students will learn the basics of programming, problem-solving, and algorithmic thinking. Topics include data types, control structures, and an overview of computer systems. No prior programming experience required.', 'ubc')
 
     pf.json_to_db('flaskr/sample_data/CPSC101Q1.json')
     pf.json_to_db('flaskr/sample_data/CPSC101Q3.json')

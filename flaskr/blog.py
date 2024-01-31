@@ -20,7 +20,7 @@ app = Flask(__name__)
 def index():
     return redirect( url_for('blog.search'))
 
-# ===== ROUTING =====
+# ===== SEARCH =====
 
 @bp.route('/search', methods=['GET', 'POST'])
 def search():
@@ -58,13 +58,13 @@ def search():
             }
 
             course_array.append(course_dict)
-
         return render_template('pages/search.html', course_array=course_array, ubc_image = ubc_image, uvic_image = uvic_image)
     
     course_array = db.get_all_courses()
 
     return render_template('pages/search.html', course_array=course_array, ubc_image = ubc_image, uvic_image = uvic_image)
 
+# ===== EXAMS =====
 
 @bp.route('/exams', methods=['GET', 'POST'])
 def exams():
@@ -102,6 +102,7 @@ def exams():
 
     return render_template('pages/exams.html', exams_array = exams_array, department = department, code = code, questions_array = questions_array)
 
+# ===== UPLOAD =====
 
 @bp.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -109,6 +110,11 @@ def upload():
 
     if request.method == 'POST':
         file = request.files['fileUpload']
+        university = request.form['university']
+        course_dept = request.form['courseDept']
+        course_num = request.form['courseNum']
+        exam_type = request.form['examType']
+
         text_to_parse = process_document(file)
         text = text_to_parse
     
@@ -137,64 +143,18 @@ def upload():
         if error is not None:
             flash(error)
         else:
-            return redirect('/search')
+            return redirect(url_for('blog.search'))
 
     return render_template('pages/upload.html', image_url = image_url)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@bp.route('/testtest', methods=['GET', 'POST'])
-def testtest():
-    course_id = request.args.get('course_id')
-    department_code = request.args.get('department_code')
-    
-    department = request.args.get('department')
-    code = request.args.get('code')
-    school = request.args.get('school')
-    prof = request.args.get('prof')
-
-    # list of exams for one course given course_id
-    exams = db.get_exam_db(department, code, school, prof)
-    exams_json_array = []
-
-    for exam in exams:
-        exam_dict = dict(exam)
-        questions = db.get_questions_db(exam_dict['exam_id'])
-
-        serialized_questions = [dict(q) for q in questions]
-
-        exam_questions_dict = {
-            'exam' : exam_dict,
-            'questions' : serialized_questions
-        }
-
-        exams_json_array.append(exam_questions_dict)
-    return render_template('pages/test.html', exams_json_array = exams_json_array)
+# ===== REMIX =====
 
 @bp.route('/remix', methods=['GET', 'POST'])
 def remix():
-    image_url = url_for('static', filename='images/nc-people-holding-cards.svg')
+    image_url = url_for('static', filename='images/nc-experimenting.svg')
     if request.method == 'POST':
         return redirect(url_for('blog.remix_result'), code=307)
     return render_template('pages/remix.html', image_url = image_url)
-
 
 @bp.route('/remixresults', methods = ['GET', 'POST'])
 def remix_result():
@@ -235,184 +195,6 @@ def remix_result():
 
 
 
-
-
-
-
-
-
-
-# @bp.route('/search', methods=['GET', 'POST'])
-# def search():
-#     if request.method == 'POST':
-#         return redirect(url_for('blog.cards'), code=307)
-#     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
-#     return render_template('main/search.html', image_url=image_url)
-
-# @bp.route('/remix', methods=['GET', 'POST'])
-# def remix():
-#     if request.method == 'POST':
-#         return redirect(url_for('blog.remix_result'), code=307)
-#     return render_template('main/remix.html')
-
-@bp.route('/cards', methods=['GET', 'POST'])
-def cards():
-
-    search_term = request.form['search']
-    result_list = searcher.parse_search(search_term)
-    dept = result_list[0]
-    code = result_list[1]
-    school = result_list[2]
-
-    # query courses and exams
-    courses = db.get_courses(dept, code, school)
-    exams = db.get_exam_db(dept, code, school)
-
-    course_list = []
-
-    for course in courses:
-        num = 0
-        for exam in exams:
-            if exam['course_id'] == course['course_id']:
-                num += exam['num_questions']
-
-        course_dict = {
-            "course": course,
-            "total_questions": num
-        }
-    
-        course_list.append(course_dict)
-
-    return render_template('main/cards.html', course_list=course_list, name=dept, code=code, uni=school)
-
-# @bp.route('/exams', methods=['POST', 'GET'])
-# def exams():
-#         # output exams to questions     
-#     department = request.args.get('department')
-#     code = request.args.get('code')
-#     school = request.args.get('school')
-#     prof = request.args.get('prof')
-
-#     # list of exams for one course given course_id
-#     exams = db.get_exam_db(department, code, school, prof)
-
-#     list_exams = []
-#     num = 1
-
-#     for exam in exams:
-#         exam_dict = {
-#             "exam_id": num,
-#             "num_pages": exam["num_pages"],
-#             "difficulty": exam["difficulty"],
-#             "duration": exam["duration"],
-#             "num_questions": exam["num_questions"],
-#             "num_points": 0,  # Optional attribute, defaulting to None if not present
-#             "pages": '',
-#             "school": '',
-#             "department": '',
-#             "course_code": 0
-#         }
-#         num += 1
-#         list_exams.append(exam_dict)
-
-#     return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
-
-# @bp.route('/remixresults', methods = ['GET', 'POST'])
-# def remix_result():
-#     time = int(request.form['time'])
-#     #diff = float(request.form['customRange'])
-#     #questions = db.get_questions_db(1)
-#     #johns question functoin
-#     questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
-#     questions_list = []
-#     num = 1
-
-#     for question in questions:
-#         question_dict = {
-#             "q_num": num,
-#             "type": question['question_type'],
-#             "difficulty": question['difficulty'],
-#             "description": question['question'],
-#             "page_num": question['page_num'],
-#             "points": question['num_points'],
-#             "image": question['exam_image'],
-#             "duration": question['duration'],
-#             "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
-#         }
-#         num += 1
-
-#         questions_list.append(question_dict)
-
-#     return render_template('main/remix_questions.html', questions_list=questions_list)
-
-@bp.route('/questions', methods = ['GET', 'POST'])
-# @login_required
-def questions():
-    # LIST OF QUESTIONS
-    #exam_id = request.form['exam_id']
-    #card_num = 0 # note same as exam_num
-
-    exam_id = request.args.get('exam_id')
-    questions = db.get_questions_db(exam_id)
-    questions_list = []
-    num = 1
-
-    for question in questions: 
-        question_dict = {
-            "q_num": num,
-            "type": question['question_type'],
-            "difficulty": question['difficulty'],
-            "description": question['question'],
-            "page_num": question['page_num'],
-            "points": question['num_points'],
-            "image": question['exam_image'],
-            "duration": question['duration'],
-            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
-        }
-        num += 1
-    
-        questions_list.append(question_dict)
-
-    return render_template('main/questions.html', questions_list=questions_list)
-
-# @bp.route('/create', methods=['GET', 'POST'])
-# # @login_required
-# def create():
-#     image_url = url_for('static', filename='styles/imgs/6.Effortless.svg')
-#     if request.method == 'POST':
-#         file = request.files['fileUpload']
-#         text_to_parse = process_document(file)
-#         text = text_to_parse
-#             #json.loads(text_to_parse))
-    
-#         exam_dur = jt.json_parser.search_duration(text)
-#         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
-#         pages = jt.parse_pages(text, exam_points, exam_dur)
-#         exam = jt.create_exam(pages, exam_points, exam_dur)
-#         course_dept = request.form['courseDept'].upper()
-#         course_num = request.form['courseNum']
-
-#         db.insert_full_exam(exam, course_dept, course_num)
-
-#         uni = request.form['university']
-
-#         error = ""
-
-#         if file.filename == '' or not is_pdf(file):
-#             error = 'File is required. File must be of .pdf type.'
-#         elif not uni:
-#             error = 'University is required. Input must be alphabetic.'
-#         elif not course_dept:
-#             error = 'Course department is required. Input must be alphabetic '
-#         elif not course_num:
-#             error = 'Course Number is required. Input must be alphanumeric'
-
-#         if error is not None:
-#             flash(error)
-#         else:
-#             return redirect('/search')
-
-#     return render_template('main/create.html', image_url=image_url)
 
 def is_pdf(file):
     # Check if the file content type is PDF

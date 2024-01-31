@@ -1,60 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="d-flex flex-column justify-content-center align-items-center">
+<div class="d-flex flex-column justify-content-center align-items-center" style="background-image: '{{ image_url }}';">
+    <!-- IMAGE -->
+    <img src="{{ image_url}}" class="mb-4" style="height: 225px">
+    
     <!-- HEADER -->
     <div class="mb-4 text-center" style="background-color: rgb(255, 255, 255)">
-        <h1 style="font-weight: 600;">Upload your Exam</h1>
-        <p>Help by contributing to our <span class="accentText">growing</span> problem bank</p>
+        <p style="font-size: 45px; font-weight: 700; margin-bottom: 0px;">Upload your Exams</p>
+        <p style="font-size: 20px;">Help by contributing to our growing problem bank</p>
     </div>
 
-    <!-- IMAGE -->
-    <img src="{{ image_url}}" class="mb-4" style="height: 25vh">
-
+    <hl></hl>
     <!-- FORM -->
-    <form action="/create" method="post" enctype="multipart/form-data">
-        <!-- FILE UPLOAD -->
-        <label for="university">File</label><br>
-        <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputGroupFile02" name="fileUpload" accept=".pdf" required>
+    <form method="post" enctype="multipart/form-data">
+        <div class="d-flex flex-column">
+            <!-- FILE UPLOAD -->
+            <div class="mb-3">
+                <label for="university">File</label>
+                <br>
+                <input type="file" class="form-control" id="inputGroupFile02" name="fileUpload" accept=".pdf" required>
+            </div>
+            <!-- UNIVERSITY -->
+            <div class="mb-3">
+                <label for="university">University</label>
+                <br>
+                <select class="form-select" id="university" name="university">
+                    <option value="1">UVIC</option>
+                    <option value="2">UBC</option>
+                </select>
+            </div>
+            <!-- COURSE DEPARTMENT -->
+            <div class="mb-3">
+                <label for="university">Course Department</label>
+                <br>
+                <input id="courseDept" name="courseDept" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <!-- COURSE NUMBER -->
+            <div class="mb-3">
+                <label for="university">Course Number</label><br>
+                <input id="courseNum" name="courseNum" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <!-- EXAM TYPE -->
+            <div class="mb-4">
+                <label for="university">Exam Type</label>
+                <select class="form-select" id="university" name="examType">
+                  <option value="1">Midterm </option>
+                  <option value="4">Final</option>
+                </select>
+            </div>
         </div>
-          
-        <!-- UNIVERSITY -->
-        <label for="university">University</label>
-        <br>
-        <div class="input-group mb-3">
-            <select class="form-select" id="university" name="university">
-              <option value="1">UVIC</option>
-              <option value="2">UBC</option>
-            </select>
-        </div>
-
-        <label for="university">Course Deparment</label><br>
-        <div class="input-group mb-3">
-            <input id="courseDept" name="courseDept" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-        </div>
-
-        <label for="university">Course Number</label>
-        <div class="input-group mb-3">
-            <input id="courseNum" name="courseNum" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-        </div>
-
-        <label for="university">Exam Type</label>
-        <br>
-        <div class="input-group mb-4">
-            <select class="form-select" id="university" name="university">
-              <option value="1">Midterm </option>
-              <option value="2">Midterm 1</option>
-              <option value="3">Midterm 2</option>
-              <option value="4">Final</option>
-            </select>
-        </div>
-
+    
         <button type="submit" class="btn btn-dark w-100" value="Submit">Upload →</button>
     </form> 
 </div>
 
 <br>
 <br>
+
 
 {% endblock %}
