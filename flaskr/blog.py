@@ -18,11 +18,9 @@ app = Flask(__name__)
 
 @bp.route('/')
 def index():
-    image_url = url_for('static', filename='styles/imgs/10.Landscape.svg')
-    return render_template('main/index.html', image_url=image_url)
+    return redirect( url_for('blog.search'))
 
-
-# ROUTING
+# ===== ROUTING =====
 
 @bp.route('/search', methods=['GET', 'POST'])
 def search():
@@ -104,6 +102,44 @@ def exams():
 
     return render_template('pages/exams.html', exams_array = exams_array, department = department, code = code, questions_array = questions_array)
 
+
+@bp.route('/upload', methods=['GET', 'POST'])
+def upload():
+    image_url = url_for('static', filename='images/nc-teamwork.svg')
+
+    if request.method == 'POST':
+        file = request.files['fileUpload']
+        text_to_parse = process_document(file)
+        text = text_to_parse
+    
+        exam_dur = jt.json_parser.search_duration(text)
+        exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
+        pages = jt.parse_pages(text, exam_points, exam_dur)
+        exam = jt.create_exam(pages, exam_points, exam_dur)
+        course_dept = request.form['courseDept'].upper()
+        course_num = request.form['courseNum']
+
+        db.insert_full_exam(exam, course_dept, course_num)
+
+        uni = request.form['university']
+
+        error = ""
+
+        if file.filename == '' or not is_pdf(file):
+            error = 'File is required. File must be of .pdf type.'
+        elif not uni:
+            error = 'University is required. Input must be alphabetic.'
+        elif not course_dept:
+            error = 'Course department is required. Input must be alphabetic '
+        elif not course_num:
+            error = 'Course Number is required. Input must be alphanumeric'
+
+        if error is not None:
+            flash(error)
+        else:
+            return redirect('/search')
+
+    return render_template('pages/upload.html', image_url = image_url)
 
 
 
@@ -311,44 +347,44 @@ def questions():
 
     return render_template('main/questions.html', questions_list=questions_list)
 
-@bp.route('/create', methods=['GET', 'POST'])
-# @login_required
-def create():
-    image_url = url_for('static', filename='styles/imgs/6.Effortless.svg')
-    if request.method == 'POST':
-        file = request.files['fileUpload']
-        text_to_parse = process_document(file)
-        text = text_to_parse
-            #json.loads(text_to_parse))
+# @bp.route('/create', methods=['GET', 'POST'])
+# # @login_required
+# def create():
+#     image_url = url_for('static', filename='styles/imgs/6.Effortless.svg')
+#     if request.method == 'POST':
+#         file = request.files['fileUpload']
+#         text_to_parse = process_document(file)
+#         text = text_to_parse
+#             #json.loads(text_to_parse))
     
-        exam_dur = jt.json_parser.search_duration(text)
-        exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
-        pages = jt.parse_pages(text, exam_points, exam_dur)
-        exam = jt.create_exam(pages, exam_points, exam_dur)
-        course_dept = request.form['courseDept'].upper()
-        course_num = request.form['courseNum']
+#         exam_dur = jt.json_parser.search_duration(text)
+#         exam_points = jt.json_parser.search_points(json_parser.get_intro_text(text['text']))
+#         pages = jt.parse_pages(text, exam_points, exam_dur)
+#         exam = jt.create_exam(pages, exam_points, exam_dur)
+#         course_dept = request.form['courseDept'].upper()
+#         course_num = request.form['courseNum']
 
-        db.insert_full_exam(exam, course_dept, course_num)
+#         db.insert_full_exam(exam, course_dept, course_num)
 
-        uni = request.form['university']
+#         uni = request.form['university']
 
-        error = ""
+#         error = ""
 
-        if file.filename == '' or not is_pdf(file):
-            error = 'File is required. File must be of .pdf type.'
-        elif not uni:
-            error = 'University is required. Input must be alphabetic.'
-        elif not course_dept:
-            error = 'Course department is required. Input must be alphabetic '
-        elif not course_num:
-            error = 'Course Number is required. Input must be alphanumeric'
+#         if file.filename == '' or not is_pdf(file):
+#             error = 'File is required. File must be of .pdf type.'
+#         elif not uni:
+#             error = 'University is required. Input must be alphabetic.'
+#         elif not course_dept:
+#             error = 'Course department is required. Input must be alphabetic '
+#         elif not course_num:
+#             error = 'Course Number is required. Input must be alphanumeric'
 
-        if error is not None:
-            flash(error)
-        else:
-            return redirect('/search')
+#         if error is not None:
+#             flash(error)
+#         else:
+#             return redirect('/search')
 
-    return render_template('main/create.html', image_url=image_url)
+#     return render_template('main/create.html', image_url=image_url)
 
 def is_pdf(file):
     # Check if the file content type is PDF

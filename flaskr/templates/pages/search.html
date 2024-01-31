@@ -4,10 +4,10 @@
     {{ super() }}
     <style>
         .table-container {
-            max-height: 60vh;
+            max-height: 55vh;
             overflow: auto;
         }
-        thead th {
+        thead td {
             position: sticky;
             top: 0;
         }
@@ -16,7 +16,7 @@
 
 {% block content %}
 <!-- HEADER -->
-<div class="mb-3" style="background-color: rgb(255, 255, 255)">
+<div class="mb-5 text-center" style="background-color: rgb(255, 255, 255)">
     <h1 style="font-weight: 600;">Search for Courses</h1>
 </div>
 
@@ -34,10 +34,10 @@
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-light">
-                <th scope="col" class="image-column">School</th>
-                <th scope="col">Course</th>
-                <th scope="col">Name</th>
-                <th scope="col">Total Exams</th>
+                <td scope="col" class="image-column">School</th>
+                <td scope="col">Course</th>
+                <td scope="col">Name</th>
+                <td scope="col">Total Exams</th>
             </tr>
         </thead>
         <tbody>
