@@ -76,6 +76,9 @@
         <div>
             <div class="question-border">
                 <p>{{ question['question'] }}</p>
+                <hr>
+                <p>Difficulty: {{ question['difficulty'] }}</p>
+                <p>Estimated Time: {{ question['duration'] }}</p>
             </div>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;"><i class="bi bi-hand-thumbs-down-fill"></i> Hard</button>

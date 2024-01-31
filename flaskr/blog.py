@@ -156,7 +156,7 @@ def remix():
         return redirect(url_for('blog.remix_result'), code=307)
     return render_template('pages/remix.html', image_url = image_url)
 
-@bp.route('/remixresults', methods = ['GET', 'POST'])
+@bp.route('/remix_results', methods = ['GET', 'POST'])
 def remix_result():
     time = int(request.form['time'])
     questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
@@ -179,7 +179,7 @@ def remix_result():
 
         questions_list.append(question_dict)
 
-    return render_template('pages/remix_questions.html', questions_list=questions_list, image_url = image_url)
+    return render_template('pages/remix_result.html', questions_list=questions_list)
 
 
 
