@@ -4,12 +4,16 @@
     {{ super() }}
     <style>
         .question-border {
-            background-color: #fafafa;
-            border: 1px solid #cfcfcf; /* 2px width solid black border */
+            background-color: #fdfdfd;
+            border: 1px solid #dedede; /* 2px width solid black border */
             border-radius: 5px;
             padding: 2vh;
             margin-bottom: 2vh;
             margin-top: 2vh;
+        }
+
+        .question-border:hover {
+            background-color: #dedede;
         }
 
     </style>
@@ -78,7 +82,8 @@
                 <button type="button" class="btn btn-success btn-sm"><i class="bi bi-hand-thumbs-up-fill"></i> Easy</button>
             </div> 
         </div>
-    {% endfor %}    
+    {% endfor %}   
+    <br> 
     
 
     <!-- JAVASCRIPT -->

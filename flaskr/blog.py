@@ -188,10 +188,38 @@ def testtest():
         exams_json_array.append(exam_questions_dict)
     return render_template('pages/test.html', exams_json_array = exams_json_array)
 
+@bp.route('/remix', methods=['GET', 'POST'])
+def remix():
+    image_url = url_for('static', filename='images/nc-people-holding-cards.svg')
+    if request.method == 'POST':
+        return redirect(url_for('blog.remix_result'), code=307)
+    return render_template('pages/remix.html', image_url = image_url)
 
 
+@bp.route('/remixresults', methods = ['GET', 'POST'])
+def remix_result():
+    time = int(request.form['time'])
+    questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
+    questions_list = []
+    num = 1
 
+    for question in questions:
+        question_dict = {
+            "q_num": num,
+            "type": question['question_type'],
+            "difficulty": question['difficulty'],
+            "description": question['question'],
+            "page_num": question['page_num'],
+            "points": question['num_points'],
+            "image": question['exam_image'],
+            "duration": question['duration'],
+            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+        }
+        num += 1
 
+        questions_list.append(question_dict)
+
+    return render_template('pages/remix_questions.html', questions_list=questions_list, image_url = image_url)
 
 
 
@@ -221,11 +249,11 @@ def testtest():
 #     image_url = url_for('static', filename='styles/imgs/7.People-finder.svg')
 #     return render_template('main/search.html', image_url=image_url)
 
-@bp.route('/remix', methods=['GET', 'POST'])
-def remix():
-    if request.method == 'POST':
-        return redirect(url_for('blog.remix_result'), code=307)
-    return render_template('main/remix.html')
+# @bp.route('/remix', methods=['GET', 'POST'])
+# def remix():
+#     if request.method == 'POST':
+#         return redirect(url_for('blog.remix_result'), code=307)
+#     return render_template('main/remix.html')
 
 @bp.route('/cards', methods=['GET', 'POST'])
 def cards():
@@ -289,33 +317,33 @@ def cards():
 
 #     return render_template('main/exams.html', list_exams=list_exams, name=department, code=code, uni=school)
 
-@bp.route('/remixresults', methods = ['GET', 'POST'])
-def remix_result():
-    time = int(request.form['time'])
-    #diff = float(request.form['customRange'])
-    #questions = db.get_questions_db(1)
-    #johns question functoin
-    questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
-    questions_list = []
-    num = 1
+# @bp.route('/remixresults', methods = ['GET', 'POST'])
+# def remix_result():
+#     time = int(request.form['time'])
+#     #diff = float(request.form['customRange'])
+#     #questions = db.get_questions_db(1)
+#     #johns question functoin
+#     questions, exam_time, exam_difficulty = rf.remix(int(time), 2.5)
+#     questions_list = []
+#     num = 1
 
-    for question in questions:
-        question_dict = {
-            "q_num": num,
-            "type": question['question_type'],
-            "difficulty": question['difficulty'],
-            "description": question['question'],
-            "page_num": question['page_num'],
-            "points": question['num_points'],
-            "image": question['exam_image'],
-            "duration": question['duration'],
-            "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
-        }
-        num += 1
+#     for question in questions:
+#         question_dict = {
+#             "q_num": num,
+#             "type": question['question_type'],
+#             "difficulty": question['difficulty'],
+#             "description": question['question'],
+#             "page_num": question['page_num'],
+#             "points": question['num_points'],
+#             "image": question['exam_image'],
+#             "duration": question['duration'],
+#             "description_short": question['question'][:25] + "..."  + question['question'][50:75] if len(question['question']) > 75 else question['question']
+#         }
+#         num += 1
 
-        questions_list.append(question_dict)
+#         questions_list.append(question_dict)
 
-    return render_template('main/remix_questions.html', questions_list=questions_list)
+#     return render_template('main/remix_questions.html', questions_list=questions_list)
 
 @bp.route('/questions', methods = ['GET', 'POST'])
 # @login_required

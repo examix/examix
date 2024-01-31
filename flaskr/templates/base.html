@@ -26,6 +26,7 @@
         .header { grid-area: header; background-color: rgb(255, 255, 255); }
         .main { grid-area: main; background-color: rgb(255, 255, 255); }
         .footer { grid-area: footer; background-color: rgb(255, 255, 255); }
+
     </style>
     {% endblock %}
 </head>
@@ -36,7 +37,7 @@
             <nav class="navbar navbar-expand-lg h-100">
                 <div class="container-fluid">
             
-                  <a class="navbar-brand" href="/search" style="padding-left: 1vw; "><i class="bi bi-journals h2"></i></a>
+                  <a class="navbar-brand" href="/search" style="padding-left: 1vw; "><i class="bi bi-journals h4"></i></a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -59,15 +60,16 @@
         </div>
         <!-- MAIN CONTENT -->
         <div class="main">
-            <div class="py-4 mx-auto justify-content-center" style="width: 50%;">
+            <div class="py-4 mx-auto justify-content-center" style="width: 75%;">
                 {% block content %}{% endblock %}
             </div>
         </div>
         <!-- FOOTER -->
         <div class="footer">
             <div class="d-flex justify-content-center">
-                <p class="align-items-center"style="font-size: 10px; margin: 5px;">Created with ❤ from @parkrafael, @liamshatzel, @johnnyw3, @sophie-sr</p>
+                <p class="align-items-center" style="font-size: 10px; margin: 0px; color: rgb(0, 0, 0);">Created with ♥ from <a href="https://www.github.com/parkrafael">@parkrafael</a>, <a href="https://www.github.com/liamshatzel">@liamshatzel</a>, <a href="https://www.github.com/johnnyw3">@johnnyw3</a>, <a href="https://www.github.com/sophie-sr">@sophie-sr</a></p>
             </div>
+            
         </div>
     </section>
 

@@ -3,13 +3,13 @@
 {% block content %}
 <div class="d-flex flex-column justify-content-center align-items-center">
     <!-- HEADER -->
-    <div class="mb-3" style="background-color: rgb(255, 255, 255)">
+    <div class="mb-4 text-center" style="background-color: rgb(255, 255, 255)">
         <h1 style="font-weight: 600;">Upload your Exam</h1>
         <p>Help by contributing to our <span class="accentText">growing</span> problem bank</p>
     </div>
 
     <!-- IMAGE -->
-    <img src="{{ image_url}}" class="mb-3" style="height: 200px">
+    <img src="{{ image_url}}" class="mb-4" style="height: 25vh">
 
     <!-- FORM -->
     <form action="/create" method="post" enctype="multipart/form-data">
@@ -17,7 +17,6 @@
         <label for="university">File</label><br>
         <div class="input-group mb-3">
             <input type="file" class="form-control" id="inputGroupFile02" name="fileUpload" accept=".pdf" required>
-            <label class="input-group-text" for="inputGroupFile02">Upload</label>
         </div>
           
         <!-- UNIVERSITY -->
@@ -36,13 +35,26 @@
         </div>
 
         <label for="university">Course Number</label>
-        <div class="input-group mb-4">
+        <div class="input-group mb-3">
             <input id="courseNum" name="courseNum" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
 
-        <button type="submit" class="btn btn-dark w-100" value="Submit">Upload</button>
+        <label for="university">Exam Type</label>
+        <br>
+        <div class="input-group mb-4">
+            <select class="form-select" id="university" name="university">
+              <option value="1">Midterm </option>
+              <option value="2">Midterm 1</option>
+              <option value="3">Midterm 2</option>
+              <option value="4">Final</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100" value="Submit">Upload →</button>
     </form> 
 </div>
 
+<br>
+<br>
 
 {% endblock %}

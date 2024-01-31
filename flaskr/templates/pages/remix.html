@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <!-- HEADER -->
+    <div class="mb-4 text-center" style="background-color: rgb(255, 255, 255)">
+        <h1 style="font-weight: 600;">Remix an Exam</h1>
+        <p>Create your custom exam based on what you need.</p>
+    </div>
+
+    <!-- IMAGE -->
+    <img src="{{ image_url}}" class="mb-4" style="height: 28vh">
+
+    <!-- FORM -->
+        <form action="/remix" method="post">
+            <label for="university">Course</label><br>
+            <div class="input-group mb-3">
+                <input id="courseDept" placeholder="Enter course..." name="course" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <label for="university">Time</label><br>
+            <div class="input-group mb-3">
+                <input id="courseDept" placeholder="Enter time (in minutes)..." name="time" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="mb-3">
+                <label for="customRange1" class="form-label">Difficulty</label>
+                <input type="range" class="form-range" id="customRange1">
+            </div>
+
+
+            <button type="submit" class="btn btn-dark w-100" value="Submit">Remix →</button>
+
+        </form> 
+</div>
+
+
+{% endblock %}
+
