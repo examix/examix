@@ -1,60 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  {% block head %}
-  <!-- bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <!-- css file -->
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
-  {% endblock %}
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examix</title>
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <style>
+        .layout {
+            min-height: 100vh;
+
+            display: grid;
+            grid:
+                "header" auto
+                "main" 1fr
+                "footer" auto
+                / 1fr;
+            gap: 8px;
+            padding: 10px;
+            font-size: smaller;
+        }
+
+        .header { grid-area: header; background-color: rgb(255, 255, 255); }
+        .main { grid-area: main; background-color: rgb(255, 255, 255); }
+        .footer { grid-area: footer; background-color: rgb(255, 255, 255); }
+    </style>
+    {% endblock %}
 </head>
-
-<title>examix</title>
-
 <body>
-  <nav class="navbar navbar-expand-lg px-4 py-4">
-    <!-- navbar logo -->
-    <a class="navbar-brand" href="/">
-      <h2 class="lora-logo">examix</h2>
-    </a>
-    <!-- navbar items -->
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item mx-2">
-          <a class="nav-link nav-items" href="search">Search</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link nav-items" href="create">Upload</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <section class="layout">
+        <!-- NAVBAR -->
+        <div class="header">
+            <nav class="navbar navbar-expand-lg h-100">
+                <div class="container-fluid">
+            
+                  <a class="navbar-brand" href="#" style="padding-left: 1vw; "><i class="bi bi-journals" style="width: 3vh"></i></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+            
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto" style="padding-right: 1vw;">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Search</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Upload</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Remix</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+        <!-- MAIN CONTENT -->
+        <div class="main">
+            <div class="w-75 py-5 mx-auto justify-content-center ">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="d-flex justify-content-center">
+                <p class="align-items-center"style="font-size: 10px; margin: 5px;">Created with ❤ from @parkrafael, @liamshatzel, @johnnyw3, @sophie-sr</p>
+            </div>
+        </div>
+    </section>
 
-  {% block content %}{% endblock %}
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class=flashes>
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-
-  <!-- Include Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-  <!-- Include confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  <!-- Include local script -->
-  <script src="../static/styles/script.js"></script>
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <!-- jQuery UI -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
-
-
-
-
+</html>

@@ -1,40 +1,39 @@
-{% extends "test.html" %}
-{% block title %}Test Child 1{% endblock %}
+{% extends "base.html" %}
+
 {% block head %}
     {{ super() }}
     <style>
         .table-container {
-            max-height: 70vh;
+            max-height: 60vh;
             overflow: auto;
-        }
-        table {
-            width: 100%;
-        }
-        th, td {
-            text-align: center;
         }
         thead th {
             position: sticky;
             top: 0;
-            background-color: #f8f9fa; /* Add a background color for better visibility */
         }
     </style>
 {% endblock %}
 
 {% block content %}
-<h1 class="pb-4 text-center">Search for Courses</h1>
+<!-- HEADER -->
+<div class="mb-3" style="background-color: rgb(255, 255, 255)">
+    <h1 style="font-weight: 600;">Search for Courses</h1>
+</div>
 
-<form method="POST">   
-    <div class="input-group mb-4">
-        <input type="text" class="form-control" name="search_result" placeholder="Search for a course.." aria-label="Recipient's username" aria-describedby="button-addon2" required>
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
-    </div>
+<!-- SEARCH BAR -->
+<form class="d-flex flex-row position-relative mb-4" method="POST">
+    <input type="search" class="form-control" placeholder="Search for a course.." id="example-search-input" name="search_result" required>
+
+    <button class="btn btn-outline-light border-0 position-absolute end-0" type="submit">
+        <i class="bi bi-search" style="color: black;"></i>
+    </button>
 </form>
 
+<!-- TABLE -->
 <div class="table-container">
-    <table class="table table-hover">
+    <table class="table table-hover table-bordered">
         <thead>
-            <tr>
+            <tr class="table-light">
                 <th scope="col" class="image-column">School</th>
                 <th scope="col">Course</th>
                 <th scope="col">Name</th>
@@ -43,22 +42,21 @@
         </thead>
         <tbody>
             {% for course in course_array %}
-            {% set department_code = course.department + '_' + course.code|string %}
             {% set name = course.name %}
             {% set num_questions = course.num_questions|string %}
-            <tr onClick="window.location.href='/exams?course_id={{ course.course_id }}&department_code={{ department_code }}'">
+            <tr onClick="window.location.href='/exams?&department={{ course.department }}&code={{ course.code }}&school={{ course.school_id }}&exam_id=0'">
                 {% if course.school_id== 'UBC' %}
-                    <td class="image-column">
+                    <td class="image-column text-center">
                         <img src="{{ ubc_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
                     </td>
                 {% elif course.school_id == 'UVIC' %}
-                    <td class="image-column">
+                    <td class="image-column text-center">
                         <img src="{{ uvic_image }}" class="img-fluid" style="height: 3vh; width: auto;"> 
                     </td>
                 {% endif %}
                 
                 <td>{{ course.department + ' ' + course.code|string }}</td>
-                <td>{{ name }}</td>
+                <td>{{ course.name }}</td>
                 <td>{{ num_questions + ' ' + 'Exams'}}</td>
             </tr>
             {% endfor %}

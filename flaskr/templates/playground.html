@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for exam in exams_json_array %}
+
+        {% set exam_info = exam['exam'] %}
+        {% set questions = exam['questions'] %}
+        {% set total_questions = [] %}
+
+        <div id="{{ exam_info['exam_id'] }}" class="hidden-div" hidden>
+            {% for question in questions %}
+                {% set _ = total_questions.append(question['question']) %}
+                {{ question }}
+                <br>
+            {% endfor %}
+        </div>
+
+    {% endfor %}
+
+    <button onclick="unhideDiv(1)">1 1 1</button>
+    <button onclick="unhideDiv(2)">2 2 2</button>
+    <button onclick="unhideDiv(3)">3 3 3</button>
+
+    <script>
+        var lastVisibleDivId = null;
+
+        function unhideDiv(divId) {
+            var div = document.getElementById(divId);
+
+            // Hide the last visible div
+            if (lastVisibleDivId !== null) {
+                var lastVisibleDiv = document.getElementById(lastVisibleDivId);
+                if (lastVisibleDiv) {
+                    lastVisibleDiv.style.display = 'none';
+                }
+            }
+
+            // Show the clicked div
+            if (div) {
+                div.style.display = 'block';
+                lastVisibleDivId = divId;
+            } else {
+                console.error('Element with ID ' + divId + ' not found.');
+            }
+        }
+    </script>
+
+    <style>
+        .hidden-div {
+            display: none;
+        }
+    </style>
+
+</body>
+</html>

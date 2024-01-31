@@ -1,168 +1,97 @@
-{% extends "test.html" %}
+{% extends "base.html" %}
+
 {% block head %}
     {{ super() }}
     <style>
-        * {
-          box-sizing: border-box;
-        }
-        
-        /* Create two equal columns that floats next to each other */
-        .column {
-          float: left;
-          width: 50%;
-          padding: 10px;
-          height: 100%;
+        .question-border {
+            background-color: #fafafa;
+            border: 1px solid #cfcfcf; /* 2px width solid black border */
+            border-radius: 5px;
+            padding: 2vh;
+            margin-bottom: 2vh;
+            margin-top: 2vh;
         }
 
-        .column-right {
-            float: right;
-            width: 50%;
-            padding: 10px;
-            height: 100%;
-
-        }
-        
-        /* Clear floats after the columns */
-        .row:after {
-          content: "";
-          display: table;
-          clear: both;
-        }
-
-        th, td {
-            text-align: center;
-        }
-
-        table-hover {
-            border-radius: 1vw;
-        }
-
-        .questions {
-            max-height: 50vh;
-            overflow: auto;
-        }
-
-        /* lineup class and keyframes */
-        .lineUp {
-        animation: 2s anim-lineUp ease-out;
-        }
-        @keyframes anim-lineUp {
-        0% {
-            opacity: 0;
-            transform: translateY(80%);
-        }
-        20% {
-            opacity: 0;
-        }
-        50% {
-            opacity: 1;
-            transform: translateY(0%);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0%);
-        }
-        }
-        </style>
+    </style>
 {% endblock %}
 
 {% block content %}
-{% set department_code_formatted =  department_code.replace('_', ' ') %}
-<h1 class="pb-4 text-center">Search Results for {{ department_code_formatted }}</h1>
-
-<div class="row">
-    <div class="column">
-        <h2 class="text-center">Exams</h2>
-        <hr></hr>
-        <div class="table-container">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Exam</th>
-                        <th scope="col">Term</th>
-                        <th scope="col">Total Questions</th>
-                        <th scope="col">Rating</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Midterm 1</td>
-                        <td>2021W</td>
-                        <td>20</td>
-                        <td>Hard</td>
-                    </tr>
-                    <tr>
-                        <td>Midterm 2</td>
-                        <td>2021W</td>
-                        <td>20</td>
-                        <td>Hard</td>
-                    </tr>
-                    <tr>
-                        <td>Final</td>
-                        <td>2021W</td>
-                        <td>40</td>
-                        <td>Easy</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
+    <!-- BREADCRUMBS -->
+    <div class="mb-3" style="background-color: rgb(255, 255, 255)">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/search" style="text-decoration: none; color: #4E5254;">Search</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><a href="/exams?&department=CPSC&code=101&school=UBC&exam_id=0" style="text-decoration: none; color: #4E5254;">{{ department + ' ' + code }}</a></li>
+            </ol>
+        </nav>
     </div>
-    <div class="line column-right ">
-        <div class="text-center">
-            <h2>Questions</h2>
-            <hr></hr>
+    
+    <!-- HEADER -->
+    <div class="mb-3" style="background-color: rgb(255, 255, 255)">
+        <h2 style="font-weight: 600;">Search Results for {{ department + ' ' + code }}</h2>
+    </div>
+    
+    <!-- TABLE -->
+    <div class="mb-3">
+        <table class="table table-hover table-bordered ">
+            <thead>
+                <tr class="table-light">
+                    <td scope="col">Exam</th>
+                    <td scope="col">Term</th>
+                    <td scope="col">Total Questions</th>
+                    <td scope="col">Rating</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for exam in exams_array %}
+                    <!-- dictionary parsing -->
+                    {% set exam_info = exam['exam'] %}
+                    {% set questions = exam['questions'] %}
+                    <!-- variables -->
+                    {% set exam_id = exam_info['exam_id'] %}
+
+                    <tr onclick="redirectWithExamId('{{ exam_id }}')">
+                        <td>{{ exam_id }}</td>
+                        <td>N/A</td>
+                        <td>{{ exam_info['num_questions'] }}</td>
+                        <td>N/A</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- HEADER -->
+    <div class="mb-3" style="background-color: rgb(255, 255, 255)">
+        <h2 style="font-weight: 600;">Questions</h2>
+    </div>
+
+    <!-- QUESTIONS -->
+    {% for question in questions_array %}
+        <div>
+            <div class="question-border">
+                <p>{{ question['question'] }}</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;"><i class="bi bi-hand-thumbs-down-fill"></i> Hard</button>
+                <button type="button" class="btn btn-success btn-sm"><i class="bi bi-hand-thumbs-up-fill"></i> Easy</button>
+            </div> 
         </div>
-        <div class="questions" style="background-color:#ffffff;">
-            <div class="pt-2 pb-2">
-                <h5>Question 1.</h5>
-                <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-            <div class="d-flex justify-content-end pb-4">
-                <div style="margin-right: 1vw;">
-                    <button type="button" class="btn btn-light bi bi-hand-thumbs-down-fill btn-sm"> Hard</button>
-                </div>
-                <div style="margin-right: 1vw;">
-                    <button type="button" class="btn btn-light bi bi-hand-thumbs-up-fill btn-sm"> Easy</button>
-                </div>
-            </div>
+    {% endfor %}    
+    
 
-            <hr></hr>
-
-            <div class="pt-2 pb-2">
-                <h5>Question 1.</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-            <div class="d-flex justify-content-end pb-4">
-                <div style="margin-right: 1vw;">
-                    <button type="button" class="btn btn-light bi bi-hand-thumbs-down-fill btn-sm"> Hard</button>
-                </div>
-                <div style="margin-right: 1vw;">
-                    <button type="button" class="btn btn-light bi bi-hand-thumbs-up-fill btn-sm"> Easy</button>
-                </div>
-            </div>
-
-            <hr></hr>
-            
-            <div class="pt-2 pb-2">
-                <h5>Question 1.</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-            <div class="d-flex justify-content-end pb-4">
-                <div style="margin-right: 1vw;">
-                    <button type="button" class="btn btn-light bi bi-hand-thumbs-down-fill btn-sm"> Hard</button>
-                </div>
-                <div style="margin-right: 1vw;">
-                    <button type="button" class="btn btn-light bi bi-hand-thumbs-up-fill btn-sm"> Easy</button>
-                </div>
-            </div>
-        </div>
-
-
-
-</div>
-
-
-
-
+    <!-- JAVASCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function redirectWithExamId(exam_id) {
+            // Grab the current URL
+            var currentUrl = new URL(window.location.href);
+            // Set the 'exam_id' parameter in the URL
+            currentUrl.searchParams.set('exam_id', exam_id);
+            // Redirect to the new URL
+            window.location.href = currentUrl.href;
+        }
+    </script>
+    
 {% endblock %}

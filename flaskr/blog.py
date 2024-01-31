@@ -56,7 +56,6 @@ def search():
                 "code" : course['code'],
                 "name" : course['name'],
                 "school_id" : course['school_id'],
-                # "course" : dict(course),
                 "num_questions": num
             }
 
@@ -71,56 +70,104 @@ def search():
 
 @bp.route('/exams', methods=['GET', 'POST'])
 def exams():
+    # URL PARAMETERS
+    department = request.args.get('department')
+    code = request.args.get('code')
+    school = request.args.get('school')
+    prof = request.args.get('prof')
+    exam_id = request.args.get('exam_id')
+
+    # GETTINGS EXAMS
+    exams = db.get_exam_db(department, code, school, prof)
+    exams_array = []
+
+    for exam in exams:
+        exam_dict = dict(exam)
+        questions = db.get_questions_db(exam_dict['exam_id'])
+
+        serialized_questions = [dict(q) for q in questions]
+
+        exam_questions_dict = {
+            'exam' : exam_dict,
+            'questions' : serialized_questions
+        }
+
+        exams_array.append(exam_questions_dict)
+
+    # GETTING QUESTIONS FROM EXAMS
+    questions = db.get_questions_db(exam_id)
+    questions_array = []
+
+    for question in questions:
+        question_dict = dict(question)
+        questions_array.append(question_dict)
+
+    return render_template('pages/exams.html', exams_array = exams_array, department = department, code = code, questions_array = questions_array)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@bp.route('/testtest', methods=['GET', 'POST'])
+def testtest():
     course_id = request.args.get('course_id')
     department_code = request.args.get('department_code')
-    print(course_id)
+    
+    department = request.args.get('department')
+    code = request.args.get('code')
+    school = request.args.get('school')
+    prof = request.args.get('prof')
 
-    return render_template('pages/exams.html', course_id = course_id, department_code = department_code)
+    # list of exams for one course given course_id
+    exams = db.get_exam_db(department, code, school, prof)
+    exams_json_array = []
 
+    for exam in exams:
+        exam_dict = dict(exam)
+        questions = db.get_questions_db(exam_dict['exam_id'])
 
+        serialized_questions = [dict(q) for q in questions]
 
+        exam_questions_dict = {
+            'exam' : exam_dict,
+            'questions' : serialized_questions
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        exams_json_array.append(exam_questions_dict)
+    return render_template('pages/test.html', exams_json_array = exams_json_array)
 
 
 
 
-@bp.route('/course', methods=['GET', 'POST'])
-def course():
 
-    class Person:
-        def __init__(self, name, age, extra_info):
-            self.name = name
-            self.age = age
-            self.extra_info = extra_info
 
-    # Sample data
-    persons_data = [
-        Person("John", 25, "Extra information for John"),
-        Person("Jane", 30, "Extra information for Jane"),
-        # Add more data as needed
-    ]
-    image_url = url_for('static', filename='images/ubc.png')
-    image_url2 = url_for('static', filename='images/uvic.png')
-    persons = []
-    return render_template('main/test-child-2.html', image_url=image_url, image_url2=image_url2, persons = persons_data)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -175,7 +175,7 @@ def get_schools():
 
 def get_exam_db(dept=None, course_number=None, school_name=None, prof=None):
     db = get_db()
-    query = """SELECT num_pages, exam.course_id, difficulty, prof, pdf_name, duration, exam_date, exam_type, 
+    query = """SELECT exam_id, num_pages, exam.course_id, difficulty, prof, pdf_name, duration, exam_date, exam_type, 
                     exam.num_questions, exam.school_id
                 FROM exam
                 JOIN school ON exam.school_id = school.name
