@@ -1,12 +1,11 @@
-# examix
-**nwHacks 2024 submission** &#124; Intuitive Exam Bank incorporated with AI for personalized studying.
-<img src="docs/images/examix-banner.png" width="100%" alt="examix banner"/>
+# Examix
+
+Intuitive Exam Bank powered by Google Cloud's OCR.
 
 ## Environment setup
+
 ### Dependencies
-examix uses the Flask and React frameworks with a SQLite database backend and Google
-Document AI for document parsing. Our backend scripts are written in Python. To
-set up the required Python modules, use the provided `requirements.txt` file:
+Examix uses the Flask and React frameworks with a SQLite database backend and Google Document AI for document parsing. Our backend scripts are written in Python. To set up the required Python modules, use the provided `requirements.txt` file:
 
 `$ python3 -m pip install -r requirements.txt`
 
@@ -54,4 +53,7 @@ We use feature based branches - to begin work on a feature or bugfix, create a
 branch for the your contributions on the feature.
 
 ## Gallery
-<img src="docs/images/examix-search-page.png" width="49%" alt="examix search page"/> <img src="docs/images/examix-upload-page.png" width="49%" alt="examix upload page"/>
+<img src="docs/images/4.png" width="100%" alt="examix banner"/>
+<img src="docs/images/2.png" width="100%" alt="examix banner"/>
+<img src="docs/images/1.png" width="100%" alt="examix banner"/>
+<img src="docs/images/3.png" width="100%" alt="examix banner"/>
