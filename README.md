@@ -7,7 +7,7 @@
 examix uses the Flask and React frameworks with a SQLite database backend and Google
 Document AI for document parsing. Our backend scripts are written in Python. To
 set up the required Python modules, use the provided `requirements.txt` file:
-
+ 
 `$ python3 -m pip install -r requirements.txt`
 
 You'll also need SQLite installed on your device. On Linux, installing the
